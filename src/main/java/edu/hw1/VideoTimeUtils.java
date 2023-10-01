@@ -14,8 +14,7 @@ public final class VideoTimeUtils {
     /**
      * Converts the time in the format "mm:ss" in seconds.
      * @param videoTime string in format "mm:ss"
-     * @return time in seconds
-     * @throws IllegalArgumentException if time format validation failed
+     * @return time in seconds or -1 if validation failed
      */
     public static int minutesToSeconds(String videoTime) {
         LOGGER.trace("Converting time {}", videoTime);
@@ -27,9 +26,7 @@ public final class VideoTimeUtils {
 
         // Validate videoTime
         if (!matcher.matches()) {
-            throw new IllegalArgumentException(
-                "[%s] is the incorrect time format".formatted(videoTime)
-            );
+            return -1;
         }
 
         // extract minutes and seconds

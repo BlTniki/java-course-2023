@@ -32,10 +32,7 @@ class VideoTimeUtilsTest {
 
         // check for exception
         for (String videoTime: videoTimes) {
-            assertThrows(
-                IllegalArgumentException.class,
-                () -> VideoTimeUtils.minutesToSeconds(videoTime)
-            );
+            assertEquals(VideoTimeUtils.minutesToSeconds(videoTime), -1);
         }
     }
 }
