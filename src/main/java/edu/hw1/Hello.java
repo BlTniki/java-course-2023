@@ -3,7 +3,7 @@ package edu.hw1;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Hello {
+public final class Hello {
     private final static Logger LOGGER = LogManager.getLogger();
 
     /**
