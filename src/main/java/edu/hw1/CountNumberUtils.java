@@ -6,6 +6,8 @@ import org.apache.logging.log4j.Logger;
 public final class CountNumberUtils {
     private final static Logger LOGGER = LogManager.getLogger();
 
+    private final static int NUMBER_BASE = 10;
+
     private CountNumberUtils() {
     }
 
@@ -18,8 +20,8 @@ public final class CountNumberUtils {
         int tmpNumber = number;
         int count = 1;
 
-        while (Math.abs(tmpNumber) > 9) {
-            tmpNumber /= 10;
+        while (Math.abs(tmpNumber) > NUMBER_BASE - 1) {
+            tmpNumber /= NUMBER_BASE;
             count++;
         }
 

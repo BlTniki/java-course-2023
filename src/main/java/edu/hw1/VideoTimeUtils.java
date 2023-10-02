@@ -2,13 +2,15 @@ package edu.hw1;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public final class VideoTimeUtils {
     private final static Logger LOGGER = LogManager.getLogger();
 
-    public VideoTimeUtils() {
+    private final static String TIME_REGEX = "^(0[0-9]|[0-9]+[0-9]):([0-5][0-9])$";
+
+    private VideoTimeUtils() {
     }
 
     /**
@@ -20,7 +22,6 @@ public final class VideoTimeUtils {
         LOGGER.trace("Converting time {}", videoTime);
 
         // Match regex
-        String TIME_REGEX = "^(0[0-9]|[0-9]+[0-9]):([0-5][0-9])$";
         Pattern pattern = Pattern.compile(TIME_REGEX);
         Matcher matcher = pattern.matcher(videoTime);
 
