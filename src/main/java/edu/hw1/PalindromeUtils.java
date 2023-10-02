@@ -1,7 +1,7 @@
 package edu.hw1;
 
-import java.util.Objects;
 import java.util.LinkedList;
+import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,6 +9,9 @@ public final class PalindromeUtils {
     private final static Logger LOGGER = LogManager.getLogger();
 
     private final static int NUMBER_BASE = 10;
+
+    private PalindromeUtils() {
+    }
 
     /**
      * Make int array from digits of given number.
