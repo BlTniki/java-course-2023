@@ -1,12 +1,14 @@
 package edu.hw1;
 
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MyStringUtilsTest {
 
     @Test
+    @DisplayName("Проверка на строках")
     void fixString() {
         // given
         List<String> brokenStrings = List.of("", "123456", "of oabr", "hTsii  s aimex dpus rtni.g", "badce", "оПомигети псаривьтс ртко!и");
