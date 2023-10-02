@@ -54,7 +54,7 @@ public final class PalindromeUtils {
 
         // build child
         for (int i = pairsSum.size() - 1; i >= 0 && !pairsSum.isEmpty(); i--) {
-            child += pairsSum.poll() * (int) Math.pow(10, i);
+            child += pairsSum.poll() * (int) Math.pow(NUMBER_BASE, i);
         }
 
         return child;
