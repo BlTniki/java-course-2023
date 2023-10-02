@@ -6,6 +6,9 @@ import org.apache.logging.log4j.Logger;
 public final class CountNumberUtils {
     private final static Logger LOGGER = LogManager.getLogger();
 
+    private CountNumberUtils() {
+    }
+
     /**
      * Counts number of digits in given number.
      * @param number in which to count the digits

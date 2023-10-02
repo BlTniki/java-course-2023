@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 public final class NestedArrayUtils {
     private final static Logger LOGGER = LogManager.getLogger();
 
-    public NestedArrayUtils() {
+    private NestedArrayUtils() {
     }
 
     /**
@@ -50,8 +50,10 @@ public final class NestedArrayUtils {
      * @return true if it possible else false
      */
     public static boolean isNestable(int[] firstArray, int[] secondArray) {
-        int firstArrMin = minOfArray(firstArray), firstArrMax = maxOfArray(firstArray);
-        int secondArrMin = minOfArray(secondArray), secondArrMax = maxOfArray(secondArray);
+        int firstArrMin = minOfArray(firstArray);
+        int firstArrMax = maxOfArray(firstArray);
+        int secondArrMin = minOfArray(secondArray);
+        int secondArrMax = maxOfArray(secondArray);
 
         LOGGER.trace("min and max of first array: %d and %d".formatted(firstArrMin, firstArrMax));
         LOGGER.trace("min and max of second array: %d and %d".formatted(secondArrMin, secondArrMax));
