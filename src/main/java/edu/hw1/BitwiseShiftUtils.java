@@ -2,7 +2,6 @@ package edu.hw1;
 
 public final class BitwiseShiftUtils {
     private final static String NON_POSITIVE_EXCEPTION = "Some of the arguments are non-positive";
-    private final static String SHIFT_RESULT_MESSAGE = "%s shifted to %s";
 
     private BitwiseShiftUtils() {
     }
@@ -27,8 +26,6 @@ public final class BitwiseShiftUtils {
             output.append(digitsArray[(i + shift) % digitsArray.length]);
         }
 
-        LOGGER.trace(SHIFT_RESULT_MESSAGE.formatted(Integer.toBinaryString(n), output.toString()));
-
         return Integer.valueOf(output.toString(), 2);
     }
 
@@ -51,8 +48,6 @@ public final class BitwiseShiftUtils {
         for (int i = 0; i < digitsArray.length; i++) {
             output.append(digitsArray[(i + digitsArray.length - shift) % digitsArray.length]);
         }
-
-        LOGGER.trace(SHIFT_RESULT_MESSAGE.formatted(Integer.toBinaryString(n), output.toString()));
 
         return Integer.valueOf(output.toString(), 2);
     }
