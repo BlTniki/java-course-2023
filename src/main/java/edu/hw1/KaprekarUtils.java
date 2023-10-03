@@ -33,7 +33,7 @@ public final class KaprekarUtils {
         // build number
         int sortedNum = 0;
         for (int i = 0; i < sortedDigits.length; i++) {
-            sortedNum += sortedDigits[i] * (int) Math.pow(NUMBER_BASE, (sortedDigits.length - 1) - i );
+            sortedNum += sortedDigits[i] * (int) Math.pow(NUMBER_BASE, (sortedDigits.length - 1) - i);
         }
 
         return sortedNum;
@@ -48,9 +48,9 @@ public final class KaprekarUtils {
     public static int kaprekarFunc(int num) {
         int newNum =  sortDigitsInNumber(num, true) - sortDigitsInNumber(num, false);
 
-        int digit_count_diff = ALLOWED_DIGIT_COUNT - CountNumberUtils.countDigits(newNum);
-        if (digit_count_diff > 0) {
-            newNum *= (int) Math.pow(NUMBER_BASE, digit_count_diff);
+        int digitCountDiff = ALLOWED_DIGIT_COUNT - CountNumberUtils.countDigits(newNum);
+        if (digitCountDiff > 0) {
+            newNum *= (int) Math.pow(NUMBER_BASE, digitCountDiff);
         }
 
         return newNum;
