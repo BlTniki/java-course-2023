@@ -32,6 +32,7 @@ jobs:
           min-coverage-changed-files: 30
           title: Code Coverage
           update-comment: true
+        if: github.event_name == 'pull_request'
 
   checkstyle:
     name: checkstyle
