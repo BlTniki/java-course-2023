@@ -14,11 +14,15 @@ public final class PalindromeUtils {
     }
 
     /**
-     * Make int array from digits of given number.
+     * Make int array from digits of given number. Only non-negative numbers allowed.
      * @param number digits to array
      * @return int array of digits
      */
     public static int[] convertNumberToDigitsIntArray(Integer number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("%d is not non-negative".formatted(number));
+        }
+
         char[] charArray = number.toString().toCharArray();
         int[] intArray = new int[charArray.length];
 
