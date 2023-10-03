@@ -63,7 +63,7 @@ public final class KaprekarUtils {
      * @throws IllegalArgumentException if number cannot become a Kaprekar constant
      */
     public static int countK(int num) {
-        if (num <= 0 && CountNumberUtils.countDigits(num) != ALLOWED_DIGIT_COUNT) {
+        if (CountNumberUtils.countDigits(num) != ALLOWED_DIGIT_COUNT) {
             throw new IllegalArgumentException("the number %d cannot become a Kaprekar constant".formatted(num));
         }
 
