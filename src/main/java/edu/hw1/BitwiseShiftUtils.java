@@ -15,14 +15,11 @@ public final class BitwiseShiftUtils {
      * @param n     to shift. Only positive numbers allowed
      * @param shift how many shifts. to the left. Only positive numbers allowed
      * @return shifted number
-     * @throws IllegalArgumentException if shift is non-positive
+     * @throws IllegalArgumentException if some of the arguments are non-positive
      */
     public static int rotateLeft(int n, int shift) {
-        if (shift <= 0) {
-            throw new IllegalArgumentException("shift=%d is non-positive");
-        }
-        if (n <= 0) {
-            throw new IllegalArgumentException("n=%d is non-positive");
+        if (shift <= 0 && n <= 0) {
+            throw new IllegalArgumentException("Some of the arguments are non-positive");
         }
 
         final var digitsArray = Integer.toBinaryString(n).toCharArray();
@@ -43,14 +40,11 @@ public final class BitwiseShiftUtils {
      * @param n     to shift. Only positive numbers allowed
      * @param shift how many shifts. to the right. Only positive numbers allowed
      * @return shifted number
-     * @throws IllegalArgumentException if shift is non-positive
+     * @throws IllegalArgumentException if some of the arguments are non-positive
      */
     public static int rotateRight(int n, int shift) {
-        if (shift <= 0) {
-            throw new IllegalArgumentException("shift=%d is non-positive");
-        }
-        if (n <= 0) {
-            throw new IllegalArgumentException("n=%d is non-positive");
+        if (shift <= 0 && n <= 0) {
+            throw new IllegalArgumentException("Some of the arguments are non-positive");
         }
 
         final var digitsArray = Integer.toBinaryString(n).toCharArray();
