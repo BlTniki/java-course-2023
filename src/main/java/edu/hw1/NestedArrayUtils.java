@@ -1,11 +1,6 @@
 package edu.hw1;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public final class NestedArrayUtils {
-    private final static Logger LOGGER = LogManager.getLogger();
-
     private NestedArrayUtils() {
     }
 
@@ -54,9 +49,6 @@ public final class NestedArrayUtils {
         int firstArrMax = maxOfArray(firstArray);
         int secondArrMin = minOfArray(secondArray);
         int secondArrMax = maxOfArray(secondArray);
-
-        LOGGER.trace("min and max of first array: %d and %d".formatted(firstArrMin, firstArrMax));
-        LOGGER.trace("min and max of second array: %d and %d".formatted(secondArrMin, secondArrMax));
 
         return firstArrMin > secondArrMin && firstArrMax < secondArrMax;
     }

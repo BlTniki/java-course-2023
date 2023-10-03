@@ -2,12 +2,8 @@ package edu.hw1;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public final class VideoTimeUtils {
-    private final static Logger LOGGER = LogManager.getLogger();
-
     private final static String TIME_REGEX = "^(0[0-9]|[0-9]+[0-9]):([0-5][0-9])$";
     private final static int MINUTE_IN_SECONDS = 60;
 
@@ -20,8 +16,6 @@ public final class VideoTimeUtils {
      * @return time in seconds or -1 if validation failed
      */
     public static int minutesToSeconds(String videoTime) {
-        LOGGER.trace("Converting time {}", videoTime);
-
         // Match regex
         Pattern pattern = Pattern.compile(TIME_REGEX);
         Matcher matcher = pattern.matcher(videoTime);

@@ -2,12 +2,8 @@ package edu.hw1;
 
 import java.util.LinkedList;
 import java.util.Objects;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public final class PalindromeUtils {
-    private final static Logger LOGGER = LogManager.getLogger();
-
     private final static int NUMBER_BASE = 10;
 
     private PalindromeUtils() {
@@ -76,8 +72,6 @@ public final class PalindromeUtils {
         if (CountNumberUtils.countDigits(num) < 2) {
             return false;
         }
-
-        LOGGER.trace("Checking number %d".formatted(num));
 
         // check for palindrome
         int[] digits = convertNumberToDigitsIntArray(num);

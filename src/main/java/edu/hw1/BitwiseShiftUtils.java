@@ -1,11 +1,6 @@
 package edu.hw1;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public final class BitwiseShiftUtils {
-    private final static Logger LOGGER = LogManager.getLogger();
-
     private final static String NON_POSITIVE_EXCEPTION = "Some of the arguments are non-positive";
     private final static String SHIFT_RESULT_MESSAGE = "%s shifted to %s";
 
