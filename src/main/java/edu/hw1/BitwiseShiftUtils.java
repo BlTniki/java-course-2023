@@ -21,9 +21,12 @@ public final class BitwiseShiftUtils {
 
         final var digitsArray = Integer.toBinaryString(n).toCharArray();
         var output = new StringBuilder();
+        // remove redundant shifts, so it won't overflow on edge cases
+        shift %= digitsArray.length;
 
         for (int i = 0; i < digitsArray.length; i++) {
-            output.append(digitsArray[(i + shift) % digitsArray.length]);
+            int index = (i + shift) % digitsArray.length;
+            output.append(digitsArray[index]);
         }
 
         return Integer.valueOf(output.toString(), 2);
@@ -44,6 +47,8 @@ public final class BitwiseShiftUtils {
 
         final var digitsArray = Integer.toBinaryString(n).toCharArray();
         var output = new StringBuilder();
+        // remove redundant shifts, so it won't overflow on edge cases
+        shift %= digitsArray.length;
 
         for (int i = 0; i < digitsArray.length; i++) {
             output.append(digitsArray[(i + digitsArray.length - shift) % digitsArray.length]);

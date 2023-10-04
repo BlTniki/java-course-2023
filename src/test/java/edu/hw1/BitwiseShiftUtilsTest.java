@@ -39,4 +39,36 @@ class BitwiseShiftUtilsTest {
         // then
         assertEquals(expectedResult, resultedResult);
     }
+
+    @Test
+    @DisplayName("Краевые условия MAX")
+    void rotate_edge_max() {
+        // given
+        int num = Integer.MAX_VALUE;
+        int shift = Integer.MAX_VALUE;
+
+        // when
+        int leftResult = BitwiseShiftUtils.rotateLeft(num, shift);
+        int rightResult = BitwiseShiftUtils.rotateRight(num, shift);
+
+        // then
+        assertEquals(num, leftResult);
+        assertEquals(num, rightResult);
+    }
+
+    @Test
+    @DisplayName("Краевые условия MIN")
+    void rotate_edge_min() {
+        // given
+        int num = Integer.MIN_VALUE;
+        int shift = Integer.MAX_VALUE;
+
+        // when
+        int leftResult = BitwiseShiftUtils.rotateLeft(num, shift);
+        int rightResult = BitwiseShiftUtils.rotateRight(num, shift);
+
+        // then
+        assertEquals(1073741824, leftResult);
+        assertEquals(1, rightResult);
+    }
 }
