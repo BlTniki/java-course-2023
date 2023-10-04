@@ -23,4 +23,20 @@ class CountNumberUtilsTest {
         // then
         assertEquals(expectedCounts, resultCount);
     }
+
+    @Test
+    @DisplayName("Краевые значения")
+    void countDigits_edge() {
+        // given
+        List<Integer> numbers = List.of(Integer.MAX_VALUE, Integer.MIN_VALUE);
+        List<Integer> expectedCounts = List.of(10, 10);
+
+        // when
+        List<Integer> resultCount = numbers.stream()
+            .map(CountNumberUtils::countDigits)
+            .toList();
+
+        // then
+        assertEquals(expectedCounts, resultCount);
+    }
 }
