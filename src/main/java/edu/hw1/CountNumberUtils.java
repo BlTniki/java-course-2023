@@ -16,7 +16,7 @@ public final class CountNumberUtils {
         int tmpNumber = number;
         int count = 1;
 
-        while (tmpNumber >= NUMBER_BASE || tmpNumber <= (-1)*NUMBER_BASE) {
+        while (tmpNumber >= NUMBER_BASE || tmpNumber <= (-1) * NUMBER_BASE) {
             tmpNumber /= NUMBER_BASE;
             count++;
         }
