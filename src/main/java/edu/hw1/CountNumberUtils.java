@@ -12,7 +12,7 @@ public final class CountNumberUtils {
      * @param number in which to count the digits
      * @return number of digits
      */
-    public static int countDigits(int number) {
+    public static int countDigits(final int number) {
         int tmpNumber = number;
         int count = 1;
 

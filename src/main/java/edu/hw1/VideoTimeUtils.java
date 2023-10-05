@@ -15,10 +15,10 @@ public final class VideoTimeUtils {
      * @param videoTime string in format "mm:ss"
      * @return time in seconds or -1 if validation failed
      */
-    public static int minutesToSeconds(String videoTime) {
+    public static int minutesToSeconds(final String videoTime) {
         // Match regex
-        Pattern pattern = Pattern.compile(TIME_REGEX);
-        Matcher matcher = pattern.matcher(videoTime);
+        final Pattern pattern = Pattern.compile(TIME_REGEX);
+        final Matcher matcher = pattern.matcher(videoTime);
 
         // Validate videoTime
         if (!matcher.matches()) {
@@ -26,13 +26,11 @@ public final class VideoTimeUtils {
         }
 
         // extract minutes and seconds
-        String minutes = matcher.group(1);
-        String seconds = matcher.group(2);
+        final String minutes = matcher.group(1);
+        final String seconds = matcher.group(2);
 
         // convert to seconds
-        int resultSeconds = Integer.parseInt(seconds);
-        resultSeconds += Integer.parseInt(minutes) * MINUTE_IN_SECONDS;
 
-        return resultSeconds;
+        return Integer.parseInt(seconds) + Integer.parseInt(minutes) * MINUTE_IN_SECONDS;
     }
 }

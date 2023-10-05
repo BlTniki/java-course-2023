@@ -14,12 +14,12 @@ public final class PalindromeUtils {
      * @param number digits to array. Only non-negative numbers allowed
      * @return int array of digits
      */
-    public static int[] convertNumberToDigitsIntArray(Integer number) {
+    public static int[] convertNumberToDigitsIntArray(final Integer number) {
         if (number < 0) {
             throw new IllegalArgumentException("%d is not non-negative".formatted(number));
         }
 
-        char[] charArray = number.toString().toCharArray();
+        final char[] charArray = number.toString().toCharArray();
         int[] intArray = new int[charArray.length];
 
         for (int i = 0; i < charArray.length; i++) {
@@ -37,16 +37,16 @@ public final class PalindromeUtils {
      * @return number child
      * @throws NullPointerException if the input array is null
      */
-    public static int calcChild(int[] digitsArray) {
+    public static int calcChild(final int[] digitsArray) {
         Objects.requireNonNull(digitsArray);
 
         int child = 0;
-        LinkedList<Integer> pairsSum = new LinkedList<>();
+        final LinkedList<Integer> pairsSum = new LinkedList<>();
 
         // sum pairs
         for (int i = 1; i < digitsArray.length; i += 2) {
-            int leftDigit = digitsArray[i - 1];
-            int rightDigit = digitsArray[i];
+            final int leftDigit = digitsArray[i - 1];
+            final int rightDigit = digitsArray[i];
 
             pairsSum.add(leftDigit + rightDigit);
         }
@@ -68,17 +68,17 @@ public final class PalindromeUtils {
      * @param num to check
      * @return true if number or its child is a palindrome, false otherwise
      */
-    public static boolean isPalindromeDescendant(int num) {
+    public static boolean isPalindromeDescendant(final int num) {
         if (CountNumberUtils.countDigits(num) < 2) {
             return false;
         }
 
         // check for palindrome
-        int[] digits = convertNumberToDigitsIntArray(num);
+        final int[] digits = convertNumberToDigitsIntArray(num);
         boolean isPalindrome = true;
         for (int i = 0; i < digits.length / 2; i++) {
-            int leftDigit = digits[i];
-            int rightDigit = digits[(digits.length - 1) - i];
+            final int leftDigit = digits[i];
+            final int rightDigit = digits[(digits.length - 1) - i];
 
             if (leftDigit != rightDigit) {
                 isPalindrome = false;

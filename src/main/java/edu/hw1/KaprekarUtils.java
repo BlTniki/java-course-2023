@@ -17,7 +17,7 @@ public final class KaprekarUtils {
      * @param desc sorting order
      * @return number with sorted digits
      */
-    public static int sortDigitsInNumber(int num, boolean desc) {
+    public static int sortDigitsInNumber(final int num, final boolean desc) {
         if (num < 0 || CountNumberUtils.countDigits(num) > ALLOWED_DIGIT_COUNT) {
             throw new IllegalArgumentException("Num argument have more digits than allowed or negative");
         }
@@ -49,7 +49,7 @@ public final class KaprekarUtils {
      * @param num to apply. Must be positive and have 4 digits
      * @return the Kaprekar function output
      */
-    public static int kaprekarFunc(int num) {
+    public static int kaprekarFunc(final int num) {
         if (num <= 0 || CountNumberUtils.countDigits(num) != ALLOWED_DIGIT_COUNT) {
             throw new IllegalArgumentException("Num argument have different digits count than allowed or non-positive");
         }
@@ -71,7 +71,7 @@ public final class KaprekarUtils {
      * @return count of iteration
      * @throws IllegalArgumentException if number cannot become a Kaprekar constant
      */
-    public static int countK(int num) {
+    public static int countK(final int num) {
         if (num <= 0 || CountNumberUtils.countDigits(num) != ALLOWED_DIGIT_COUNT) {
             throw new IllegalArgumentException(
                 "the number %d cannot become a Kaprekar constant or it is negative".formatted(num)
