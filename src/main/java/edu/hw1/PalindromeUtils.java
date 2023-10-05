@@ -11,7 +11,7 @@ public final class PalindromeUtils {
 
     /**
      * Make int array from digits of given number. Only non-negative numbers allowed.
-     * @param number digits to array
+     * @param number digits to array. Only non-negative numbers allowed
      * @return int array of digits
      */
     public static int[] convertNumberToDigitsIntArray(Integer number) {
