@@ -61,7 +61,7 @@ class PalindromeUtilsTest {
     @DisplayName("Проверка вычисления потомка краевого массива цифр")
     void calcChild_edge() {
         // given
-        int[] edgeArray = {2, 1, 4, 7, 4, 8, 3, 6, 4, 7};;
+        int[] edgeArray = {2, 1, 4, 7, 4, 8, 3, 6, 4, 7};
         int expectedChild = 42301;
 
         // when
