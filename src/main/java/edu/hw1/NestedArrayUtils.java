@@ -1,5 +1,7 @@
 package edu.hw1;
 
+import java.util.Objects;
+
 public final class NestedArrayUtils {
     private NestedArrayUtils() {
     }
@@ -10,6 +12,8 @@ public final class NestedArrayUtils {
      * @return minimum value in the array
      */
     public static int minOfArray(final int[] arr) {
+        Objects.requireNonNull(arr);
+
         int min = arr[0];
 
         for (int elem: arr) {
@@ -27,6 +31,8 @@ public final class NestedArrayUtils {
      * @return maximum value in the array
      */
     public static int maxOfArray(final int[] arr) {
+        Objects.requireNonNull(arr);
+
         int max = arr[0];
 
         for (int elem: arr) {
@@ -45,6 +51,9 @@ public final class NestedArrayUtils {
      * @return true if it possible else false
      */
     public static boolean isNestable(final int[] firstArray, final int[] secondArray) {
+        Objects.requireNonNull(firstArray);
+        Objects.requireNonNull(secondArray);
+
         final int firstArrMin = minOfArray(firstArray);
         final int firstArrMax = maxOfArray(firstArray);
         final int secondArrMin = minOfArray(secondArray);
