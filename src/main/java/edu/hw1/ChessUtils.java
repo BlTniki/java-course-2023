@@ -14,21 +14,6 @@ public final class ChessUtils {
     }
 
     /**
-     * Records that encapsulates board coordinates
-     * @param x board line
-     * @param y board column
-     */
-    public record BoardCoordinates(int x, int y) {
-        /**
-         * Checks if x or y are negative.
-         * @return true if x or y are negative
-         */
-        public boolean hasNoNegativeValues() {
-            return x >= 0 || y >= 0;
-        }
-    }
-
-    /**
      * Generates coordinates to which the knight can descend at given coordinates.
      * @param x the line on which the knight stands
      * @param y the column on which the knight stands
@@ -93,5 +78,20 @@ public final class ChessUtils {
 
 
         return true;
+    }
+
+    /**
+     * Records that encapsulates board coordinates
+     * @param x board line
+     * @param y board column
+     */
+    public record BoardCoordinates(int x, int y) {
+        /**
+         * Checks if x or y are negative.
+         * @return true if x or y are negative
+         */
+        public boolean hasNoNegativeValues() {
+            return x >= 0 || y >= 0;
+        }
     }
 }
