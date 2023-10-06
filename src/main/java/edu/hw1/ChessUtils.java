@@ -15,24 +15,27 @@ public final class ChessUtils {
 
     /**
      * Generates coordinates to which the knight can descend at given coordinates.
-     * @param x the line on which the knight stands
-     * @param y the column on which the knight stands
+     * @param coordinates record with x and y board coordinates. Must pass BoardCoordinates::isThisPossibleCoordinates
      * @return coordinates to check.
      */
-    public static List<BoardCoordinates> generateCoordinatesToCheck(int x, int y) {
+    public static List<BoardCoordinates> generateCoordinatesToCheck(BoardCoordinates coordinates) {
+        if (!coordinates.isThisPossibleCoordinates()) {
+            throw new IllegalArgumentException("This coordinates is not possible for 8x8 board");
+        }
+
         ArrayList<BoardCoordinates> toCheck = new ArrayList<>();
 
         // generate all possible coordinates
         for (int i = -1; i <= 1; i += 2) {
             for (int j = -1; j <= 1; j += 2) {
                 final BoardCoordinates fCoordinates = new BoardCoordinates(
-                    x + i,
-                    y + (j * 2)
+                    coordinates.x + i,
+                    coordinates.y + (j * 2)
                 );
 
                 final BoardCoordinates sCoordinates = new BoardCoordinates(
-                    x + (i * 2),
-                    y + j
+                    coordinates.x + (i * 2),
+                    coordinates.y + j
                 );
 
                 toCheck.add(fCoordinates);
@@ -42,7 +45,7 @@ public final class ChessUtils {
 
         // filter invalid coordinates and return
         return toCheck.stream()
-            .filter(BoardCoordinates::hasNoNegativeValues)
+            .filter(BoardCoordinates::isThisPossibleCoordinates)
             .toList();
     }
 
@@ -67,7 +70,10 @@ public final class ChessUtils {
         //check
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
-                List<BoardCoordinates> toCheck = generateCoordinatesToCheck(i, j);
+                if (board[i][j] == 0) {
+                    continue;
+                }
+                List<BoardCoordinates> toCheck = generateCoordinatesToCheck(new BoardCoordinates(i, j));
                 for (var coordinates : toCheck) {
                     if (board[coordinates.x][coordinates.y] == 1) {
                         return false;
@@ -87,11 +93,11 @@ public final class ChessUtils {
      */
     public record BoardCoordinates(int x, int y) {
         /**
-         * Checks if x or y are negative.
-         * @return true if x or y are negative
+         * Checks if coordinates can be possible at 8x8 board.
+         * @return true if possible
          */
-        public boolean hasNoNegativeValues() {
-            return x >= 0 || y >= 0;
+        public boolean isThisPossibleCoordinates() {
+            return x >= 0 && y >= 0 && x < BOARD_SIZE && y < BOARD_SIZE;
         }
     }
 }
