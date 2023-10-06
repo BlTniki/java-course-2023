@@ -10,7 +10,7 @@ public final class Hello {
     }
 
     /**
-     * Simply greetings through the logger at the info level
+     * Simply greetings through the logger at the info level.
      */
     public static void sayHi() {
         LOGGER.info("Привет, мир!");

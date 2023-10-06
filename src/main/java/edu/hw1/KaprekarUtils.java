@@ -13,11 +13,15 @@ public final class KaprekarUtils {
 
     /**
      * Sort given number digits in asc or desc order.
-     * @param num to sort. Only non-negative numbers allowed
+     * @param num to sort. Must be non-negative and have 4 or fewer digits
      * @param desc sorting order
      * @return number with sorted digits
      */
-    public static int sortDigitsInNumber(int num, boolean desc) {
+    public static int sortDigitsInNumber(final int num, final boolean desc) {
+        if (num < 0 || CountNumberUtils.countDigits(num) > ALLOWED_DIGIT_COUNT) {
+            throw new IllegalArgumentException("Num argument have more digits than allowed or negative");
+        }
+
         //sort
         int[] sortedDigits = PalindromeUtils.convertNumberToDigitsIntArray(num);
         Arrays.sort(sortedDigits);
@@ -41,17 +45,18 @@ public final class KaprekarUtils {
 
     /**
      * Applying the Kaprekar function to a number.
-     * If the output number is less than 1000 function will add zeros to the number right.
-     * @param num to apply. Must have four digits
+     * If output number less than 1000 function will add zeros to the number right.
+     * @param num to apply. Must be positive and have 4 digits
      * @return the Kaprekar function output
      */
-    public static int kaprekarFunc(int num) {
+    public static int kaprekarFunc(final int num) {
         if (num <= 0 || CountNumberUtils.countDigits(num) != ALLOWED_DIGIT_COUNT) {
-            throw new IllegalArgumentException("Can't apply function kaprekar to %d".formatted(num));
+            throw new IllegalArgumentException("Num argument have different digits count than allowed or non-positive");
         }
 
         int newNum =  sortDigitsInNumber(num, true) - sortDigitsInNumber(num, false);
 
+        // add the necessary zeros
         int digitCountDiff = ALLOWED_DIGIT_COUNT - CountNumberUtils.countDigits(newNum);
         if (digitCountDiff > 0) {
             newNum *= (int) Math.pow(NUMBER_BASE, digitCountDiff);
@@ -62,13 +67,15 @@ public final class KaprekarUtils {
 
     /**
      * Return the number of steps that need to make Kaprekar constant from given number.
-     * @param num to iterate. Must be positive
+     * @param num to iterate. Must be positive and have 4 digits
      * @return count of iteration
      * @throws IllegalArgumentException if number cannot become a Kaprekar constant
      */
-    public static int countK(int num) {
+    public static int countK(final int num) {
         if (num <= 0 || CountNumberUtils.countDigits(num) != ALLOWED_DIGIT_COUNT) {
-            throw new IllegalArgumentException("the number %d cannot become a Kaprekar constant".formatted(num));
+            throw new IllegalArgumentException(
+                "the number %d cannot become a Kaprekar constant or it is negative".formatted(num)
+            );
         }
 
         if (num == KAPREKAR_CONSTANT) {

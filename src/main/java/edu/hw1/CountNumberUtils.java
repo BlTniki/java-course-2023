@@ -12,11 +12,11 @@ public final class CountNumberUtils {
      * @param number in which to count the digits
      * @return number of digits
      */
-    public static int countDigits(int number) {
+    public static int countDigits(final int number) {
         int tmpNumber = number;
         int count = 1;
 
-        while (tmpNumber >= NUMBER_BASE || tmpNumber <= (-1)*NUMBER_BASE) {
+        while (tmpNumber >= NUMBER_BASE || tmpNumber <= (-1) * NUMBER_BASE) {
             tmpNumber /= NUMBER_BASE;
             count++;
         }

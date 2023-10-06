@@ -1,10 +1,10 @@
 package edu.hw1;
 
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NestedArrayUtilsTest {
 
@@ -60,5 +60,18 @@ class NestedArrayUtilsTest {
             // then
             assertEquals(returnedAnswer, bundle.expectedAnswer);
         }
+    }
+
+    @Test
+    @DisplayName("Проверка на нулл поинтеры")
+    void checkNullPointer() {
+        assertThatThrownBy(() -> NestedArrayUtils.minOfArray(null))
+            .isInstanceOf(NullPointerException.class);
+
+        assertThatThrownBy(() -> NestedArrayUtils.maxOfArray(null))
+            .isInstanceOf(NullPointerException.class);
+
+        assertThatThrownBy(() -> NestedArrayUtils.isNestable(null, null))
+            .isInstanceOf(NullPointerException.class);
     }
 }

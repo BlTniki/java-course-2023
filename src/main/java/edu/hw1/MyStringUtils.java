@@ -10,7 +10,7 @@ public final class MyStringUtils {
      * @param input string to fix
      * @return fixed string
      */
-    public static String fixString(String input) {
+    public static String fixString(final String input) {
         char[] charArray = input.toCharArray();
 
         for (int i = 0; i < charArray.length - 1; i += 2) {

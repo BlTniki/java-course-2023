@@ -14,18 +14,18 @@ public final class BitwiseShiftUtils {
      * @return shifted number
      * @throws IllegalArgumentException if some of the arguments are non-positive
      */
-    public static int rotateLeft(int n, int shift) {
+    public static int rotateLeft(final int n, final int shift) {
         if (shift <= 0 && n <= 0) {
             throw new IllegalArgumentException(NON_POSITIVE_EXCEPTION);
         }
 
         final var digitsArray = Integer.toBinaryString(n).toCharArray();
-        var output = new StringBuilder();
+        final var output = new StringBuilder();
         // remove redundant shifts, so it won't overflow on edge cases
-        shift %= digitsArray.length;
+        final int shiftCleaned = shift % digitsArray.length;
 
         for (int i = 0; i < digitsArray.length; i++) {
-            int index = (i + shift) % digitsArray.length;
+            int index = (i + shiftCleaned) % digitsArray.length;
             output.append(digitsArray[index]);
         }
 
@@ -48,10 +48,10 @@ public final class BitwiseShiftUtils {
         final var digitsArray = Integer.toBinaryString(n).toCharArray();
         var output = new StringBuilder();
         // remove redundant shifts, so it won't overflow on edge cases
-        shift %= digitsArray.length;
+        int shiftCleaned = shift % digitsArray.length;
 
         for (int i = 0; i < digitsArray.length; i++) {
-            output.append(digitsArray[(i + digitsArray.length - shift) % digitsArray.length]);
+            output.append(digitsArray[(i + digitsArray.length - shiftCleaned) % digitsArray.length]);
         }
 
         return Integer.valueOf(output.toString(), 2);
