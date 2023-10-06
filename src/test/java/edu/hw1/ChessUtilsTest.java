@@ -106,6 +106,24 @@ class ChessUtilsTest {
     }
 
     @Test
+    @DisplayName("Генерация координат: невозможные координаты")
+    void generateCoordinatesToCheck_impossibleCoordinates() {
+        // given
+        List<ChessUtils.BoardCoordinates> coordinatesList = List.of(
+            new ChessUtils.BoardCoordinates(123, 0),
+            new ChessUtils.BoardCoordinates(0, 123),
+            new ChessUtils.BoardCoordinates(-1, 0),
+            new ChessUtils.BoardCoordinates(0, -1)
+        );
+
+        // expect
+        for (var coordinates : coordinatesList) {
+            assertThatThrownBy(() -> ChessUtils.generateCoordinatesToCheck(coordinates))
+                .isInstanceOf(IllegalArgumentException.class);
+        }
+    }
+
+    @Test
     @DisplayName("Проверка досок: валидные доски")
     void knightBoardCapture() {
         // given
