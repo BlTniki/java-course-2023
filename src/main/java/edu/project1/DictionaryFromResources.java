@@ -54,6 +54,10 @@ public class DictionaryFromResources implements Dictionary {
         if (inputStream != null) {
             Scanner scanner = new Scanner(inputStream);
 
+            if (!scanner.hasNextLine()) {
+                throw new BadDictionaryFormatException("File %s is empty".formatted(fileName));
+            }
+
             while (scanner.hasNextLine()) {
                 final String word = scanner.nextLine();
 
