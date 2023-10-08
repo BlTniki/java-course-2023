@@ -2,7 +2,7 @@ package edu.project1;
 
 import org.jetbrains.annotations.NotNull;
 
-interface Dictionary {
+public interface Dictionary {
 
     /**
      * Returns random word from dictionary.
