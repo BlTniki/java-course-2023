@@ -55,7 +55,7 @@ public class DictionaryFromResources implements Dictionary {
             Scanner scanner = new Scanner(inputStream);
 
             if (!scanner.hasNextLine()) {
-                throw new BadDictionaryFormatException("File %s is empty".formatted(fileName));
+                throw new BadDictionaryFormatException("File '%s' is empty".formatted(fileName));
             }
 
             while (scanner.hasNextLine()) {
@@ -72,7 +72,7 @@ public class DictionaryFromResources implements Dictionary {
 
             scanner.close();
         } else {
-            throw new FileNotFoundException("File not found: " + fileName);
+            throw new FileNotFoundException("File '%s' not found".formatted(fileName));
         }
 
         return strings;
