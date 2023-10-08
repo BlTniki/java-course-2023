@@ -2,9 +2,7 @@ package edu.project1;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class SessionTest {
 
@@ -22,10 +20,18 @@ class SessionTest {
         // then
         assertThat(successGuessResult1)
             .isInstanceOf(GuessResult.SuccessfulGuess.class);
+        assertThat(successGuessResult1.message())
+            .isEqualTo("Hit!\n\nTheWord: T**t");
+
         assertThat(successGuessResult2)
             .isInstanceOf(GuessResult.SuccessfulGuess.class);
+        assertThat(successGuessResult2.message())
+            .isEqualTo("Hit!\n\nTheWord: Te*t");
+
         assertThat(winGuessResult)
             .isInstanceOf(GuessResult.Win.class);
+        assertThat(winGuessResult.message())
+            .isEqualTo("Hit!\n\nTheWord: Test\n\nYou win!");
     }
 
     @Test
@@ -42,10 +48,18 @@ class SessionTest {
         // then
         assertThat(failedGuessResult)
             .isInstanceOf(GuessResult.FailedGuess.class);
+        assertThat(failedGuessResult.message())
+            .isEqualTo("Missed, mistake 1 out of 2.\n\nTheWord: ****");
+
         assertThat(successGuessResult)
             .isInstanceOf(GuessResult.SuccessfulGuess.class);
+        assertThat(successGuessResult.message())
+            .isEqualTo("Hit!\n\nTheWord: *e**");
+
         assertThat(defeatGuessResult)
             .isInstanceOf(GuessResult.Defeat.class);
+        assertThat(defeatGuessResult.message())
+            .isEqualTo("Missed, mistake 2 out of 2.\n\nTheWord: *e**\n\nYou lost!");
     }
 
     @Test
