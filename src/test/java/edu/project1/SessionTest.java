@@ -32,6 +32,8 @@ class SessionTest {
             .isInstanceOf(GuessResult.Win.class);
         assertThat(winGuessResult.message())
             .isEqualTo("Hit!\n\nTheWord: Test\n\nYou win!");
+
+        assertThat(session.isNotDead()).isFalse();
     }
 
     @Test
@@ -60,6 +62,8 @@ class SessionTest {
             .isInstanceOf(GuessResult.Defeat.class);
         assertThat(defeatGuessResult.message())
             .isEqualTo("Missed, mistake 2 out of 2.\n\nTheWord: *e**\n\nYou lost!");
+
+        assertThat(session.isNotDead()).isFalse();
     }
 
     @Test
@@ -73,6 +77,6 @@ class SessionTest {
         session.giveUp();
 
         // then
-        assertThat(session.isNotDead()).isEqualTo(false);
+        assertThat(session.isNotDead()).isFalse();
     }
 }
