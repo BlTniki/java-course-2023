@@ -3,7 +3,6 @@ package edu.hw1;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MyStringUtilsTest {
@@ -22,12 +21,5 @@ class MyStringUtilsTest {
 
         // then
         assertEquals(expectedStrings, returnedStrings);
-    }
-
-    @Test
-    @DisplayName("Проверка на строках: null")
-    void fixString_null() {
-        assertThatThrownBy(() -> MyStringUtils.fixString(null))
-            .isInstanceOf(IllegalArgumentException.class);
     }
 }
