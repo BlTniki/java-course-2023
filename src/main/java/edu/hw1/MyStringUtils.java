@@ -1,5 +1,7 @@
 package edu.hw1;
 
+import org.jetbrains.annotations.NotNull;
+
 public final class MyStringUtils {
     private MyStringUtils() {
     }
@@ -10,7 +12,7 @@ public final class MyStringUtils {
      * @param input string to fix
      * @return fixed string
      */
-    public static String fixString(final String input) {
+    public static String fixString(@NotNull final String input) {
         char[] charArray = input.toCharArray();
 
         for (int i = 0; i < charArray.length - 1; i += 2) {
