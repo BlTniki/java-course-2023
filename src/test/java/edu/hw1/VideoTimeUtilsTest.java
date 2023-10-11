@@ -1,10 +1,10 @@
 package edu.hw1;
 
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class VideoTimeUtilsTest {
 
@@ -28,11 +28,17 @@ class VideoTimeUtilsTest {
     @DisplayName("Проверка на невалидных данных")
     void minutesToSeconds_invalid() {
         // given
-        List<String> videoTimes = List.of("00:000", "00:60", "5:05", "05:5");
+        List<String> videoTimes = List.of("00:000", "00:60", "5:05", "05:5", "word", "123", "");
 
         // check for exception
         for (String videoTime: videoTimes) {
             assertEquals(VideoTimeUtils.minutesToSeconds(videoTime), -1);
         }
+    }
+
+    @Test
+    @DisplayName("Проверка на невалидных данных: null")
+    void minutesToSeconds_null() {
+        assertThat(VideoTimeUtils.minutesToSeconds(null)).isEqualTo(-1);
     }
 }

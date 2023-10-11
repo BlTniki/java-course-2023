@@ -16,6 +16,10 @@ public final class VideoTimeUtils {
      * @return time in seconds or -1 if validation failed
      */
     public static int minutesToSeconds(final String videoTime) {
+        if (videoTime == null) {
+            return -1;
+        }
+
         // Match regex
         final Pattern pattern = Pattern.compile(TIME_REGEX);
         final Matcher matcher = pattern.matcher(videoTime);
