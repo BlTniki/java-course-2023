@@ -22,13 +22,16 @@ public sealed interface Expr {
     record Exponent(@NotNull Expr base, @NotNull Expr exponent) implements Expr {
         @Override
         public double evaluate() {
-            if (base.evaluate() < 0) {
+            final double baseVal = base.evaluate();
+
+            if (baseVal < 0) {
                 throw new IllegalArgumentException(
                     "[%f ^ %f] The exponentiation operation for a negative number is not defined"
                         .formatted(base.evaluate(), exponent.evaluate())
                 );
             }
-            return Math.pow(base.evaluate(), exponent.evaluate());
+
+            return Math.pow(baseVal, exponent.evaluate());
         }
     }
 
