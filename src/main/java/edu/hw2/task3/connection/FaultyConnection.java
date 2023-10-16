@@ -1,5 +1,6 @@
 package edu.hw2.task3.connection;
 
+import edu.hw2.task3.exception.ConnectionClosedException;
 import edu.hw2.task3.exception.ConnectionException;
 import java.util.Random;
 
@@ -13,7 +14,7 @@ public class FaultyConnection implements Connection {
         final int luckyNumber = new Random().nextInt(BOUNDARY);
 
         if (!isOpen) {
-            throw new ConnectionException("Connection is closed");
+            throw new ConnectionClosedException("Connection is closed");
         }
 
         if (luckyNumber < GOOD_EXECUTES_STARTS_AT) {

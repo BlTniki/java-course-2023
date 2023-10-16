@@ -1,6 +1,6 @@
 package edu.hw2.task3.connection;
 
-import edu.hw2.task3.exception.ConnectionException;
+import edu.hw2.task3.exception.ConnectionClosedException;
 
 public class StableConnection implements Connection {
     private boolean isOpen = true;
@@ -8,7 +8,7 @@ public class StableConnection implements Connection {
     @Override
     public void execute(String command) {
         if (!isOpen) {
-            throw new ConnectionException("Connection is closed");
+            throw new ConnectionClosedException("Connection is closed");
         }
     }
 

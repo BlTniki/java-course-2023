@@ -17,24 +17,33 @@ public final class PopularCommandExecutor {
         tryExecute("apt update && apt upgrade -y");
     }
 
+    /**
+     * Tries to execute command with max attempts.
+     * @param command to execute
+     * @throws ConnectionException if execution failed after max attempts
+     */
     void tryExecute(String command) {
         Connection connection = manager.getConnection();
 
-        int attempts = 0;
-        while (true) {
-            try (connection) {
-                connection.execute(command);
-                break;
-            } catch (Exception e) {
-                attempts++;
-                if (attempts < maxAttempts) {
-                    throw new ConnectionException(
-                        "Failed to execute '%s' at server with %d attempts".formatted(command, maxAttempts),
-                        e
-                    );
+        // пробуем выполнить команду
+        try (connection) {
+            // делаем maxAttempts попыток
+            for (int attempts = 1; attempts <= maxAttempts; attempts++) {
+                try {
+                    connection.execute(command);
+                    break;
+                } catch (ConnectionException e) {
+                    // если кол-во попыток превышено, кидаем ошибку дальше
+                    if (attempts == maxAttempts) {
+                        throw e;
+                    }
                 }
-                continue;
             }
+        } catch (Exception e) {
+            throw new ConnectionException(
+                "Failed to execute '%s' at server with %d attempts".formatted(command, maxAttempts),
+                e
+            );
         }
     }
 }
