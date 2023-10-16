@@ -3,6 +3,7 @@ package edu.hw2.task3.connection;
 import edu.hw2.task3.exception.ConnectionClosedException;
 import edu.hw2.task3.exception.ConnectionException;
 import java.util.Random;
+import org.jetbrains.annotations.NotNull;
 
 public class FaultyConnection implements Connection {
     private final static int BOUNDARY = 100;
@@ -10,7 +11,11 @@ public class FaultyConnection implements Connection {
     private boolean isOpen = true;
 
     @Override
-    public void execute(String command) {
+    public void execute(@NotNull String command) {
+        if (command.isEmpty()) {
+            throw new IllegalArgumentException("Command empty");
+        }
+
         final int luckyNumber = new Random().nextInt(BOUNDARY);
 
         if (!isOpen) {
