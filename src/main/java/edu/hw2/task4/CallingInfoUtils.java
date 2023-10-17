@@ -1,6 +1,6 @@
 package edu.hw2.task4;
 
-public class CallingInfoUtils {
+public final class CallingInfoUtils {
     private final static int CALLING_METHOD_INDEX = 2;
 
     private CallingInfoUtils() {
