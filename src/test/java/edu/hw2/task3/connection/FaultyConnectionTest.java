@@ -10,7 +10,7 @@ class FaultyConnectionTest {
 
     @Test
     void execute() {
-        var conn = new StableConnection();
+        var conn = new FaultyConnection();
         try (conn) {
             int attempts = 0;
             while (attempts < 100) {
