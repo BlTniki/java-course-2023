@@ -32,6 +32,11 @@ public final class AtbashUtils {
         return (char) mirroredIndex;
     }
 
+    /**
+     * Encode string with the Atbash cipher. Only Latin letters will be encoded.
+     * @param input to encode
+     * @return encoded string
+     */
     public static String atbash(@NotNull final String input) {
         return input.chars()
             .map(i -> mirrorChar((char) i))
