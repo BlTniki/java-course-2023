@@ -12,6 +12,11 @@ public final class ClusterUtils {
     private ClusterUtils() {
     }
 
+    /**
+     * Split to a separate strings 1 level brackets. "()(())" -> ["()", "(())"]
+     * @param input string with brackets
+     * @return list with separate 1 level brackets
+     */
     public static List<String> clusterize(final @NotNull String input) {
         List<String> output = new ArrayList<>();
         Stack<Integer> stack = new Stack<>();
