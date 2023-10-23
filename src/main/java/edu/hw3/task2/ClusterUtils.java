@@ -1,5 +1,6 @@
 package edu.hw3.task2;
 
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
@@ -11,7 +12,7 @@ public final class ClusterUtils {
     private ClusterUtils() {
     }
 
-    public static List<String> clusterize(final String input) {
+    public static List<String> clusterize(final @NotNull String input) {
         List<String> output = new ArrayList<>();
         Stack<Integer> stack = new Stack<>();
 
