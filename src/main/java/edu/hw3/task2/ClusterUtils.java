@@ -1,10 +1,10 @@
 package edu.hw3.task2;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
+import org.jetbrains.annotations.NotNull;
 
 public final class ClusterUtils {
     private final static String NON_VALID_INPUT_MESSAGE = "String input non valid!";
