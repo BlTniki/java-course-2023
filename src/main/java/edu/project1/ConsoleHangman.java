@@ -71,7 +71,7 @@ public class ConsoleHangman {
         if (guess == '\0') {
             return session.giveUp();
         } else {
-            return session.guess(guess);
+            return session.evaluatePlayerGuess(guess);
         }
     }
 

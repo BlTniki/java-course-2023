@@ -38,7 +38,7 @@ class Session {
      * @param guess player guess. Guess is case-insensitive
      * @return guess result
      */
-    @NotNull GuessResult guess(char guess) {
+    @NotNull GuessResult evaluatePlayerGuess(char guess) {
         if (unguessedCharacters.remove(guess)) {
             if (unguessedCharacters.isEmpty()) {
                 dead = true;

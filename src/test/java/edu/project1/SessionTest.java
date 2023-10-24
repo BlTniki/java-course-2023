@@ -13,9 +13,9 @@ class SessionTest {
         Session session = new Session("Test", 1);
 
         // when
-        GuessResult successGuessResult1 = session.guess('t');
-        GuessResult successGuessResult2 = session.guess('e');
-        GuessResult winGuessResult = session.guess('s');
+        GuessResult successGuessResult1 = session.evaluatePlayerGuess('t');
+        GuessResult successGuessResult2 = session.evaluatePlayerGuess('e');
+        GuessResult winGuessResult = session.evaluatePlayerGuess('s');
 
         // then
         assertThat(successGuessResult1)
@@ -43,9 +43,9 @@ class SessionTest {
         Session session = new Session("Test", 2);
 
         // when
-        GuessResult failedGuessResult = session.guess('d');
-        GuessResult successGuessResult = session.guess('e');
-        GuessResult defeatGuessResult = session.guess('q');
+        GuessResult failedGuessResult = session.evaluatePlayerGuess('d');
+        GuessResult successGuessResult = session.evaluatePlayerGuess('e');
+        GuessResult defeatGuessResult = session.evaluatePlayerGuess('q');
 
         // then
         assertThat(failedGuessResult)
