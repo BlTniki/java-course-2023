@@ -1,27 +1,30 @@
 package edu.project1;
 
+import edu.project1.exception.BadDictionaryFormatException;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 public final class Main {
     private final static Logger LOGGER = LogManager.getLogger();
+    private static final String DICT_FILE_NAME = "dict.txt";
+    private static final int MAX_ATTEMPTS = 5;
 
     private Main() {
     }
 
-    public static void main(final String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        LOGGER.info("Hello and welcome!");
+    public static void main(final String[] args) throws FileNotFoundException, BadDictionaryFormatException {
+        final Dictionary dictionary = new DictionaryFromResources(DICT_FILE_NAME);
+        final Scanner scanner = new Scanner(System.in);
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 0; i <= 2; i++) {
+        LOGGER.info("Starting new game!");
+        LOGGER.info("max attempts: " + MAX_ATTEMPTS);
+        LOGGER.info("dictionary file: " + DICT_FILE_NAME);
+        LOGGER.info("Type any character to guess the word! Guess is not case sensitive.");
+        LOGGER.info("You can give up by pressing Ctrl+D...\n");
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            LOGGER.info("i = {}", i);
-        }
+        final ConsoleHangman hangman = new ConsoleHangman(LOGGER, scanner, dictionary, MAX_ATTEMPTS);
+        hangman.run();
     }
 }
