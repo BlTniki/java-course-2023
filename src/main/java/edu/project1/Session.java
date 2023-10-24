@@ -43,18 +43,19 @@ class Session {
             if (unguessedCharacters.isEmpty()) {
                 dead = true;
                 return new GuessResult.Win(provideUserAnswer(), attempts, maxAttempts);
-            } else {
-                return new GuessResult.SuccessfulGuess(provideUserAnswer(), attempts, maxAttempts);
             }
-        } else {
-            attempts += 1;
-            if (attempts >= maxAttempts) {
-                dead = true;
-                return new GuessResult.Defeat(provideUserAnswer(), attempts, maxAttempts);
-            } else {
-                return new GuessResult.FailedGuess(provideUserAnswer(), attempts, maxAttempts);
-            }
+
+            return new GuessResult.SuccessfulGuess(provideUserAnswer(), attempts, maxAttempts);
         }
+
+        attempts += 1;
+
+        if (attempts >= maxAttempts) {
+            dead = true;
+            return new GuessResult.Defeat(provideUserAnswer(), attempts, maxAttempts);
+        }
+
+        return new GuessResult.FailedGuess(provideUserAnswer(), attempts, maxAttempts);
     }
 
     /**
