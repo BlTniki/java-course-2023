@@ -7,17 +7,13 @@ class CallingInfoUtilsTest {
 
     @Test
     void callingInfo() {
-        // given
-        String expectedClassName = "edu.hw2.task4.CallingInfoUtilsTest";
-        String expectedMethodName = "callingInfo";
-
         // when
         CallingInfo actualCallingInfo = CallingInfoUtils.callingInfo();
 
         // then
         assertThat(actualCallingInfo.className())
-            .isEqualTo(expectedClassName);
+            .isEqualTo("edu.hw2.task4.CallingInfoUtilsTest");
         assertThat(actualCallingInfo.methodName())
-            .isEqualTo(expectedMethodName);
+            .isEqualTo("callingInfo");
     }
 }
