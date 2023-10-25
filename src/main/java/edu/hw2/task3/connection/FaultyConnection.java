@@ -1,5 +1,6 @@
 package edu.hw2.task3.connection;
 
+import edu.hw2.task3.exception.ConnErrorMessage;
 import edu.hw2.task3.exception.ConnectionClosedException;
 import edu.hw2.task3.exception.ConnectionException;
 import java.util.Random;
@@ -13,17 +14,17 @@ public class FaultyConnection implements Connection {
     @Override
     public void execute(@NotNull String command) {
         if (command.isEmpty()) {
-            throw new IllegalArgumentException("Command empty");
+            throw new IllegalArgumentException(ConnErrorMessage.EMPTY.message);
         }
 
         final int luckyNumber = new Random().nextInt(BOUNDARY);
 
         if (!isOpen) {
-            throw new ConnectionClosedException("Connection is closed");
+            throw new ConnectionClosedException(ConnErrorMessage.CLOSED.message);
         }
 
         if (luckyNumber < GOOD_EXECUTES_STARTS_AT) {
-            throw new ConnectionException("Failed to execute command");
+            throw new ConnectionException(ConnErrorMessage.FAILED.message);
         }
     }
 
