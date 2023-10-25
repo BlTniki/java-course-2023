@@ -15,8 +15,8 @@ public class DefaultConnectionManager implements ConnectionManager {
 
         if (luckyNumber < GOOD_CONNECTION_STARTS_AT) {
             return new FaultyConnection();
-        } else {
-            return new StableConnection();
         }
+
+        return new StableConnection();
     }
 }
