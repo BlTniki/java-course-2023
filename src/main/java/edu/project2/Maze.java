@@ -1,5 +1,7 @@
 package edu.project2;
 
+import java.util.Optional;
+
 public final class Maze {
     private final int height;
     private final int width;
@@ -15,5 +17,14 @@ public final class Maze {
         this.height = height;
         this.width = width;
         this.grid = grid;
+    }
+
+    /**
+     * Return cell at given coordinates if cell exist.
+     * @param coordinate cell coordinates in maze
+     * @return cell if exist
+     */
+    public Optional<Cell> getCellAt(Coordinate coordinate) {
+        return null;
     }
 }
