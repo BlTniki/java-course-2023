@@ -1,6 +1,6 @@
 package edu.project2;
 
-import java.util.Optional;
+import org.jetbrains.annotations.Nullable;
 
 public final class Maze {
     private final int height;
@@ -30,18 +30,18 @@ public final class Maze {
     /**
      * Return cell at given coordinates if cell exist.
      * @param coordinate cell coordinates in maze
-     * @return cell if exist
+     * @return cell if exist or null
      */
-    public Optional<Cell> getCellAt(Coordinate coordinate) {
+    public @Nullable Cell getCellAt(Coordinate coordinate) {
         if (coordinate == null) {
-            return Optional.empty();
+            return null;
         }
 
         if (coordinate.row() < 0 || coordinate.row() >= height
             || coordinate.col() < 0 || coordinate.row() >= width) {
-            return Optional.empty();
+            return null;
         }
 
-        return Optional.of(grid[coordinate.row()][coordinate.col()]);
+        return grid[coordinate.row()][coordinate.col()];
     }
 }
