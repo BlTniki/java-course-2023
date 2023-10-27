@@ -38,7 +38,7 @@ public final class Maze {
         }
 
         if (coordinate.row() < 0 || coordinate.row() >= height
-            || coordinate.col() < 0 || coordinate.row() >= width) {
+            || coordinate.col() < 0 || coordinate.col() >= width) {
             return null;
         }
 
