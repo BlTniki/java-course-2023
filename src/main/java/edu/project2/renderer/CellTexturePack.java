@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Range;
  * Which in decimal is 9.
  */
 public enum CellTexturePack {
-    BASIC(" ╷╶┌╵│└├╴┐─┬┘┤┴┼");
+    BASIC("·╷╶┌╵│└├╴┐─┬┘┤┴┼");
 
     private final String texturePack;
 
