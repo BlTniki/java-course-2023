@@ -19,6 +19,14 @@ public final class Maze {
         this.grid = grid;
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
     /**
      * Return cell at given coordinates if cell exist.
      * @param coordinate cell coordinates in maze
