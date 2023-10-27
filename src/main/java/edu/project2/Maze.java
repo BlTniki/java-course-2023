@@ -29,19 +29,16 @@ public final class Maze {
 
     /**
      * Return cell at given coordinates if cell exist.
-     * @param coordinate cell coordinates in maze
+     * @param row cell row in maze
+     * @param col cell column in maze
      * @return cell if exist or null
      */
-    public @Nullable Cell getCellAt(Coordinate coordinate) {
-        if (coordinate == null) {
+    public @Nullable Cell getCellAt(int row, int col) {
+        if (row < 0 || row >= height
+            || col < 0 || col >= width) {
             return null;
         }
 
-        if (coordinate.row() < 0 || coordinate.row() >= height
-            || coordinate.col() < 0 || coordinate.col() >= width) {
-            return null;
-        }
-
-        return grid[coordinate.row()][coordinate.col()];
+        return grid[row][col];
     }
 }

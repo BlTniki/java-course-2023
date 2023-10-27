@@ -18,7 +18,7 @@ public class RendererImpl implements Renderer {
 
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int j = 0; j < maze.getWidth(); j++) {
-                final Cell curCell = maze.getCellAt(new Coordinate(i, j));
+                final Cell curCell = maze.getCellAt(i, j);
 
                 if (curCell == null) {
                     throw new NullPointerException("Ain't expect null at that point(%d, %d). ".formatted(i, j)
@@ -31,10 +31,10 @@ public class RendererImpl implements Renderer {
                 }
 
                 // checkout cell neighbors to determine wall texture
-                final Cell leftCell = maze.getCellAt(new Coordinate(i, j - 1));
-                final Cell upCell = maze.getCellAt(new Coordinate(i - 1, j));
-                final Cell rightCell = maze.getCellAt(new Coordinate(i, j + 1));
-                final Cell downCell = maze.getCellAt(new Coordinate(i + 1, j));
+                final Cell leftCell = maze.getCellAt(i, j - 1);
+                final Cell upCell = maze.getCellAt(i - 1, j);
+                final Cell rightCell = maze.getCellAt(i, j + 1);
+                final Cell downCell = maze.getCellAt(i + 1, j);
                 field[i][j] = mask.determineWallTexture(leftCell, upCell, rightCell, downCell);
             }
         }
