@@ -10,14 +10,15 @@ import org.jetbrains.annotations.Range;
  * (L U R D)
  * 1 0 0 1
  * Which in decimal is 9.
+ * LAST CHARACTER MUST REPRESENT PASSAGE.
  */
 public enum CellTexturePack {
-    BASIC("·╷╶┌╵│└├╴┐─┬┘┤┴┼");
+    BASIC("·╷╶┌╵│└├╴┐─┬┘┤┴┼ ");
 
     private final String texturePack;
 
     CellTexturePack(String texturePack) {
-        final int texturePackSize = 16;
+        final int texturePackSize = 17;
 
         if (texturePack == null || texturePack.length() != texturePackSize) {
             throw new IllegalArgumentException("Bad texture pack");
@@ -26,7 +27,11 @@ public enum CellTexturePack {
         this.texturePack = texturePack;
     }
 
-    public char getTextureByNumber(@Range(from = 0, to = 15) int number) {
+    public char getWallTextureByNumber(@Range(from = 0, to = 15) int number) {
         return texturePack.charAt(number);
+    }
+
+    public char getPassageTexture() {
+        return texturePack.charAt(texturePack.length() - 1);
     }
 }
