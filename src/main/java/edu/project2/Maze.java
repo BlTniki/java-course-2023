@@ -25,6 +25,15 @@ public final class Maze {
      * @return cell if exist
      */
     public Optional<Cell> getCellAt(Coordinate coordinate) {
-        return null;
+        if (coordinate == null) {
+            return Optional.empty();
+        }
+
+        if (coordinate.row() < 0 || coordinate.row() >= height
+            || coordinate.col() < 0 || coordinate.row() >= width) {
+            return Optional.empty();
+        }
+
+        return Optional.of(grid[coordinate.row()][coordinate.col()]);
     }
 }
