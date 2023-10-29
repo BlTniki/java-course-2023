@@ -2,15 +2,12 @@ package edu.project2.renderer.cliRenderer;
 
 import edu.project2.renderer.Renderer;
 import edu.project2.renderer.RendererManager;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 public class CliRendererManager implements RendererManager {
-    private final Logger logger;
     private Renderer renderer;
 
-    public CliRendererManager(@NotNull Logger logger) {
-        this.logger = logger;
+    public CliRendererManager() {
     }
 
     @Override
