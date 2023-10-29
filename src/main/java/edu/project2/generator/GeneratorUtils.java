@@ -2,6 +2,7 @@ package edu.project2.generator;
 
 import edu.project2.Cell;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Range;
 
 public final class GeneratorUtils {
     private GeneratorUtils() {
@@ -13,7 +14,9 @@ public final class GeneratorUtils {
      * @param width columns count
      * @return 2d cells gird
      */
-    public static @NotNull Cell[][] initGrid(int height, int width) {
+    public static @NotNull Cell[][] initGrid(
+            @Range(from = 1, to = Integer.MAX_VALUE) int height,
+            @Range(from = 1, to = Integer.MAX_VALUE) int width) {
         final Cell[][] grid = new Cell[height][width];
 
         for (int i = 0; i < height; i++) {
@@ -22,6 +25,7 @@ public final class GeneratorUtils {
                     // add passage on the maze top and bottom
                     grid[i][j] = new Cell(i, j, Cell.Type.PASSAGE);
                 } else if (i == 0 || i == height - 1
+                    // add walls on the maze edges
                     || j == 0 || j == width - 1) {
                     grid[i][j] = new Cell(i, j, Cell.Type.WALL);
                 } else {
