@@ -8,6 +8,9 @@ public final class GeneratorUtils {
     private GeneratorUtils() {
     }
 
+    private final static int MIN_MAZE_HEIGHT = 3;
+    private final static int MIN_MAZE_WIDTH = 3;
+
     /**
      * Initialization of 2d cells gird. The cells on the edges of the grid are walls, the rest are passages
      * @param height rows count
@@ -15,8 +18,8 @@ public final class GeneratorUtils {
      * @return 2d cells gird
      */
     public static @NotNull Cell[][] initGrid(
-            @Range(from = 1, to = Integer.MAX_VALUE) int height,
-            @Range(from = 1, to = Integer.MAX_VALUE) int width) {
+            @Range(from = MIN_MAZE_HEIGHT, to = Integer.MAX_VALUE) int height,
+            @Range(from = MIN_MAZE_WIDTH, to = Integer.MAX_VALUE) int width) {
         final Cell[][] grid = new Cell[height][width];
 
         for (int i = 0; i < height; i++) {
