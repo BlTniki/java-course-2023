@@ -11,7 +11,7 @@ import static edu.project2.generator.GeneratorUtils.initGrid;
 public final class RecursiveDivisionGenerator implements Generator {
     private final Random random;
 
-    public RecursiveDivisionGenerator(Random random) {
+    public RecursiveDivisionGenerator(@NotNull Random random) {
         this.random = random;
     }
 
