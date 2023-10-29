@@ -1,15 +1,16 @@
-package edu.project2.renderer;
+package edu.project2.renderer.cliRenderer;
 
 import edu.project2.Cell;
 import edu.project2.Coordinate;
 import edu.project2.Maze;
+import edu.project2.renderer.Renderer;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
-public class RendererImpl implements Renderer {
-    private final Mask mask;
+public class CliRenderer implements Renderer {
+    private final CliMask mask;
 
-    public RendererImpl(Mask mask) {
+    public CliRenderer(CliMask mask) {
         this.mask = mask;
     }
 

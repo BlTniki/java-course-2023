@@ -1,4 +1,4 @@
-package edu.project2.renderer;
+package edu.project2.renderer.cliRenderer;
 
 import edu.project2.Cell;
 import org.jetbrains.annotations.NotNull;
@@ -8,15 +8,15 @@ import org.jetbrains.annotations.Nullable;
  * This class exists to determine the texture of a cell,
  * based on its neighbors.
  */
-public class Mask {
+public class CliMask {
     private final static int LEFT_BIT = 8;
     private final static int UP_BIT = 4;
     private final static int RIGHT_BIT = 2;
     private final static int DOWN_BIT = 1;
 
-    private final CellTexturePack texturePack;
+    private final CellCliTexturePack texturePack;
 
-    public Mask(@NotNull CellTexturePack texturePack) {
+    public CliMask(@NotNull CellCliTexturePack texturePack) {
         this.texturePack = texturePack;
     }
 

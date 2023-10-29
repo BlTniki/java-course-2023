@@ -1,4 +1,4 @@
-package edu.project2.renderer;
+package edu.project2.renderer.cliRenderer;
 
 import org.jetbrains.annotations.Range;
 
@@ -12,12 +12,12 @@ import org.jetbrains.annotations.Range;
  * Which in decimal is 9.
  * LAST CHARACTER MUST REPRESENT PASSAGE.
  */
-public enum CellTexturePack {
+public enum CellCliTexturePack {
     BASIC("·╷╶┌╵│└├╴┐─┬┘┤┴┼ ");
 
     private final String texturePack;
 
-    CellTexturePack(String texturePack) {
+    CellCliTexturePack(String texturePack) {
         final int texturePackSize = 17;
 
         if (texturePack == null || texturePack.length() != texturePackSize) {

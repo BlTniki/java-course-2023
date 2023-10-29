@@ -1,4 +1,4 @@
-package edu.project2.renderer;
+package edu.project2.renderer.cliRenderer;
 
 import edu.project2.Cell;
 import org.junit.jupiter.api.DisplayName;
@@ -8,9 +8,9 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MaskTest {
-    private final static CellTexturePack texturePack = CellTexturePack.BASIC;
-    private final static Mask mask = new Mask(texturePack);
+class CliMaskTest {
+    private final static CellCliTexturePack texturePack = CellCliTexturePack.BASIC;
+    private final static CliMask mask = new CliMask(texturePack);
 
     static Arguments[] wallCells() {
         return new Arguments[] {

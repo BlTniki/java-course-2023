@@ -1,10 +1,10 @@
-package edu.project2.renderer;
+package edu.project2.renderer.cliRenderer;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CellTexturePackTest {
+class CellCliTexturePackTest {
     @Test
     @DisplayName("Проверяем корректную выдачу текстур")
     void getTexture() {
@@ -12,7 +12,7 @@ class CellTexturePackTest {
         int wallNumber = 0b0110;
         char expectedWall = '└';
         char expectedPassage = ' ';
-        CellTexturePack texturePack = CellTexturePack.BASIC;
+        CellCliTexturePack texturePack = CellCliTexturePack.BASIC;
 
         // when
         char actualWall = texturePack.getWallTextureByNumber(wallNumber);

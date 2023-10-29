@@ -1,19 +1,20 @@
-package edu.project2.renderer;
+package edu.project2.renderer.cliRenderer;
 
 import edu.project2.Cell;
 import edu.project2.Maze;
+import edu.project2.renderer.Renderer;
 import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class RendererImplTest {
+class CLiRendererTest {
     private Renderer renderer;
 
     @BeforeEach
     void init() {
-        final CellTexturePack texturePack = CellTexturePack.BASIC;
-        final Mask mask = new Mask(texturePack);
-        this.renderer = new RendererImpl(mask);
+        final CellCliTexturePack texturePack = CellCliTexturePack.BASIC;
+        final CliMask mask = new CliMask(texturePack);
+        this.renderer = new CliRenderer(mask);
     }
 
     @Test
