@@ -8,8 +8,8 @@ public final class GeneratorUtils {
     private GeneratorUtils() {
     }
 
-    private final static int MIN_MAZE_HEIGHT = 3;
-    private final static int MIN_MAZE_WIDTH = 3;
+    public final static int MIN_MAZE_HEIGHT = 3;
+    public final static int MIN_MAZE_WIDTH = 3;
 
     /**
      * Initialization of 2d cells gird. The cells on the edges of the grid are walls, the rest are passages
