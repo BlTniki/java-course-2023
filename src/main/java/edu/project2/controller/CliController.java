@@ -187,11 +187,13 @@ public class CliController {
             final String[] startAnswerSplit = startAnswer.split(" ");
             final int row = Integer.parseInt(startAnswerSplit[0]);
             final int col = Integer.parseInt(startAnswerSplit[1]);
-            if (maze.getCellAt(row, col) == null) {
+            final Cell toCheck = maze.getCellAt(row, col);
+            if (toCheck == null || toCheck.type().equals(Cell.Type.WALL)) {
                 systemLogger.info(BAD_POINT_MESSAGE);
                 continue;
             }
             start = new Coordinate(row, col);
+            break;
         }
 
         // end point
@@ -213,11 +215,13 @@ public class CliController {
             final String[] startAnswerSplit = startAnswer.split(" ");
             final int row = Integer.parseInt(startAnswerSplit[0]);
             final int col = Integer.parseInt(startAnswerSplit[1]);
-            if (maze.getCellAt(row, col) == null) {
+            final Cell toCheck = maze.getCellAt(row, col);
+            if (toCheck == null || toCheck.type().equals(Cell.Type.WALL)) {
                 systemLogger.info(BAD_POINT_MESSAGE);
                 continue;
             }
             end = new Coordinate(row, col);
+            break;
         }
 
         // solve the maze
