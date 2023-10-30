@@ -1,7 +1,7 @@
 package edu.project2.generator;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.Random;
+import org.jetbrains.annotations.NotNull;
 
 public class GeneratorManager {
     private final Random random;

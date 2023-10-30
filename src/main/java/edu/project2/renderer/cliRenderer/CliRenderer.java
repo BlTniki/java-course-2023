@@ -44,7 +44,7 @@ public class CliRenderer implements Renderer {
     }
 
     @Override
-    public String render(final @NotNull Maze maze) {
+    public @NotNull String render(final @NotNull Maze maze) {
         final char[][] field = renderCharArray(maze);
 
         // convert char array to string
