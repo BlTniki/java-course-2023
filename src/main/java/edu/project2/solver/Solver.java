@@ -1,4 +1,7 @@
-package edu.project2;
+package edu.project2.solver;
+
+import edu.project2.Coordinate;
+import edu.project2.Maze;
 
 import java.util.List;
 
