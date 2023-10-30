@@ -53,11 +53,20 @@ class CliMaskTest {
     @Test
     @DisplayName("Проверка получения текстуры прохода")
     void getPassageTexture() {
-
         // when
         char actualTexture = mask.getPassageTexture();
 
         // then
         assertThat(actualTexture).isEqualTo(texturePack.getPassageTexture());
+    }
+
+    @Test
+    @DisplayName("Проверка получения текстуры пути")
+    void getHighlightedPathTexture() {
+        // when
+        char actualTexture = mask.getHighlightedPathTexture();
+
+        // then
+        assertThat(actualTexture).isEqualTo(texturePack.getHighlightedPathTexture());
     }
 }

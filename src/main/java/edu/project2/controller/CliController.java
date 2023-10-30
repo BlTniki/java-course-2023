@@ -3,7 +3,7 @@ package edu.project2.controller;
 import edu.project2.Cell;
 import edu.project2.Coordinate;
 import edu.project2.Maze;
-import edu.project2.UserInterruptException;
+import edu.project2.exception.UserInterruptException;
 import edu.project2.generator.GenerationType;
 import edu.project2.generator.Generator;
 import edu.project2.generator.GeneratorManager;
