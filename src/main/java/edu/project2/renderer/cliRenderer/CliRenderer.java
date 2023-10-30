@@ -15,6 +15,20 @@ public class CliRenderer implements Renderer {
     }
 
     /**
+     * Converts given field to a single string.
+     * @param field to convert
+     * @return single string
+     */
+    private static @NotNull String convertFieldToString(char[][] field) {
+        StringBuilder result = new StringBuilder();
+        for (char[] row : field) {
+            result.append(row);
+            result.append('\n'); // Add newline character after each row
+        }
+        return result.toString();
+    }
+
+    /**
      * Returns char 2d array of maze string representation
      * @param maze maze to render
      * @return char 2d array
@@ -52,18 +66,22 @@ public class CliRenderer implements Renderer {
     public @NotNull String render(final @NotNull Maze maze) {
         final char[][] field = renderCharArray(maze);
 
-        // convert char array to string
-        StringBuilder result = new StringBuilder();
-        for (char[] row : field) {
-            result.append(row);
-            result.append('\n'); // Add newline character after each row
-        }
-
-        return result.toString();
+        return convertFieldToString(field);
     }
 
     @Override
     public @NotNull String render(@NotNull Maze maze, @NotNull List<Coordinate> path) {
-        return null;
+        final char[][] field = renderCharArray(maze);
+
+        // highlight path
+        for (var coordinate : path) {
+            if (coordinate.row() < 0 || coordinate.row() >= field.length
+                || coordinate.col() < 0 || coordinate.col() >= field[0].length) {
+                throw new IllegalArgumentException("Given path is invalid!");
+            }
+            field[coordinate.row()][coordinate.col()] = mask.getHighlightedPathTexture();
+        }
+
+        return convertFieldToString(field);
     }
 }
