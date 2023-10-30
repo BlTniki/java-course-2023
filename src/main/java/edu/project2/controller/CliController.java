@@ -8,6 +8,7 @@ import edu.project2.generator.GeneratorManager;
 import edu.project2.generator.GeneratorUtils;
 import edu.project2.renderer.Renderer;
 import edu.project2.renderer.RendererManager;
+import edu.project2.solver.SolverType;
 import java.util.Scanner;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -40,6 +41,7 @@ public class CliController {
     public void run() {
         try {
             generateMazeTask();
+            solveMazeTask();
         } catch (UserInterruptException e) {
             systemLogger.info("Stopping the app...");
         }
@@ -110,5 +112,17 @@ public class CliController {
         maze = generator.generate(height, width);
         systemLogger.info("Done...");
         mazeLogger.info(renderer.render(maze));
+    }
+
+    private void solveMazeTask() {
+        // ask solver type
+        SolverType solverType;
+        final StringBuilder askSolver
+
+//        new BreadthFirstSearchSolver().solve(
+//            maze,
+//            new Coordinate(0, 1),
+//            new Coordinate(maze.getHeight() - 1, maze.getWidth() - 2)
+//        );
     }
 }

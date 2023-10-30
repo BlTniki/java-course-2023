@@ -18,7 +18,7 @@ public class GeneratorManager {
      * @param type algorithm type
      * @return Generator instance
      */
-    public @NotNull Generator getInstanceOf(GenerationType type) {
+    public @NotNull Generator getInstanceOf(@NotNull GenerationType type) {
         switch (type) {
             case RecursiveDivision -> {
                 return new RecursiveDivisionGenerator(random);
