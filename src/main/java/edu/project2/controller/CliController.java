@@ -129,6 +129,7 @@ public class CliController {
         mazeLogger.info(renderer.render(maze));
     }
 
+    @SuppressWarnings("checkstyle:CyclomaticComplexity")
     private void solveMazeTask() {
         // ask solver type
         SolverType solverType;
