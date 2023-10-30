@@ -1,5 +1,6 @@
 package edu.project2.controller;
 
+import edu.project2.Cell;
 import edu.project2.Coordinate;
 import edu.project2.Maze;
 import edu.project2.UserInterruptException;
@@ -49,6 +50,11 @@ public class CliController {
 
     public void run() {
         try {
+            systemLogger.info("""
+
+            Welcome to the greatest maze generator! Maze solver included! (Applause)
+            If you fill tiered at any point of our adventure you can just Ctrl+D outa here! (Recorded audience laughter)
+            """);
             generateMazeTask();
             solveMazeTask();
         } catch (UserInterruptException e) {
@@ -126,7 +132,9 @@ public class CliController {
     private void solveMazeTask() {
         // ask solver type
         SolverType solverType;
-        final StringBuilder askSolverType = new StringBuilder("\nChoose solving maze algorithm (type a num):");
+        final StringBuilder askSolverType = new StringBuilder(
+            "\nChoose solving maze algorithm (type a num):"
+        );
         final SolverType[] solverTypes = SolverType.values();
         for (int i = 0; i < solverTypes.length; i++) {
             askSolverType.append(TYPE_LINE.formatted(i, solverTypes[i].toString()));
@@ -163,7 +171,7 @@ public class CliController {
         // start point
         while (true) {
             final String startAnswer = readUserInput(
-                "start point (def: %d %d):".formatted(defStart.row(), defStart.col())
+                "\nstart point (def: %d %d):".formatted(defStart.row(), defStart.col())
             );
             if (startAnswer == null) {
                 throw new UserInterruptException();
@@ -189,7 +197,7 @@ public class CliController {
         // end point
         while (true) {
             final String startAnswer = readUserInput(
-                "end point (def: %d %d):".formatted(defEnd.row(), defEnd.col())
+                "\nend point (def: %d %d):".formatted(defEnd.row(), defEnd.col())
             );
             if (startAnswer == null) {
                 throw new UserInterruptException();
