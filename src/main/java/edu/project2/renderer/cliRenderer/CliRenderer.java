@@ -14,6 +14,11 @@ public class CliRenderer implements Renderer {
         this.mask = mask;
     }
 
+    /**
+     * Returns char 2d array of maze string representation
+     * @param maze maze to render
+     * @return char 2d array
+     */
     private char[][] renderCharArray(final @NotNull Maze maze) {
         final char[][] field = new char[maze.getHeight()][maze.getWidth()];
 
