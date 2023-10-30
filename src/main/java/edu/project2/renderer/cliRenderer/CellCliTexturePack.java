@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Range;
  * LAST CHARACTER MUST REPRESENT PASSAGE.
  */
 public enum CellCliTexturePack {
-    BASIC("·╷╶┌╵│└├╴┐─┬┘┤┴┼. ");
+    BASIC("·╷╶┌╵│└├╴┐─┬┘┤┴┼▉ ");
 
     private final String texturePack;
 
