@@ -13,8 +13,9 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("checkstyle:MultipleStringLiterals")
+
 public class CliController {
+    private final static String BAD_INPUT_MESSAGE = "BAD INPUT! try again...";
     private final Logger mazeLogger;
     private final Logger systemLogger;
     private final Scanner scanner;
@@ -71,7 +72,7 @@ public class CliController {
                 final int genTypeIndex = Integer.parseInt(genTypeAnswer);
                 genType = genTypesArr[genTypeIndex];
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                systemLogger.info("BAD INPUT! Try again...");
+                systemLogger.info(BAD_INPUT_MESSAGE);
                 continue;
             }
             break;
@@ -89,14 +90,14 @@ public class CliController {
                 throw new UserInterruptException();
             }
             if (!mazeSizeAnswer.matches("^[0-9]+x[0-9]+$")) {
-                systemLogger.info("BAD INPUT! Try again...");
+                systemLogger.info(BAD_INPUT_MESSAGE);
                 continue;
             }
             final String[] mazeSizeAnswerSplit = mazeSizeAnswer.split("x");
             final int tmpHeight = Integer.parseInt(mazeSizeAnswerSplit[0]);
             final int tmpWidth = Integer.parseInt(mazeSizeAnswerSplit[1]);
             if (tmpHeight < GeneratorUtils.MIN_MAZE_HEIGHT || tmpWidth < GeneratorUtils.MIN_MAZE_WIDTH) {
-                systemLogger.info("BAD INPUT! Try again...");
+                systemLogger.info(BAD_INPUT_MESSAGE);
                 continue;
             }
             height = tmpHeight;
