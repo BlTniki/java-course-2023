@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class CliRenderer implements Renderer {
     private final CliMask mask;
 
-    public CliRenderer(CliMask mask) {
+    public CliRenderer(@NotNull CliMask mask) {
         this.mask = mask;
     }
 
@@ -58,7 +58,7 @@ public class CliRenderer implements Renderer {
     }
 
     @Override
-    public String render(Maze maze, List<Coordinate> path) {
+    public @NotNull String render(@NotNull Maze maze, @NotNull List<Coordinate> path) {
         return null;
     }
 }
