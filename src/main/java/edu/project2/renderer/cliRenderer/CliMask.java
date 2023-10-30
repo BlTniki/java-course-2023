@@ -59,4 +59,12 @@ public class CliMask {
     public char getPassageTexture() {
         return texturePack.getPassageTexture();
     }
+
+    /**
+     * Returns highlighted path texture from texture pack.
+     * @return highlighted path texture
+     */
+    public char getHighlightedPathTexture() {
+        return texturePack.getHighlightedPathTexture();
+    }
 }
