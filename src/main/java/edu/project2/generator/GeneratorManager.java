@@ -3,7 +3,7 @@ package edu.project2.generator;
 import java.util.Random;
 
 public class GeneratorManager {
-    private Random random;
+    private final Random random;
 
     public GeneratorManager(Random random) {
         this.random = random;
