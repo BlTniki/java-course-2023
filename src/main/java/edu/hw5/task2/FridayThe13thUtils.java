@@ -52,16 +52,4 @@ public final class FridayThe13thUtils {
 
         return goodFridaysThe13th.getFirst();
     }
-
-    public static void main(String[] args) {
-        int year1 = 1925;
-        int year2 = 2024;
-
-        System.out.println("Fridays the 13th in " + year1 + ": " + findFridaysThe13th(year1));
-        System.out.println("Fridays the 13th in " + year2 + ": " + findFridaysThe13th(year2));
-
-        LocalDate currentDate = LocalDate.now();
-        LocalDate nextFridayThe13th = findNextFridayThe13th(currentDate);
-        System.out.println("Next Friday the 13th after " + currentDate + ": " + nextFridayThe13th);
-    }
 }
