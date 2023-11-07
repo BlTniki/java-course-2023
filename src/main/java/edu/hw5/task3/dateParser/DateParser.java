@@ -1,8 +1,8 @@
 package edu.hw5.task3.dateParser;
 
-import org.jetbrains.annotations.NotNull;
 import java.time.LocalDate;
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class DateParser {
     DateParser nextParser;
@@ -17,10 +17,6 @@ public abstract class DateParser {
      * @return parsed day or empty Optional
      */
     public abstract @NotNull Optional<LocalDate> parse(@NotNull String dateToParse);
-
-    public DateParser getNextParser() {
-        return nextParser;
-    }
 
     public DateParser link(@NotNull DateParser nextParser) {
         this.nextParser = nextParser;
