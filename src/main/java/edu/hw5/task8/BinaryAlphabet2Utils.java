@@ -1,7 +1,7 @@
 package edu.hw5.task8;
 
-import org.jetbrains.annotations.NotNull;
 import java.util.regex.Pattern;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * If BinaryAlphabetUtils was so good why there no BinaryAlphabetUtils2....
