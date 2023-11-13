@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AnimalUtilsTest {
     @Test
+    @DisplayName("Сортировка животных по высоте в порядке возрастания")
     void sortAnimalsByHeightASC() {
         Animal cat = new Animal("Cat", Animal.Type.CAT, Animal.Sex.M, 2, 30, 5, true);
         Animal dog = new Animal("Dog", Animal.Type.DOG, Animal.Sex.M, 3, 40, 8, true);
@@ -24,6 +26,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Сортировка животных по весу в порядке убывания")
     void sortAnimalsByWeightDESC() {
         Animal cat = new Animal("Cat", Animal.Type.CAT, Animal.Sex.M, 2, 30, 5, true);
         Animal dog = new Animal("Dog", Animal.Type.DOG, Animal.Sex.M, 3, 40, 8, true);
@@ -39,6 +42,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Подсчет количества животных по типу")
     void countAnimalsByType() {
         Animal cat = new Animal("Cat", Animal.Type.CAT, Animal.Sex.M, 2, 30, 5, true);
         Animal dog = new Animal("Dog", Animal.Type.DOG, Animal.Sex.M, 3, 40, 8, true);
@@ -55,6 +59,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Поиск животного с самым длинным именем")
     void findAnimalWithLongestName() {
         Animal cat = new Animal("Cat", Animal.Type.CAT, Animal.Sex.M, 2, 30, 5, true);
         Animal dog = new Animal("Dog", Animal.Type.DOG, Animal.Sex.M, 3, 40, 8, true);
@@ -69,6 +74,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Поиск самого частого пола среди животных")
     void findMostFrequentSex() {
         Animal cat1 = new Animal("Cat1", Animal.Type.CAT, Animal.Sex.M, 2, 30, 5, true);
         Animal cat2 = new Animal("Cat2", Animal.Type.CAT, Animal.Sex.M, 3, 25, 6, true);
@@ -84,6 +90,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Поиск самого тяжелого животного каждого типа")
     void findHeaviesAnimalOfType() {
         Animal cat1 = new Animal("Cat1", Animal.Type.CAT, Animal.Sex.M, 2, 30, 5, true);
         Animal cat2 = new Animal("Cat2", Animal.Type.CAT, Animal.Sex.F, 3, 25, 6, true);
@@ -102,6 +109,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Поиск k самых старших животных среди всех")
     void kMostOldestAnimal_valid() {
         Animal cat1 = new Animal("Cat1", Animal.Type.CAT, Animal.Sex.M, 2, 30, 5, true);
         Animal cat2 = new Animal("Cat2", Animal.Type.CAT, Animal.Sex.F, 5, 25, 6, true);
@@ -118,6 +126,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Поиск k самых старших животных среди всех (некорректные входные данные)")
     void kMostOldestAnimal_invalid() {
         Animal cat1 = new Animal("Cat1", Animal.Type.CAT, Animal.Sex.M, 2, 30, 5, true);
         Animal cat2 = new Animal("Cat2", Animal.Type.CAT, Animal.Sex.F, 5, 25, 6, true);
@@ -134,6 +143,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Поиск самого тяжелого животного с высотой больше K")
     void mostHeaviestAnimalThatKcmHeight() {
         Animal cat1 = new Animal("Cat1", Animal.Type.CAT, Animal.Sex.M, 2, 30, 5, true);
         Animal cat2 = new Animal("Cat2", Animal.Type.CAT, Animal.Sex.F, 5, 25, 6, true);
@@ -150,6 +160,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Подсчет общего количества ног у всех животных (корректные входные данные)")
     void countLegsOfAllAnimals_valid() {
         Animal cat1 = new Animal("Cat1", Animal.Type.CAT, Animal.Sex.M, 2, 30, 5, true);
         Animal cat2 = new Animal("Cat2", Animal.Type.CAT, Animal.Sex.F, 5, 25, 6, true);
@@ -164,6 +175,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Подсчет общего количества ног у всех животных (некорректные входные данные)")
     void countLegsOfAllAnimals_invalid() {
         List<Animal> animals = List.of();
 
@@ -173,6 +185,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Поиск животных с несовпадающим возрастом и количеством лап")
     public void testFindAnimalsWithMismatchedAgeAndPaws() {
         Animal cat = new Animal("Whiskers", Animal.Type.CAT, Animal.Sex.M, 3, 4, 5, false);
         Animal dog = new Animal("Fido", Animal.Type.DOG, Animal.Sex.M, 4, 4, 6, true);
@@ -184,7 +197,8 @@ class AnimalUtilsTest {
     }
 
     @Test
-    public void testFindAnimalsThatBitesAndHigherThan100cm() {
+    @DisplayName("Найти животных, кусающих и превышающих рост в 100 см")
+    public void testFindAnimalsThatBitesAndHigherThanKcm() {
         Animal dog = new Animal("Fido", Animal.Type.DOG, Animal.Sex.M, 5, 120, 6, true);
         Animal cat = new Animal("Whiskers", Animal.Type.CAT, Animal.Sex.M, 3, 90, 5, false);
         Animal cat2 = new Animal("Whiskers", Animal.Type.CAT, Animal.Sex.M, 3, 150, 5, false);
@@ -196,6 +210,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Подсчитать количество животных с весом больше высоты")
     public void testCountAnimalsWhoseWeightExceedsHeight() {
         Animal cat = new Animal("Whiskers", Animal.Type.CAT, Animal.Sex.M, 3, 90, 5, false);
         Animal dog = new Animal("Fido", Animal.Type.DOG, Animal.Sex.M, 5, 120, 6, true);
@@ -209,6 +224,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Животные с именами из нескольких слов")
     public void testAnimalsWithMultiWordNames() {
         Animal animal1 = new Animal("Fluffy Cat", Animal.Type.CAT, Animal.Sex.M, 3, 90, 5, false);
         Animal animal2 = new Animal("Big Brown Dog", Animal.Type.DOG, Animal.Sex.M, 5, 120, 6, true);
@@ -220,6 +236,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Вычислить общий вес животных определенного возраста")
     public void testHasTallDog() {
         Animal cat = new Animal("Whiskers", Animal.Type.CAT, Animal.Sex.M, 3, 90, 5, false);
         Animal dog = new Animal("Fido", Animal.Type.DOG, Animal.Sex.M, 5, 120, 6, true);
@@ -231,6 +248,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Проверить наличие высоких собак")
     public void testCalculateTotalWeightByAnimalsThatAgeBetween() {
         Animal cat = new Animal("Whiskers", Animal.Type.CAT, Animal.Sex.M, 3, 90, 5, false);
         Animal dog = new Animal("Fido", Animal.Type.DOG, Animal.Sex.M, 5, 120, 6, true);
@@ -243,6 +261,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Отсортировать животных по типу, полу и имени по возрастанию")
     void sortAnimalsByTypeAscBySexAscByNameAsc() {
         Animal cat1 = new Animal("Cat1", Animal.Type.CAT, Animal.Sex.M, 2, 25, 10, true);
         Animal cat2 = new Animal("Cat2", Animal.Type.CAT, Animal.Sex.F, 3, 22, 9, true);
@@ -255,6 +274,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Пауки должны кусать чаще, чем собаки")
     void spidersBiteMoreThatDogs() {
         Animal spider = new Animal("Spider1", Animal.Type.SPIDER, Animal.Sex.M, 1, 5, 1, true);
         Animal spider2 = new Animal("Spider1", Animal.Type.SPIDER, Animal.Sex.M, 1, 5, 1, false);
@@ -269,6 +289,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Самая тяжелая рыба во всех коллекциях")
     void theMostHeavierFishInAllCollections() {
         Animal fish1 = new Animal("Fish1", Animal.Type.FISH, Animal.Sex.M, 2, 10, 3, true);
         Animal fish2 = new Animal("Fish2", Animal.Type.FISH, Animal.Sex.F, 1, 12, 6, true);
@@ -284,6 +305,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Найти неверно заданных животных")
     void findInvalidAnimals() {
         Animal validAnimal = new Animal("ValidAnimal", Animal.Type.CAT, Animal.Sex.F, 2, 20, 8, true);
         Animal invalidType = new Animal("InvalidTypeAnimal", null, Animal.Sex.F, 2, 20, 8, true);
@@ -301,6 +323,7 @@ class AnimalUtilsTest {
     }
 
     @Test
+    @DisplayName("Найти неверно заданных животных и представить в строковом виде")
     void findInvalidAnimalsToString() {
         Animal validAnimal = new Animal("ValidAnimal", Animal.Type.CAT, Animal.Sex.F, 2, 20, 8, true);
         Animal invalidType = new Animal("InvalidTypeAnimal", null, Animal.Sex.F, 2, 20, 8, true);
