@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public final class AnimalUtils {
     private AnimalUtils() {
@@ -17,7 +19,7 @@ public final class AnimalUtils {
     /*
     task 1
      */
-    public static List<Animal> sortAnimalsByHeightASC(Collection<Animal> animals) {
+    public static List<Animal> sortAnimalsByHeightASC(@NotNull Collection<Animal> animals) {
         return animals.stream()
             .sorted(Comparator.comparingInt(Animal::height))
             .toList();
@@ -26,7 +28,7 @@ public final class AnimalUtils {
     /*
     task 2
      */
-    public static List<Animal> sortAnimalsByWeightDESC(Collection<Animal> animals) {
+    public static List<Animal> sortAnimalsByWeightDESC(@NotNull Collection<Animal> animals) {
         return animals.stream()
             .sorted(Comparator.comparingInt(Animal::weight).reversed())
             .toList();
@@ -35,7 +37,7 @@ public final class AnimalUtils {
     /*
     task 3
      */
-    public static Map<Animal.Type, Long> countAnimalsByType(Collection<Animal> animals) {
+    public static Map<Animal.Type, Long> countAnimalsByType(@NotNull Collection<Animal> animals) {
         return animals.stream()
             .collect(Collectors.groupingBy(Animal::type, Collectors.counting()));
     }
@@ -43,7 +45,7 @@ public final class AnimalUtils {
     /*
     task 4
      */
-    public static Animal findAnimalWithLongestName(Collection<Animal> animals) {
+    public static Animal findAnimalWithLongestName(@NotNull Collection<Animal> animals) {
         return animals.stream()
             .max(Comparator.comparingInt(a -> a.name().length()))
             .orElse(null);
@@ -52,7 +54,7 @@ public final class AnimalUtils {
     /*
     task 5
      */
-    public static Animal.Sex findMostFrequentSex(Collection<Animal> animals) {
+    public static Animal.Sex findMostFrequentSex(@NotNull Collection<Animal> animals) {
         return animals.stream()
             .collect(Collectors.groupingBy(Animal::sex, Collectors.counting()))
             .entrySet()
@@ -65,7 +67,7 @@ public final class AnimalUtils {
     /*
     task 6
      */
-    public static Map<Animal.Type, Animal> findHeaviesAnimalOfType(Collection<Animal> animals) {
+    public static Map<Animal.Type, Animal> findHeaviesAnimalOfType(@NotNull Collection<Animal> animals) {
         return animals.stream()
             .collect(Collectors.groupingBy(
                 Animal::type,
@@ -79,8 +81,7 @@ public final class AnimalUtils {
     /*
     task 7
      */
-    // TODO: Проверить на отрицательных к
-    public static Animal kMostOldestAnimal(Collection<Animal> animals, int k) {
+    public static @Nullable Animal kMostOldestAnimal(@NotNull Collection<Animal> animals, int k) {
         if (k < 1) {
             return null;
         }
@@ -94,7 +95,7 @@ public final class AnimalUtils {
     /*
     task 8
      */
-    public static Optional<Animal> mostHeaviestAnimalThatKcmHeight(Collection<Animal> animals, int k) {
+    public static @NotNull Optional<Animal> mostHeaviestAnimalThatKcmHeight(@NotNull Collection<Animal> animals, int k) {
         return animals.stream()
             .filter(animal -> animal.height() < k)
             .max(Comparator.comparingInt(Animal::weight));
@@ -103,8 +104,7 @@ public final class AnimalUtils {
     /*
     task 9
      */
-    // TODO Проверить на пустом списке
-    public static int countLegsOfAllAnimals(Collection<Animal> animals) {
+    public static int countLegsOfAllAnimals(@NotNull Collection<Animal> animals) {
         return animals.stream()
             .mapToInt(Animal::paws)
             .sum();
@@ -113,7 +113,7 @@ public final class AnimalUtils {
     /*
     task 10
      */
-    public static List<Animal> findAnimalsWithMismatchedAgeAndPaws(Collection<Animal> animals) {
+    public static List<Animal> findAnimalsWithMismatchedAgeAndPaws(@NotNull Collection<Animal> animals) {
         return animals.stream()
             .filter(animal -> animal.paws() != animal.age())
             .collect(Collectors.toList());
@@ -123,7 +123,7 @@ public final class AnimalUtils {
     task 11
      */
     @SuppressWarnings("checkstyle:MagicNumber")
-    public static List<Animal> findAnimalsThatBitesAndHigherThan100cm(Collection<Animal> animals) {
+    public static List<Animal> findAnimalsThatBitesAndHigherThan100cm(@NotNull Collection<Animal> animals) {
         return animals.stream()
             .filter(animal -> animal.bites() && animal.height() > 100)
             .collect(Collectors.toList());
@@ -132,7 +132,7 @@ public final class AnimalUtils {
     /*
     task 12
      */
-    public static Long countAnimalsWhoseWeightExceedsHeight(Collection<Animal> animals) {
+    public static @NotNull Long countAnimalsWhoseWeightExceedsHeight(@NotNull Collection<Animal> animals) {
         return animals.stream()
             .filter(animal -> animal.weight() > animal.height())
             .count();
@@ -141,7 +141,7 @@ public final class AnimalUtils {
     /*
     task 13
      */
-    public static List<Animal> animalsWithMultiWordNames(List<Animal> animals) {
+    public static List<Animal> animalsWithMultiWordNames(@NotNull List<Animal> animals) {
         return animals.stream()
             .filter(animal -> {
                 String[] words = animal.name().split(" ");
@@ -153,7 +153,7 @@ public final class AnimalUtils {
     /*
     task 14
      */
-    public static boolean hasTallDog(List<Animal> animals, int k) {
+    public static boolean hasTallDog(@NotNull List<Animal> animals, int k) {
         return animals.stream()
             .anyMatch(animal -> animal.type() == Animal.Type.DOG && animal.height() > k);
     }
@@ -161,7 +161,7 @@ public final class AnimalUtils {
     /*
     task 15
      */
-    public static Integer calculateTotalWeightByAnimalsThatAgeBetween(
+    public static @NotNull Integer calculateTotalWeightByAnimalsThatAgeBetween(
         List<Animal> animals, int k, int l) {
         return animals.stream()
             .filter(animal -> animal.age() >= k && animal.age() <= l)
@@ -172,7 +172,7 @@ public final class AnimalUtils {
     /*
     task 16
      */
-    public static List<Animal> sortAnimalsByTypeAscBySexAscByNameAsc(List<Animal> animals) {
+    public static List<Animal> sortAnimalsByTypeAscBySexAscByNameAsc(@NotNull List<Animal> animals) {
         return animals.stream()
             .sorted(Comparator.comparing(Animal::type)
                 .thenComparing(Animal::sex)
@@ -183,7 +183,7 @@ public final class AnimalUtils {
     /*
     task 17
      */
-    public static boolean spidersBiteMoreThatDogs(Collection<Animal> animals) {
+    public static boolean spidersBiteMoreThatDogs(@NotNull Collection<Animal> animals) {
         final int animalsEnoughForAnswer = 1;
 
         var typeCount = countAnimalsByType(animals);
@@ -204,7 +204,7 @@ public final class AnimalUtils {
     /*
     task 18
      */
-    public static Animal theMostHeavierFishInAllCollections(Collection<Collection<Animal>> animals) {
+    public static Animal theMostHeavierFishInAllCollections(@NotNull Collection<Collection<Animal>> animals) {
         return animals.stream()
             .flatMap(Collection::stream)
             .filter(animal -> animal.type().equals(Animal.Type.FISH))
@@ -220,7 +220,7 @@ public final class AnimalUtils {
     }
 
     @SuppressWarnings("checkstyle:InnerTypeLast")
-    public static Map<String, Set<ValidationError>> findInvalidAnimals(Collection<Animal> animals) {
+    public static @NotNull Map<String, Set<ValidationError>> findInvalidAnimals(@NotNull Collection<Animal> animals) {
         Map<String, Set<ValidationError>> invalidAnimals = new HashMap<>();
 
         for (Animal animal : animals) {
@@ -250,7 +250,7 @@ public final class AnimalUtils {
     task 20
      */
     @SuppressWarnings("checkstyle:InnerTypeLast")
-    public static Map<String, String> findInvalidAnimalsToString(Collection<Animal> animals) {
+    public static Map<String, String> findInvalidAnimalsToString(@NotNull Collection<Animal> animals) {
         return findInvalidAnimals(animals).entrySet().stream()
             .collect(Collectors.toMap(
                 Map.Entry::getKey,
