@@ -124,10 +124,9 @@ public final class AnimalUtils {
     /*
     task 11
      */
-    @SuppressWarnings("checkstyle:MagicNumber")
-    public static List<Animal> findAnimalsThatBitesAndHigherThan100cm(@NotNull Collection<Animal> animals) {
+    public static List<Animal> findAnimalsThatBitesAndHigherThanKcm(@NotNull Collection<Animal> animals, int k) {
         return animals.stream()
-            .filter(animal -> animal.bites() && animal.height() > 100)
+            .filter(animal -> animal.bites() && animal.height() > k)
             .collect(Collectors.toList());
     }
 

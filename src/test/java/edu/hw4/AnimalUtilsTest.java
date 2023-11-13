@@ -190,7 +190,7 @@ class AnimalUtilsTest {
         Animal cat2 = new Animal("Whiskers", Animal.Type.CAT, Animal.Sex.M, 3, 150, 5, false);
         List<Animal> animals = List.of(dog, cat, cat2);
 
-        List<Animal> result = AnimalUtils.findAnimalsThatBitesAndHigherThan100cm(animals);
+        List<Animal> result = AnimalUtils.findAnimalsThatBitesAndHigherThanKcm(animals, 100);
 
         assertThat(result).containsExactly(dog);
     }
