@@ -189,17 +189,24 @@ public final class AnimalUtils {
 
         var typeCount = countAnimalsByType(animals);
 
+        long spidersCount = typeCount.getOrDefault(Animal.Type.SPIDER, 0L);
+        long dogCount = typeCount.getOrDefault(Animal.Type.DOG, 0L);
+
+        if (spidersCount < animalsEnoughForAnswer || dogCount < animalsEnoughForAnswer) {
+            return false;
+        }
+
         long spiderBites = animals.stream()
             .filter(animal -> animal.type() == Animal.Type.SPIDER && animal.bites())
             .count();
-
         long dogBites = animals.stream()
             .filter(animal -> animal.type() == Animal.Type.DOG && animal.bites())
             .count();
 
-        return typeCount.containsKey(Animal.Type.SPIDER) && typeCount.get(Animal.Type.SPIDER) > animalsEnoughForAnswer
-            && typeCount.containsKey(Animal.Type.DOG) && typeCount.get(Animal.Type.DOG) > animalsEnoughForAnswer
-    && (double) spiderBites / typeCount.get(Animal.Type.SPIDER) > (double) dogBites / typeCount.get(Animal.Type.DOG);
+        double bytesSpidersRatio = (double) spiderBites / spidersCount;
+        double bytesDogsRatio = (double) dogBites / dogCount;
+
+        return bytesSpidersRatio > bytesDogsRatio;
     }
 
     /*
