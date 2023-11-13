@@ -95,7 +95,9 @@ public final class AnimalUtils {
     /*
     task 8
      */
-    public static @NotNull Optional<Animal> mostHeaviestAnimalThatKcmHeight(@NotNull Collection<Animal> animals, int k) {
+    public static @NotNull Optional<Animal> mostHeaviestAnimalThatKcmHeight(
+        @NotNull Collection<Animal> animals, int k
+    ) {
         return animals.stream()
             .filter(animal -> animal.height() < k)
             .max(Comparator.comparingInt(Animal::weight));
