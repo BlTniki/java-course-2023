@@ -1,5 +1,6 @@
 package edu.hw5.task7;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -67,6 +68,7 @@ class BinaryAlphabetUtilsTest {
 
     @ParameterizedTest
     @MethodSource("atLeast3LettersAndEndsWith0")
+    @DisplayName("Проверка, содержит ли строка по крайней мере 3 буквы и заканчивается на 0")
     void isAtLeast3LettersAndEndsWith0(String string, boolean expected) {
         assertThat(BinaryAlphabetUtils.isAtLeast3LettersAndEndsWith0(string))
             .isEqualTo(expected);
@@ -74,6 +76,7 @@ class BinaryAlphabetUtilsTest {
 
     @ParameterizedTest
     @MethodSource("startsAndEndsWithSameLetter")
+    @DisplayName("Проверка, начинается и заканчивается ли строка одной и той же буквой")
     void isStartsAndEndsWithSameLetter(String string, boolean expected) {
         assertThat(BinaryAlphabetUtils.isStartsAndEndsWithSameLetter(string))
             .isEqualTo(expected);
@@ -81,6 +84,7 @@ class BinaryAlphabetUtilsTest {
 
     @ParameterizedTest
     @MethodSource("startsSizeBetween1And3")
+    @DisplayName("Проверка, имеет ли строка размер между 1 и 3 символами")
     void isSizeBetween1And3(String string, boolean expected) {
         assertThat(BinaryAlphabetUtils.isSizeBetween1And3(string))
             .isEqualTo(expected);

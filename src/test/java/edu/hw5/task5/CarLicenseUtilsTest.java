@@ -1,5 +1,6 @@
 package edu.hw5.task5;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -35,6 +36,7 @@ class CarLicenseUtilsTest {
 
     @ParameterizedTest
     @MethodSource("licenses")
+    @DisplayName("Проверка валидности автомобильной лицензии")
     void isLicenseValid(String license, boolean expected) {
         assertThat(CarLicenseUtils.isLicenseValid(license))
             .isEqualTo(expected);

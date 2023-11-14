@@ -2,6 +2,7 @@ package edu.hw5.task1;
 
 import java.time.Duration;
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -30,6 +31,7 @@ class ComputerClubUtilsTest {
 
     @ParameterizedTest
     @MethodSource("valid_sessions")
+    @DisplayName("Проверка корректного вычисления общей длительности сессии")
     void calculateTotalDuration_valid(String session, Duration expected) {
         // when
         Duration actual = ComputerClubUtils.parseDuration(session);
@@ -40,12 +42,14 @@ class ComputerClubUtilsTest {
 
     @ParameterizedTest
     @MethodSource("invalid_sessions")
+    @DisplayName("Проверка обработки исключения для некорректной сессии")
     void calculateTotalDuration_invalid(String session) {
         assertThatThrownBy(() -> ComputerClubUtils.parseDuration(session))
             .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
+    @DisplayName("Проверка вычисления общей длительности")
     public void CalculateAvgDuration() {
         List<String> sessions = List.of(
             "2022-03-12, 20:20 - 2022-03-12, 23:50",
@@ -57,6 +61,7 @@ class ComputerClubUtilsTest {
     }
 
     @Test
+    @DisplayName("Проверка вычисления общей длительности с пустым списком сессий")
     public void testCalculateTotalDurationWithEmptyList() {
         List<String> sessions = List.of();
         Duration totalDuration = ComputerClubUtils.calculateAvgDuration(sessions);
@@ -64,6 +69,7 @@ class ComputerClubUtilsTest {
     }
 
     @Test
+    @DisplayName("Проверка вычисления общей длительности с единственной сессией")
     public void testCalculateTotalDurationWithSingleSession() {
         List<String> sessions = List.of("2022-03-12, 20:20 - 2022-03-12, 22:20");
         Duration totalDuration = ComputerClubUtils.calculateAvgDuration(sessions);

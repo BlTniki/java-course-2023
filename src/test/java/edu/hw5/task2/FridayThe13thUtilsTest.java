@@ -2,11 +2,13 @@ package edu.hw5.task2;
 
 import java.time.LocalDate;
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class FridayThe13thUtilsTest {
     @Test
+    @DisplayName("Поиск пятниц 13-го в 2023 году должен возвращать корректные даты")
     void findFridaysThe13th_shouldReturnCorrectDatesForYear2023() {
         // given
         int year = 2023;
@@ -23,6 +25,7 @@ class FridayThe13thUtilsTest {
     }
 
     @Test
+    @DisplayName("Поиск следующей пятницы 13-го после заданной даты должен возвращать корректную дату")
     void findNextFridayThe13th_shouldReturnCorrectDateAfterGivenDate() {
         // given
         LocalDate inputDate = LocalDate.of(2023, 11, 1);
