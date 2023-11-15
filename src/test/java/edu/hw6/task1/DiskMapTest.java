@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class DiskMapTest {
@@ -18,8 +19,10 @@ class DiskMapTest {
     }
 
     @Test
+    @DisplayName("Проверим сохранение и загрузку карты")
     void putAndGet() {
         DiskMap diskMap = new DiskMap(TEST_FILE_PATH);
+
         diskMap.put("key1", "value1");
         diskMap.put("key2", "value2");
 
@@ -29,40 +32,34 @@ class DiskMapTest {
         Assertions.assertThat(diskMap.get("key2")).isEqualTo("value2");
     }
 
-//    @Test
-//    void size() {
-//        diskMap.put("key1", "value1");
-//        diskMap.put("key2", "value2");
-//
-//        Assertions.assertThat(diskMap.size()).isEqualTo(2);
-//    }
-//
-//    @Test
-//    void remove() {
-//        diskMap.put("key1", "value1");
-//        diskMap.put("key2", "value2");
-//
-//        Assertions.assertThat(diskMap.remove("key1")).isEqualTo("value1");
-//        Assertions.assertThat(diskMap.size()).isEqualTo(1);
-//        Assertions.assertThat(diskMap.get("key1")).isNull();
-//    }
-//
-//    @Test
-//    void containsKey() {
-//        diskMap.put("key1", "value1");
-//        diskMap.put("key2", "value2");
-//
-//        Assertions.assertThat(diskMap.containsKey("key1")).isTrue();
-//        Assertions.assertThat(diskMap.containsKey("nonexistentKey")).isFalse();
-//    }
-//
-//    @Test
-//    void containsValue() {
-//        diskMap.put("key1", "value1");
-//        diskMap.put("key2", "value2");
-//
-//        Assertions.assertThat(diskMap.containsValue("value1")).isTrue();
-//        Assertions.assertThat(diskMap.containsValue("nonexistentValue")).isFalse();
-//    }
+    @Test
+    @DisplayName("Проверим сохранение и загрузку строк с двоеточием")
+    void putAndGetStringWithDoubleDot() {
+        DiskMap diskMap = new DiskMap(TEST_FILE_PATH);
+
+        diskMap.put("ke:y1", "val:ue1");
+
+        diskMap = new DiskMap(TEST_FILE_PATH);
+
+        Assertions.assertThat(diskMap.get("ke:y1")).isEqualTo("val:ue1");
+    }
+
+    @Test
+    @DisplayName("Проверим удаление из карты")
+    void remove() {
+        DiskMap diskMap = new DiskMap(TEST_FILE_PATH);
+
+        diskMap.put("key1", "value1");
+        diskMap.put("key2", "value2");
+
+        diskMap = new DiskMap(TEST_FILE_PATH);
+
+        diskMap.remove("key1");
+
+        diskMap = new DiskMap(TEST_FILE_PATH);
+
+        Assertions.assertThat(diskMap.size()).isEqualTo(1);
+        Assertions.assertThat(diskMap.get("key1")).isNull();
+    }
 
 }
