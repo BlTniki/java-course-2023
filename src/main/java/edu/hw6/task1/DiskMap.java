@@ -10,9 +10,21 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.jetbrains.annotations.NotNull;
 
 public class DiskMap implements Map<String, String> {
+    /*
+    Regex for line like "key:value".
+    This pattern assumes that the ":" symbol inside the key or value is escaped using "\".
+    String like "l\:ol:ke\:k" will interpreted as key as "l:ol" and value as "ke:k".
+     */
+    private final static Pattern KEY_VAL_LINE = Pattern.compile("^(.*[^\\\\]):(.*)$");
+    private final static int KEY_GROUP_INDEX = 1;
+    private final static int VALUE_GROUP_INDEX = 2;
+    private final static String DOUBLE_DOT = ":";
+    private final static String ESCAPED_DOUBLE_DOT = "\\:";
 
     private Map<String, String> inMemoryMap;
     private String filePath;
@@ -23,14 +35,25 @@ public class DiskMap implements Map<String, String> {
         loadFromFile();
     }
 
+    private @NotNull String doubleDotEscape(@NotNull String s) {
+        return s.replace(DOUBLE_DOT, ESCAPED_DOUBLE_DOT);
+    }
+
+    private @NotNull String removeDoubleDotEscape(@NotNull String s) {
+        return s.replace(ESCAPED_DOUBLE_DOT, DOUBLE_DOT);
+    }
+
     private void loadFromFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(":");
-                if (parts.length == 2) {
-                    inMemoryMap.put(parts[0], parts[1]);
+                final Matcher matcher = KEY_VAL_LINE.matcher(line);
+                if (!matcher.matches()) {
+                    throw new RuntimeException("Bad key value pair: {%s}".formatted(line));
                 }
+                final String key = removeDoubleDotEscape(matcher.group(KEY_GROUP_INDEX));
+                final String val = removeDoubleDotEscape(matcher.group(VALUE_GROUP_INDEX));
+                inMemoryMap.put(key, val);
             }
         } catch (FileNotFoundException e) {
             // pass
@@ -42,7 +65,9 @@ public class DiskMap implements Map<String, String> {
     private void saveToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Map.Entry<String, String> entry : inMemoryMap.entrySet()) {
-                writer.write(entry.getKey() + ":" + entry.getValue());
+                writer.write(
+                    doubleDotEscape(entry.getKey()) + DOUBLE_DOT + doubleDotEscape(entry.getValue())
+                );
                 writer.newLine();
             }
         } catch (IOException e) {
