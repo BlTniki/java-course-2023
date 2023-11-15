@@ -26,8 +26,8 @@ public class DiskMap implements Map<String, String> {
     private final static String DOUBLE_DOT = ":";
     private final static String ESCAPED_DOUBLE_DOT = "\\:";
 
-    private Map<String, String> inMemoryMap;
-    private String filePath;
+    private final Map<String, String> inMemoryMap;
+    private final String filePath;
 
     public DiskMap(String filePath) {
         this.inMemoryMap = new HashMap<>();
