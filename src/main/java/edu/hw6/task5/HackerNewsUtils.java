@@ -24,7 +24,7 @@ public final class HackerNewsUtils {
     private static @NotNull String makeGetRequest(@NotNull String uriStr) {
         HttpResponse<String> response;
 
-        try (HttpClient client = HttpClient.newBuilder().build();) {
+        try (HttpClient client = HttpClient.newBuilder().build()) {
             final URI uri = new URI(uriStr);
             HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
