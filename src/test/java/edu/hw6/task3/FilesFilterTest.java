@@ -5,12 +5,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.StreamSupport;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class FilesFilterTest {
 
     @Test
+    @DisplayName("Проверим работу фильтров в связке")
     void check() {
         FilesFilter filter = new AttrFilesFilter(List.of(
             new AttrFilesFilter.Attr("dos:readonly", true)
