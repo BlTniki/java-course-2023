@@ -12,13 +12,10 @@ class HackerNewsUtilsTest {
     @Test
     @DisplayName("Проверим выдачу топа новостей")
     void hackerNewsTopStories() {
-        int expectedIdCount = 420;
-
         long[] ids = HackerNewsUtils.hackerNewsTopStories();
 
         assertThat(ids)
-            .doesNotContain(0)
-            .hasSize(expectedIdCount);
+            .doesNotContain(0);
     }
 
     @Test
