@@ -14,9 +14,18 @@ class AttrFilesFilterTest {
     @Test
     @DisplayName("Проверим что файлы фильтруются по атрибуту")
     void check() {
-        AttrFilesFilter filter = new AttrFilesFilter(List.of(
-            new AttrFilesFilter.Attr("dos:readonly", true)
-        ));
+        String os = System.getProperty("os.name").toLowerCase();
+
+        AttrFilesFilter filter;
+        if (os.contains("win")) {
+            filter = new AttrFilesFilter(List.of(
+                new AttrFilesFilter.Attr("dos:readonly", true)
+            ));
+        } else {
+            filter = new AttrFilesFilter(List.of(
+                new AttrFilesFilter.Attr("unix:mode", 777)
+            ));
+        }
 
         try (var ds = Files.newDirectoryStream(Path.of("./src/test/resources/files/attr"), filter)) {
             List<Path> list = StreamSupport.stream(ds.spliterator(), false).toList();
