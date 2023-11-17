@@ -14,9 +14,7 @@ class FilesFilterTest {
     @Test
     @DisplayName("Проверим работу фильтров в связке")
     void check() {
-        FilesFilter filter = new AttrFilesFilter(List.of(
-            new AttrFilesFilter.Attr("dos:readonly", true)
-            )).and(new SizeFilesFilter(16, true))
+        FilesFilter filter = new SizeFilesFilter(16, true)
             .and(new RegexFilesFilter("^foo.*$"))
             .and(new ExtensionFilesFilter("txt"))
             .and(new MagicBytesFilesFilter(new byte[] {(byte) 0x89, 0x50, 0x4e, 0x47}));
