@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 @SuppressWarnings({"checkstyle:MagicNumber", "checkstyle:MultipleStringLiterals"})
 public final class PortScannerUtils {
     private final static Logger LOGGER = LogManager.getLogger("portScanner");
+    private final static int LAST_REGISTERED_PORT = 49151;
 
     private PortScannerUtils() {
     }
@@ -72,7 +73,7 @@ public final class PortScannerUtils {
     }
 
     private static void scanPorts() {
-        for (int port = 0; port <= 49151; port++) {
+        for (int port = 0; port <= LAST_REGISTERED_PORT; port++) {
             try (ServerSocket serverSocket = new ServerSocket()) {
                 serverSocket.setReuseAddress(false);
                 serverSocket.bind(new InetSocketAddress(port), 100);
