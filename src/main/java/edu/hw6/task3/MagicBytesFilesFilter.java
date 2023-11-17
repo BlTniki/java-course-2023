@@ -15,7 +15,7 @@ public class MagicBytesFilesFilter extends FilesFilter {
     @Override
     protected boolean check(@NotNull Path entry) throws IOException {
         byte[] actualNumbers;
-        try (var stream = Files.newInputStream(entry);) {
+        try (var stream = Files.newInputStream(entry)) {
              actualNumbers = stream.readNBytes(magicNumbers.length);
         } catch (IOException e) {
             throw new RuntimeException(e);
