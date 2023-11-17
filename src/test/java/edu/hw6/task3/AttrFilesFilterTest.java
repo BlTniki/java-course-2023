@@ -29,12 +29,12 @@ class AttrFilesFilterTest {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        } else {
+        } //else {
             // Помогите....
 //            filter = new AttrFilesFilter(List.of(
 //                new AttrFilesFilter.Attr("unix:mode", 777)
 //            ));
-        }
+        //}
 
 
     }
