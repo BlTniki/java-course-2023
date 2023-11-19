@@ -42,12 +42,12 @@ class GlobScanner {
             outerLoop:
             //
             for (Iterator<String> matchIter = matches.iterator(); matchIter.hasNext();) {
-                String filePath = (String) matchIter.next();
+                String filePath = matchIter.next();
                 List<Pattern> excludePatterns = new ArrayList<>(allExcludePatterns);
                 try {
                     // Shortcut for excludes that are "**/XXX", just check file name.
                     for (Iterator<Pattern> excludeIter = excludePatterns.iterator(); excludeIter.hasNext();) {
-                        Pattern exclude = (Pattern) excludeIter.next();
+                        Pattern exclude = excludeIter.next();
                         if (exclude.values.length == 2 && exclude.values[0].equals("**")) {
                             exclude.incr();
                             String fileName = filePath.substring(filePath.lastIndexOf(File.separatorChar) + 1);
@@ -62,7 +62,7 @@ class GlobScanner {
                     String[] fileNames = filePath.split("\\\\" + File.separator);
                     for (String fileName : fileNames) {
                         for (Iterator<Pattern> excludeIter = excludePatterns.iterator(); excludeIter.hasNext();) {
-                            Pattern exclude = (Pattern) excludeIter.next();
+                            Pattern exclude = excludeIter.next();
                             if (!exclude.matchesFile(fileName)) {
                                 excludeIter.remove();
                                 continue;
@@ -159,7 +159,7 @@ class GlobScanner {
         boolean isFinalMatch = false;
         List<Pattern> incrementedPatterns = new ArrayList<>();
         for (Iterator<Pattern> iter = matchingIncludes.iterator(); iter.hasNext();) {
-            Pattern include = (Pattern) iter.next();
+            Pattern include = iter.next();
             if (include.incr(fileName)) {
                 incrementedPatterns.add(include);
                 if (include.isExhausted()) {
@@ -362,17 +362,5 @@ class GlobScanner {
         boolean wasFinalMatch() {
             return isExhausted() || (isLast() && value.equals("**"));
         }
-    }
-
-    public static void main(String[] args) {
-        List<String> includes = new ArrayList();
-        includes.add("src/**.java");
-        List<String> excludes = new ArrayList();
-        long start = System.nanoTime();
-        List<String> files = new GlobScanner(new File("."), includes, excludes, false).matches();
-        long end = System.nanoTime();
-        System.out.println(files.toString().replaceAll(", ", "\n").replaceAll("[\\[\\]]", ""));
-        System.out.println((end - start) / 1000000f);
-        System.out.println(files);
     }
 }
