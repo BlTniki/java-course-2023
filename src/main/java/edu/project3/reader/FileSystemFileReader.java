@@ -35,6 +35,7 @@ public class FileSystemFileReader implements FileReader {
             throw new BadFilePathException("Failed to understand that path: " + filepath);
         }
 
+        var tmppath = new ArrayList<>(paths);
         // filter bad paths
         paths = paths.stream()
             .filter(Files::exists)
@@ -42,7 +43,7 @@ public class FileSystemFileReader implements FileReader {
             .toList();
 
         if (paths.isEmpty()) {
-            throw new BadFilePathException("Failed to find any files by path: " + filepath);
+            throw new BadFilePathException("Failed to find any files by path: " + filepath + "\n" + tmppath);
         }
 
 
@@ -58,7 +59,7 @@ public class FileSystemFileReader implements FileReader {
     private @NotNull List<Path> getAllMatchedFiles(@NotNull String baseDir, @NotNull String pattern) {
         DirectoryScanner scanner = new DirectoryScanner();
         scanner.setIncludes(new String[] {pattern});
-        scanner.setBasedir(baseDir);
+        scanner.setBasedir(baseDir.isEmpty() ? "/" : baseDir);
         scanner.setCaseSensitive(false);
         scanner.scan();
 
