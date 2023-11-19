@@ -1,5 +1,6 @@
 package edu.project3.parser;
 
+import edu.project3.model.HttpStatus;
 import edu.project3.model.LogRecord;
 import edu.project3.model.Method;
 import java.time.Instant;
@@ -25,7 +26,7 @@ class NginxLogParserTest {
             Method.GET,
             "/amazing/path",
             "HTTP/1.1",
-            200,
+            HttpStatus.valueOf(200),
             0L,
             "referer",
             "useragent"
