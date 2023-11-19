@@ -403,8 +403,4 @@ public class Paths implements Iterable<String> {
         }
 
     }
-
-    static public void main(String[] args) throws Exception {
-        System.out.println(new Paths().glob("C:\\|test**|meow"));
-    }
 }
