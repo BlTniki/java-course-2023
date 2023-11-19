@@ -38,7 +38,7 @@ public class FileSystemFileReader implements FileReader {
         // filter bad paths
         paths = paths.stream()
             .filter(Files::exists)
-            .filter(Files::isRegularFile)
+            .filter(Files::isExecutable)
             .toList();
 
         if (paths.isEmpty()) {
