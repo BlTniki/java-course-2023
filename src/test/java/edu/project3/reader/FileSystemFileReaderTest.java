@@ -2,6 +2,7 @@ package edu.project3.reader;
 
 import edu.project3.exception.BadFilePathException;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -15,15 +16,15 @@ class FileSystemFileReaderTest {
     static Arguments[] valid_paths() {
         return new Arguments[] {
             Arguments.of(
-                "./src/test/resources/filesForProject3/foo1",
+                "src/test/resources/filesForProject3/foo1",
                 List.of("1 foo1", "2 foo1")
             ),
             Arguments.of(
-                "/**/src/test/resources/filesForProject3/foo*",
+                "src/test/resources/filesForProject3/foo*",
                 List.of("1 foo1", "2 foo1", "1 foo2", "2 foo2")
             ),
             Arguments.of(
-                "/**/src/test/resources/filesForProject3/**/foo*",
+                "src/test/resources/filesForProject3/**/foo*",
                 List.of("1 foo1", "2 foo1", "1 foo2", "2 foo2", "1 foo3", "2 foo3")
             )
         };
@@ -45,7 +46,7 @@ class FileSystemFileReaderTest {
     @DisplayName("Проверим получение строк при корректном пути")
     void getStringsFrom_valid(String path, List<String> expextedList) throws IOException, BadFilePathException {
         Collection<String> actualList = new FileSystemFileReader().getStringsFrom(path);
-
+        assertThat(Path.of(".").toAbsolutePath().toString()).isEqualTo("lol");
         assertThat(actualList)
             .containsExactlyInAnyOrderElementsOf(expextedList);
     }
