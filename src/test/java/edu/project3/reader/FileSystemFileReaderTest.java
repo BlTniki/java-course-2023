@@ -17,6 +17,14 @@ class FileSystemFileReaderTest {
             Arguments.of(
                 "./src/test/resources/filesForProject3/foo1",
                 List.of("1 foo1", "2 foo1")
+            ),
+            Arguments.of(
+                "/**/src/test/resources/filesForProject3/foo*",
+                List.of("1 foo1", "2 foo1", "1 foo2", "2 foo2")
+            ),
+            Arguments.of(
+                "/**/src/test/resources/filesForProject3/**/foo*",
+                List.of("1 foo1", "2 foo1", "1 foo2", "2 foo2", "1 foo3", "2 foo3")
             )
         };
     }
