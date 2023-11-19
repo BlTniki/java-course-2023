@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class CommandLineParser {
     public static final long MAX_EPOCH_SECOND = 365241780471L;
@@ -17,7 +18,14 @@ public class CommandLineParser {
     public ZonedDateTime toTime;
     public String format;
 
-    public CommandLineParser(String[] args) throws CommandLineParsingException {
+    public CommandLineParser(String path, ZonedDateTime fromTime, ZonedDateTime toTime, String format) {
+        this.path = path;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
+        this.format = format;
+    }
+
+    public CommandLineParser(@NotNull String[] args) throws CommandLineParsingException {
         parseArgs(args);
     }
 
@@ -51,7 +59,7 @@ public class CommandLineParser {
                 case "--to":
                     if (i + 1 < args.length) {
                         try {
-                            this.fromTime = parseZonedDateTime(args[i + 1]);
+                            this.toTime = parseZonedDateTime(args[i + 1]);
                         } catch (Exception e) {
                             errors.add("Failed to parse to date: " + args[i + 1]);
                         }
