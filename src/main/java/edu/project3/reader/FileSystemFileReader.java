@@ -35,7 +35,6 @@ public class FileSystemFileReader implements FileReader {
             throw new BadFilePathException("Failed to understand that path: " + filepath);
         }
 
-        var tmppath = new ArrayList<>(paths);
         // filter bad paths
         paths = paths.stream()
             .filter(Files::exists)
@@ -43,7 +42,7 @@ public class FileSystemFileReader implements FileReader {
             .toList();
 
         if (paths.isEmpty()) {
-            throw new BadFilePathException("Failed to find any files by path: " + filepath + "\n" + tmppath);
+            throw new BadFilePathException("Failed to find any files by path: " + filepath);
         }
 
 
