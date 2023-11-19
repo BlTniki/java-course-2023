@@ -405,7 +405,7 @@ import org.jetbrains.annotations.Nullable;
     }
 
 
-    private final int value;
+    public final int value;
 
     private final Series series;
 
