@@ -22,6 +22,7 @@ jobs:
 
       - name: maven build
         run: mvn package
+        working-directory: /home/runner/work/java-course-2023
 
       - id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
