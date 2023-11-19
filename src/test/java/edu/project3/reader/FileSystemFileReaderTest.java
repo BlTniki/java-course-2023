@@ -45,8 +45,8 @@ class FileSystemFileReaderTest {
     @MethodSource("valid_paths")
     @DisplayName("Проверим получение строк при корректном пути")
     void getStringsFrom_valid(String path, List<String> expextedList) throws IOException, BadFilePathException {
-        Collection<String> actualList = new FileSystemFileReader().getStringsFrom(path);
         assertThat(Path.of(".").toAbsolutePath().toString()).isEqualTo("lol");
+        Collection<String> actualList = new FileSystemFileReader().getStringsFrom(path);
         assertThat(actualList)
             .containsExactlyInAnyOrderElementsOf(expextedList);
     }
