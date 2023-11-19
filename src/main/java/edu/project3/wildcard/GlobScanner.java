@@ -7,6 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * <a href="https://github.com/EsotericSoftware/wildcard">Original</a>
+ */
 @SuppressWarnings({"checkstyle:ReturnCount", "checkstyle:CyclomaticComplexity"})
 class GlobScanner {
     private final File rootDir;

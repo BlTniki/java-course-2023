@@ -17,14 +17,16 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import org.jetbrains.annotations.NotNull;
 
-/** Collects filesystem paths using wildcards, preserving the directory structure. Copies, deletes, and zips paths. */
+/** Collects filesystem paths using wildcards, preserving the directory structure. Copies, deletes, and zips paths.
+ * <a href="https://github.com/EsotericSoftware/wildcard">Original</a>
+ **/
 @SuppressWarnings({"checkstyle:NeedBraces",
     "checkstyle:MultipleStringLiterals",
     "checkstyle:ParameterAssignment",
     "checkstyle:LineLength",
     "checkstyle:MagicNumber"
 })
-public class Paths implements Iterable<String> {
+public class WildcardPaths implements Iterable<String> {
     static private final Comparator<Path> LONGEST_TO_SHORTEST = new Comparator<Path>() {
         public int compare(Path s1, Path s2) {
             return s2.absolute().length() - s1.absolute().length();
@@ -36,20 +38,20 @@ public class Paths implements Iterable<String> {
     final HashSet<Path> paths = new HashSet<Path>(32);
 
     /** Creates an empty Paths object. */
-    public Paths() {
+    public WildcardPaths() {
     }
 
     /** Creates a Paths object and calls {@link #glob(String, String[])} with the specified arguments. */
-    public Paths(String dir, String... patterns) {
+    public WildcardPaths(String dir, String... patterns) {
         glob(dir, patterns);
     }
 
     /** Creates a Paths object and calls {@link #glob(String, List)} with the specified arguments. */
-    public Paths(String dir, List<String> patterns) {
+    public WildcardPaths(String dir, List<String> patterns) {
         glob(dir, patterns);
     }
 
-    private Paths glob(String dir, boolean ignoreCase, String... patterns) {
+    private WildcardPaths glob(String dir, boolean ignoreCase, String... patterns) {
         if (dir == null) dir = ".";
         if (patterns != null && patterns.length == 0) {
             String[] split = dir.split("\\|");
@@ -104,19 +106,19 @@ public class Paths implements Iterable<String> {
      *           <br>
      *           A pattern starting with an exclamation point (!) causes paths matched by the pattern to be excluded, even if other
      *           patterns would select the paths. */
-    public Paths glob(String dir, String... patterns) {
+    public WildcardPaths glob(String dir, String... patterns) {
         return glob(dir, false, patterns);
     }
 
     /** Case insensitive glob.
      * @see #glob(String, String...) */
-    public Paths globIgnoreCase(String dir, String... patterns) {
+    public WildcardPaths globIgnoreCase(String dir, String... patterns) {
         return glob(dir, true, patterns);
     }
 
     /** Case sensitive glob.
      * @see #glob(String, String...) */
-    public Paths glob(String dir, List<String> patterns) {
+    public WildcardPaths glob(String dir, List<String> patterns) {
         if (patterns == null) throw new IllegalArgumentException("patterns cannot be null.");
         glob(dir, false, patterns.toArray(new String[patterns.size()]));
         return this;
@@ -124,7 +126,7 @@ public class Paths implements Iterable<String> {
 
     /** Case insensitive glob.
      * @see #glob(String, String...) */
-    public Paths globIgnoreCase(String dir, List<String> patterns) {
+    public WildcardPaths globIgnoreCase(String dir, List<String> patterns) {
         if (patterns == null) throw new IllegalArgumentException("patterns cannot be null.");
         glob(dir, true, patterns.toArray(new String[0]));
         return this;
@@ -132,8 +134,8 @@ public class Paths implements Iterable<String> {
 
     /** Copies the files and directories to the specified directory.
      * @return A paths object containing the paths of the new files. */
-    public Paths copyTo(String destDir) throws IOException {
-        Paths newPaths = new Paths();
+    public WildcardPaths copyTo(String destDir) throws IOException {
+        WildcardPaths newPaths = new WildcardPaths();
         for (Path path : paths) {
             File destFile = new File(destDir, path.name);
             File srcFile = path.file();
@@ -167,7 +169,7 @@ public class Paths implements Iterable<String> {
     /** Compresses the files and directories specified by the paths into a new zip file at the specified location. If there are no
      * paths or all the paths are directories, no zip file will be created. */
     public void zip(String destFile) throws IOException {
-        Paths zipPaths = filesOnly();
+        WildcardPaths zipPaths = filesOnly();
         if (zipPaths.paths.isEmpty()) return;
         byte[] buf = new byte[1024];
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(destFile));
@@ -212,8 +214,8 @@ public class Paths implements Iterable<String> {
     }
 
     /** Returns a Paths object containing the paths that are files, as if each file were selected from its parent directory. */
-    public Paths flatten() {
-        Paths newPaths = new Paths();
+    public WildcardPaths flatten() {
+        WildcardPaths newPaths = new WildcardPaths();
         for (Path path : paths) {
             File file = path.file();
             if (file.isFile()) newPaths.paths.add(new Path(file.getParent(), file.getName()));
@@ -222,16 +224,16 @@ public class Paths implements Iterable<String> {
     }
 
     /** Returns a Paths object containing the paths that are files. */
-    public Paths filesOnly() {
-        Paths newPaths = new Paths();
+    public WildcardPaths filesOnly() {
+        WildcardPaths newPaths = new WildcardPaths();
         for (Path path : paths)
             if (path.file().isFile()) newPaths.paths.add(path);
         return newPaths;
     }
 
     /** Returns a Paths object containing the paths that are directories. */
-    public Paths dirsOnly() {
-        Paths newPaths = new Paths();
+    public WildcardPaths dirsOnly() {
+        WildcardPaths newPaths = new WildcardPaths();
         for (Path path : paths)
             if (path.file().isDirectory()) newPaths.paths.add(path);
         return newPaths;
@@ -274,7 +276,7 @@ public class Paths implements Iterable<String> {
     }
 
     /** Adds a single path to this Paths object. */
-    public Paths addFile(String fullPath) {
+    public WildcardPaths addFile(String fullPath) {
         File file = new File(fullPath);
         String parent = file.getParent();
         paths.add(new Path(parent == null ? "" : parent, file.getName()));
@@ -282,13 +284,13 @@ public class Paths implements Iterable<String> {
     }
 
     /** Adds a single path to this Paths object. */
-    public Paths add(String dir, String name) {
+    public WildcardPaths add(String dir, String name) {
         paths.add(new Path(dir, name));
         return this;
     }
 
     /** Adds all paths from the specified Paths object to this Paths object. */
-    public void add(Paths paths) {
+    public void add(WildcardPaths paths) {
         this.paths.addAll(paths.paths);
     }
 
@@ -332,7 +334,7 @@ public class Paths implements Iterable<String> {
 
     /** Sets the exclude patterns that will be used in addition to the excludes specified for all glob searches. */
     static public void setDefaultGlobExcludes(String... defaultGlobExcludes) {
-        Paths.defaultGlobExcludes = Arrays.asList(defaultGlobExcludes);
+        WildcardPaths.defaultGlobExcludes = Arrays.asList(defaultGlobExcludes);
     }
 
     /** Copies one file to another. */
