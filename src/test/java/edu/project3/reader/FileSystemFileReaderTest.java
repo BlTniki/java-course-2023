@@ -19,7 +19,7 @@ class FileSystemFileReaderTest {
                 List.of("1 foo1", "2 foo1")
             ),
             Arguments.of(
-                "/home/runner/work/java-course-2023/src/test/resources/filesForProject3/foo*",
+                "/home/runner/work/java-course-2023/java-course-2023/src/test/resources/filesForProject3/foo*",
                 List.of("1 foo1", "2 foo1", "1 foo2", "2 foo2")
             ),
             Arguments.of(
