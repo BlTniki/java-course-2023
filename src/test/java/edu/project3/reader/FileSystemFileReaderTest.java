@@ -15,7 +15,7 @@ class FileSystemFileReaderTest {
     static Arguments[] valid_paths() {
         return new Arguments[] {
             Arguments.of(
-                "src/test/resources/filesForProject3/foo1",
+                "./src/test/resources/filesForProject3/foo1",
                 List.of("1 foo1", "2 foo1")
             )
         };
