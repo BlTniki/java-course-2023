@@ -8,7 +8,7 @@ public record LogRecord(
     Method method,
     String url,
     String protocol,
-    int statusCode,
+    HttpStatus statusCode,
     long bytesSent,
     String referer,
     String useragent

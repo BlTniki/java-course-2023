@@ -1,5 +1,6 @@
 package edu.project3.parser;
 
+import edu.project3.model.HttpStatus;
 import edu.project3.model.LogRecord;
 import edu.project3.model.Method;
 import java.time.ZonedDateTime;
@@ -40,7 +41,7 @@ public final class NginxLogParser {
                 Method.valueOf(matcher.group("method")),
                 matcher.group("url"),
                 matcher.group("protocol"),
-                Integer.parseInt(matcher.group("statuscode")),
+                HttpStatus.valueOf(Integer.parseInt(matcher.group("statuscode"))),
                 Long.parseLong(matcher.group("bytessent")),
                 matcher.group("referer"),
                 matcher.group("useragent")
