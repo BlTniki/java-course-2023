@@ -1,10 +1,12 @@
 package edu.hw7.task1;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AtomicCounterTest {
     @Test
+    @DisplayName("Проверим подсчёт в нескольких тредах")
     void testCounting() {
         int expectedCount = 100_000;
         var counter = new AtomicCounter(expectedCount);
