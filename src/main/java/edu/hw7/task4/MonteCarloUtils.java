@@ -3,6 +3,7 @@ package edu.hw7.task4;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import org.jetbrains.annotations.Range;
 
 public final class MonteCarloUtils {
@@ -49,7 +50,7 @@ public final class MonteCarloUtils {
         private int dotsInsideCircle;
 
         private MonteCarloThread(int dotsToGenerate) {
-            this.random = new Random();
+            this.random = ThreadLocalRandom.current();
             this.dotsToGenerate = dotsToGenerate;
             this.dotsInsideCircle = 0;
         }
