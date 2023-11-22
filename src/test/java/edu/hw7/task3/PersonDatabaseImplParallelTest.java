@@ -10,16 +10,20 @@ class PersonDatabaseImplParallelTest {
     public void testParallel() throws InterruptedException {
         final PersonDatabase repo = new PersonDatabaseImpl();
         Thread t1 = new Thread(() -> {
-            for (int i = 0; i < 10; i++) {
-                repo.add(new Person(1, "foo", "bar", "lolkek"));
+            for (int i = 0; i < 100; i++) {
+                synchronized (repo) {
+                    repo.add(new Person(1, "foo", "bar", "lolkek"));
+                }
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                repo.delete(1);
+                synchronized (repo) {
+                    repo.delete(1);
+                }
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -27,7 +31,7 @@ class PersonDatabaseImplParallelTest {
         });
 
         Thread t2 = new Thread(() -> {
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 1000; i++) {
                 int sizes;
                 synchronized (repo) {
                      sizes = repo.findByPhone("lolkek").size() + repo.findByAddress("bar").size();
@@ -37,7 +41,7 @@ class PersonDatabaseImplParallelTest {
                     .is(new Condition<>(s -> s == 0 || s == 2, "0 or 2"));
 
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
