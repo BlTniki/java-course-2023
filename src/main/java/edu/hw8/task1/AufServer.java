@@ -30,6 +30,7 @@ public class AufServer  {
 
     private final ServerSocket serverSocket;
     private final ExecutorService executor;
+    @SuppressWarnings("FieldCanBeLocal")
     private final Thread mainThread;
     private final AtomicBoolean isAlive;
 
@@ -67,22 +68,12 @@ public class AufServer  {
             ) {
                 final StringBuilder builder = new StringBuilder();
 
-                // waiting for input only 5 seconds
-                // TODO Make it better
-                final long waitStart = System.nanoTime();
-                while (!in.ready()) {
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    if (System.nanoTime() - waitStart > 5e+9) {
-                        return;
-                    }
-                }
                 builder.append(in.readLine());
+                while (in.ready()) {
+                    builder.append(in.readLine());
+                }
+
                 final String key = builder.toString();
-//                in.close();
 
                 final String answer = AUF_LINES.getOrDefault(key, UNKNOWN_KEY_MESSAGE);
                 out.write(answer);
