@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -36,9 +37,10 @@ public class AufServer  {
 
     public AufServer(
             @Range(from = 1, to = 65535) int port,
-            @Range(from = 1, to = Integer.MAX_VALUE) int poolSize
+            @Range(from = 1, to = Integer.MAX_VALUE) int poolSize,
+            @Range(from = 1, to = Integer.MAX_VALUE) int backlog
             ) throws IOException {
-        this.serverSocket = new ServerSocket(port);
+        this.serverSocket = new ServerSocket(port, backlog);
         this.serverSocket.setSoTimeout(ACCEPT_TIMEOUT_MS);
 
         this.executor = Executors.newFixedThreadPool(poolSize);
@@ -50,7 +52,7 @@ public class AufServer  {
                 try {
                     final Socket client = serverSocket.accept();
                     executor.submit(() -> handleConnection(client));
-                } catch (SocketTimeoutException e) {
+                } catch (SocketTimeoutException | SocketException e) {
                     // pass
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -87,7 +89,12 @@ public class AufServer  {
 
     public void kill() {
         isAlive.set(false);
-        executor.close();
+        try {
+            executor.close();
+            serverSocket.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
