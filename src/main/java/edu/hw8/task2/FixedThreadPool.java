@@ -48,6 +48,11 @@ public final class FixedThreadPool implements ThreadPool {
         }
     }
 
+    @Override
+    public int queueSize() {
+        return deque.size();
+    }
+
     private final class Worker extends Thread {
         @Override
         public void run() {

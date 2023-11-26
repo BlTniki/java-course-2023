@@ -6,4 +6,6 @@ public interface ThreadPool extends AutoCloseable {
     void start();
 
     void execute(@NotNull Runnable runnable);
+
+    int queueSize();
 }
