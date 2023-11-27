@@ -26,7 +26,7 @@ class AufClientServerTest {
 
     @Test
     @DisplayName("Проверка работы в многопотоке на разных кол-вах потоках")
-    void parallel_test() throws IOException {
+    void parallel_test() throws IOException, InterruptedException {
         for (Integer poolSize : List.of(1, 6, 12, 24, 50, 100)) {
             AufServer server = new AufServer(50000, poolSize, 10_000);
             ConcurrentLinkedQueue<Long> endTimes = new ConcurrentLinkedQueue<>();
@@ -73,6 +73,7 @@ class AufClientServerTest {
             System.out.printf("\tAverage thread live time: %,.5f ns%n", avgThreadLiveTimeMS);
 
             server.kill();
+            Thread.sleep(1000);
         }
     }
 }
