@@ -13,8 +13,8 @@ class AufClientServerTest {
     @Test
     @DisplayName("Проверка базовой функциональности")
     void basic_test() throws IOException {
-        AufServer server = new AufServer(9000, 1, 50);
-        AufClient client = new AufClient("localhost", 9000);
+        AufServer server = new AufServer(50001, 1, 50);
+        AufClient client = new AufClient("localhost", 50001);
 
         String answer = client.getAufLineByKey("личности");
 
@@ -28,7 +28,7 @@ class AufClientServerTest {
     @DisplayName("Проверка работы в многопотоке на разных кол-вах потоках")
     void parallel_test() throws IOException {
         for (Integer poolSize : List.of(1, 6, 12, 24, 50, 100)) {
-            AufServer server = new AufServer(9000, poolSize, 10_000);
+            AufServer server = new AufServer(50000, poolSize, 10_000);
             ConcurrentLinkedQueue<Long> endTimes = new ConcurrentLinkedQueue<>();
 
             ArrayList<Thread> clients = new ArrayList<>();
@@ -37,7 +37,7 @@ class AufClientServerTest {
                     long startTime = System.currentTimeMillis();
                     while (true) {
                         try {
-                            AufClient client = new AufClient("localhost", 9000);
+                            AufClient client = new AufClient("localhost", 50000);
                             String answer = client.getAufLineByKey("личности");
                             assertThat(answer)
                                 .isEqualTo("Не переходи на личности там, где их нет");
