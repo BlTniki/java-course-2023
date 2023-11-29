@@ -47,6 +47,10 @@ public final class FlameFunctionsUtils {
         return probabilities;
     }
 
+    private static boolean checkConditions(double a, double b, double d, double e) {
+        return a * a + d * d < 1 && b * b + e * e < 1 && a * a + d * d + b * b + e * e < 1 + Math.pow(a * e - b * d, 2);
+    }
+
     /**
      * Builds Affine where each param between -1.5 to 1.5.
      * @return new Affine
