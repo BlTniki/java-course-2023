@@ -48,7 +48,7 @@ public class FractalFlame {
         return min + (max - min) * rand.nextDouble();
     }
 
-    public void procceedSample() {
+    public void proceedSample() {
         if (curSampleNumber.getAndIncrement() >= samples) {
             isDone.set(true);
             return;
