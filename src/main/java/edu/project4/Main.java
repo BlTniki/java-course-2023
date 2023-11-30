@@ -32,7 +32,11 @@ public final class Main {
 
         Histogram histogram = fractalFlame.histogram;
 
-        SwingUtilities.invokeLater(() -> new CanvasExample(histogram.histoPoints));
+        SwingUtilities.invokeLater(() -> new CanvasExample(
+            histogram.histoPoints.length,
+            histogram.histoPoints[0].length,
+            histogram.histoPoints
+        ));
 
         final long start = System.currentTimeMillis();
 
