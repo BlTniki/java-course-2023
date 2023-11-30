@@ -1,6 +1,7 @@
 package edu.project4;
 
-import edu.project4.fractalFrame.HistoPoint;
+import edu.project4.histogram.HistoPoint;
+import edu.project4.histogram.Histogram;
 import java.awt.Color;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,21 +13,21 @@ public final class PixelUtils {
 
     /**
      * Converts histogram into color array applying gamma correction.
-     * @param histoPoints histogram
+     * @param histogram histogram
      * @param doGammaCor whether to apply gamma correction
      * @param gammaIncrease increase or decrease average gamma
      * @return color array
      */
     public static @NotNull Color[][] histToPixels(
-            @NotNull HistoPoint[][] histoPoints,
+            @NotNull Histogram histogram,
             boolean doGammaCor,
             double gammaIncrease
         ) {
-        final Color[][] colors = new Color[histoPoints.length][histoPoints[0].length];
+        final Color[][] colors = new Color[histogram.histoPoints.length][histogram.histoPoints[0].length];
 
         // find log of maximum histoPoints hit counter
         int maxHit = 0;
-        for (HistoPoint[] line : histoPoints) {
+        for (HistoPoint[] line : histogram.histoPoints) {
             for (HistoPoint histoPoint: line) {
                 if (histoPoint.counter > maxHit) {
                     maxHit = histoPoint.counter;
@@ -37,7 +38,7 @@ public final class PixelUtils {
 
         for (int i = 0; i < colors.length; i++) {
             for (int j = 0; j < colors[0].length; j++) {
-                final HistoPoint histoPoint = histoPoints[i][j];
+                final HistoPoint histoPoint = histogram.histoPoints[i][j];
 
                 if (doGammaCor && histoPoint.counter > 0) {
                     // if hit the point do log gamma correction

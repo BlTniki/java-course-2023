@@ -1,4 +1,4 @@
-package edu.project4.fractalFrame;
+package edu.project4.histogram;
 
 import java.awt.Color;
 

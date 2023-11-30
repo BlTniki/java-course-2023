@@ -1,5 +1,6 @@
 package edu.project4.fractalFrame;
 
+import edu.project4.histogram.Histogram;
 import edu.project4.transformer.Point;
 import edu.project4.transformer.flameFunction.FlameFunction;
 import edu.project4.transformer.flameFunction.FlameFunctionsHandler;
@@ -7,6 +8,8 @@ import edu.project4.transformer.flameFunction.FlameFunctionsUtils;
 import edu.project4.transformer.variation.VariationType;
 import java.awt.Color;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class FractalFlame {
     private final static double X_MIN = -1;
@@ -21,36 +24,34 @@ public class FractalFlame {
     private final int it;
     private final Random rand;
     private final FlameFunctionsHandler handler;
-    private final HistoPoint[][] histoPoints;
+    public final Histogram histogram;
 
-    private int curSampleNumber;
+    private final AtomicInteger curSampleNumber;
+    public final AtomicBoolean isDone;
 
     public FractalFlame(int xRes, int yRes, int samples, int it, Random rand, VariationType... variTypes) {
         this.xRes = xRes;
         this.yRes = yRes;
 
         this.samples = samples;
-        this.curSampleNumber = 0;
+        this.curSampleNumber = new AtomicInteger();
+        this.isDone = new AtomicBoolean();
 
         this.it = it;
         this.rand = rand;
 
         this.handler = FlameFunctionsUtils.buildHandler(variTypes);
-        this.histoPoints = new HistoPoint[xRes][yRes];
-        for (int i = 0; i < histoPoints.length; i++) {
-            for (int j = 0; j < histoPoints[0].length; j++) {
-                histoPoints[i][j] = new HistoPoint();
-            }
-        }
+        this.histogram = Histogram.createDefault(xRes, yRes);
     }
 
     private double randBetween(double min, double max) {
         return min + (max - min) * rand.nextDouble();
     }
 
-    public HistoPoint[][] generate() {
-        if (curSampleNumber++ >= samples) {
-            return histoPoints;
+    public void pressedSample() {
+        if (curSampleNumber.getAndIncrement() >= samples) {
+            isDone.set(true);
+            return;
         }
 
         Point newPoint = new Point(randBetween(X_MIN, X_MAX), randBetween(Y_MIN, Y_MAX));
@@ -68,17 +69,13 @@ public class FractalFlame {
             );
 
             if (i >= 0 && pixelPoint.inRange(0, xRes, 0, yRes)) {
-                HistoPoint curHistoPoint = histoPoints[(int) pixelPoint.x()][(int) pixelPoint.y()];
-
-                curHistoPoint.increaseCounter();
-                curHistoPoint.color = color;
+                histogram.increaseCounterAt((int) pixelPoint.x(), (int) pixelPoint.y());
+                histogram.changeColorAt((int) pixelPoint.x(), (int) pixelPoint.y(), color);
             }
         }
-
-        return histoPoints;
     }
 
     public boolean hasRemainSamples() {
-        return curSampleNumber < samples;
+        return isDone.get();
     }
 }
