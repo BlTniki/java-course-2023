@@ -20,13 +20,13 @@ public class FractalFlame {
         return min + (max - min) * RAND.nextDouble();
     }
 
-    static Pixel[][] generate(int xRes, int yRes, int samples, int it) {
-        final FlameFunctionsHandler handler = FlameFunctionsUtils.buildHandler(VariationType.values());
+    static HistoPoint[][] generate(int xRes, int yRes, int samples, int it, VariationType... variTypes) {
+        final FlameFunctionsHandler handler = FlameFunctionsUtils.buildHandler(variTypes);
 
-        final Pixel[][] pixels = new Pixel[xRes][yRes];
-        for (int i = 0; i < pixels.length; i++) {
-            for (int j = 0; j < pixels[0].length; j++) {
-                pixels[i][j] = new Pixel();
+        final HistoPoint[][] histoPoints = new HistoPoint[xRes][yRes];
+        for (int i = 0; i < histoPoints.length; i++) {
+            for (int j = 0; j < histoPoints[0].length; j++) {
+                histoPoints[i][j] = new HistoPoint();
             }
         }
 
@@ -46,23 +46,23 @@ public class FractalFlame {
                 );
 
                 if (i >= 0 && pixelPoint.inRange(0, xRes, 0, yRes)) {
-                    Pixel curPixel = pixels[(int) pixelPoint.x()][(int) pixelPoint.y()];
+                    HistoPoint curHistoPoint = histoPoints[(int) pixelPoint.x()][(int) pixelPoint.y()];
 
-                    curPixel.increaseCounter();
-                    curPixel.color = color;
+                    curHistoPoint.increaseCounter();
+                    curHistoPoint.color = color;
                 }
             }
         }
 
-        return pixels;
+        return histoPoints;
     }
 
     public static void main(String[] args) {
         int xRes = 2000;
         int yRes = 2000;
         int samples = 40_000; // int samples = 40000; 100_000
-        int it = 10000; // int it = 25000; 2000
-        Pixel[][] pixels = generate(xRes, yRes, samples, it);
-        ImageCreator.createImage(pixels, "fire.png");
+        int it = 5000; // int it = 25000; 2000
+        HistoPoint[][] histoPoints = generate(xRes, yRes, samples, it, VariationType.DISK, VariationType.SPHERICAL);
+        ImageCreator.createImage(histoPoints, "fire.png");
     }
 }
