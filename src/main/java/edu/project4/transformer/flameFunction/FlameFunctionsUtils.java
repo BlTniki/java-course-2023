@@ -16,8 +16,8 @@ import org.jetbrains.annotations.Range;
 
 public final class FlameFunctionsUtils {
     public static final Random RAND = ThreadLocalRandom.current();
-    public static final double AFFINE_MAX = 1.5;
-    public static final double AFFINE_MIN = -1.5;
+    public static final double AFFINE_MAX = 1.0;
+    public static final double AFFINE_MIN = -1.0;
     public static final int FLAME_FUNC_MIN = 2;
     public static final int FLAME_FUNC_MAX = 21;
     public static final int VARIS_SIZE_MIN = 3;
@@ -45,10 +45,6 @@ public final class FlameFunctionsUtils {
         probabilities.add(remain);
 
         return probabilities;
-    }
-
-    private static boolean checkConditions(double a, double b, double d, double e) {
-        return a * a + d * d < 1 && b * b + e * e < 1 && a * a + d * d + b * b + e * e < 1 + Math.pow(a * e - b * d, 2);
     }
 
     /**
