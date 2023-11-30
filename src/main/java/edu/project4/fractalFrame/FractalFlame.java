@@ -75,7 +75,7 @@ public class FractalFlame {
         }
     }
 
-    public boolean hasRemainSamples() {
+    public boolean isDone() {
         return isDone.get();
     }
 }
