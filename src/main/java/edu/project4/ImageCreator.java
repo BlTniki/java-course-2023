@@ -2,12 +2,20 @@ package edu.project4;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.nio.file.Path;
 import javax.imageio.ImageIO;
 import org.jetbrains.annotations.NotNull;
 
-public class ImageCreator {
-    public static void createImage(@NotNull Color[][] colors, @NotNull String fileName) {
+public final class ImageCreator {
+    private ImageCreator() {
+    }
+
+    /**
+     * Save color array on disk as png image file.
+     * @param colors color array
+     * @param fileName path to file
+     */
+    public static void createImage(@NotNull Color[][] colors, @NotNull Path fileName) {
         int xRes = colors.length;
         int yRes = colors[0].length;
 
@@ -20,9 +28,9 @@ public class ImageCreator {
         }
 
         try {
-            ImageIO.write(image, "png", new File(fileName));
+            ImageIO.write(image, "png", fileName.toFile());
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }
