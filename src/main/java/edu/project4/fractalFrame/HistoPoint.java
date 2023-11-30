@@ -6,7 +6,7 @@ public class HistoPoint {
     public int counter;
     public Color color;
 
-    HistoPoint() {
+    public HistoPoint() {
         this.counter = 0;
         this.color = Color.BLACK;
     }
