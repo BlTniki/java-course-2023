@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.jetbrains.annotations.Range;
 
 public class FractalFlame {
     private final static double X_MIN = -1;
@@ -20,57 +21,57 @@ public class FractalFlame {
 
     private final int xRes;
     private final int yRes;
-    private final int samples;
-    private final int it;
-    private final Random rand;
+    private final int maxSamples;
+    private final int iterPerSample;
     private final FlameFunctionsHandler handler;
     public final Histogram histogram;
 
     private final AtomicInteger curSampleNumber;
     public final AtomicBoolean isDone;
 
-    public FractalFlame(int xRes, int yRes, int samples, int it, Random rand, VariationType... variTypes) {
+    public FractalFlame(int xRes, int yRes, int maxSamples, int iterPerSample, VariationType... variTypes) {
         this.xRes = xRes;
         this.yRes = yRes;
 
-        this.samples = samples;
+        this.maxSamples = maxSamples;
         this.curSampleNumber = new AtomicInteger();
         this.isDone = new AtomicBoolean();
 
-        this.it = it;
-        this.rand = rand;
+        this.iterPerSample = iterPerSample;
 
         this.handler = FlameFunctionsUtils.buildHandler(variTypes);
         this.histogram = Histogram.createDefault(xRes, yRes);
     }
 
-    private double randBetween(double min, double max) {
+    private double randBetween(double min, double max, Random rand) {
         return min + (max - min) * rand.nextDouble();
     }
 
-    public void proceedSample() {
-        if (curSampleNumber.getAndIncrement() >= samples) {
-            isDone.set(true);
-            return;
-        }
+    public void proceedSamples(@Range(from = 0, to = Integer.MAX_VALUE) int samplesCount, Random rand) {
+        for (int sample = 0; sample < samplesCount; sample++) {
+            if (curSampleNumber.getAndIncrement() >= maxSamples) {
+                isDone.set(true);
+                return;
+            }
 
-        Point newPoint = new Point(randBetween(X_MIN, X_MAX), randBetween(Y_MIN, Y_MAX));
-        Color color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
+            Point newPoint = new Point(randBetween(X_MIN, X_MAX, rand), randBetween(Y_MIN, Y_MAX, rand));
+            Color color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
 
-        for (int i = INIT_ITER; i < it; i++) {
-            final FlameFunction flameFunction = handler.getRand(rand);
+            for (int it = INIT_ITER; it < iterPerSample; it++) {
+                final FlameFunction flameFunction = handler.getRand(rand);
 
-            newPoint = flameFunction.apply(newPoint);
-            color = flameFunction.blend(color);
+                newPoint = flameFunction.apply(newPoint);
+                color = flameFunction.blend(color);
 
-            Point pixelPoint = new Point(
-                Math.round(((X_MAX - newPoint.x()) / (X_MAX - X_MIN)) * xRes),
-                Math.round(((Y_MAX - newPoint.y()) / (Y_MAX - Y_MIN)) * yRes)
-            );
+                Point pixelPoint = new Point(
+                    Math.round(((X_MAX - newPoint.x()) / (X_MAX - X_MIN)) * xRes),
+                    Math.round(((Y_MAX - newPoint.y()) / (Y_MAX - Y_MIN)) * yRes)
+                );
 
-            if (i >= 0 && pixelPoint.inRange(0, xRes, 0, yRes)) {
-                histogram.increaseCounterAt((int) pixelPoint.x(), (int) pixelPoint.y());
-                histogram.changeColorAt((int) pixelPoint.x(), (int) pixelPoint.y(), color);
+                if (it >= 0 && pixelPoint.inRange(0, xRes, 0, yRes)) {
+                    histogram.increaseCounterAt((int) pixelPoint.x(), (int) pixelPoint.y());
+                    histogram.setColorAt((int) pixelPoint.x(), (int) pixelPoint.y(), color);
+                }
             }
         }
     }

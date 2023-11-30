@@ -1,10 +1,13 @@
 package edu.project4;
 
 import edu.project4.fractalFrame.FractalFlame;
-import edu.project4.fractalFrame.HistoPoint;
+import edu.project4.histogram.Histogram;
 import edu.project4.transformer.variation.VariationType;
 import java.nio.file.Path;
-import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.ThreadPoolExecutor;
 import javax.swing.SwingUtilities;
 
 public final class Main {
@@ -12,31 +15,46 @@ public final class Main {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        int xRes = 2000;
-        int yRes = 2000;
-        int samples = 100_000; // int samples = 40000; 100_000
-        int it = 5000; // int it = 25000; 2000
+        final int xRes = 2000;
+        final int yRes = 2000;
+        final int samples = 400_000; // int samples = 40000; 100_000
+        final int coresAvailable = Runtime.getRuntime().availableProcessors();
+        final int samplesPerTask = (int) Math.round((double) samples / coresAvailable);
+        final int it = 5000; // int it = 25000; 2000
 
         FractalFlame fractalFlame = new FractalFlame(
             xRes,
             yRes,
             samples,
             it,
-            new Random(),
-            VariationType.DISK, VariationType.SPHERICAL
+            VariationType.SPHERICAL, VariationType.DISK
         );
 
-        HistoPoint[][] histoPoints = fractalFlame.generate();
+        Histogram histogram = fractalFlame.histogram;
 
-        SwingUtilities.invokeLater(() -> new CanvasExample(histoPoints.length, histoPoints[0].length, histoPoints));
-        Thread.sleep(2000);
+        SwingUtilities.invokeLater(() -> new CanvasExample(histogram.histoPoints));
 
-        while (fractalFlame.hasRemainSamples()) {
-            fractalFlame.generate();
+        final long start = System.currentTimeMillis();
+
+        ExecutorService executorService = Executors.newFixedThreadPool(coresAvailable);
+        for (int i = 0; i < coresAvailable; i++) {
+            executorService.submit(() -> {
+                fractalFlame.proceedSamples(samplesPerTask, ThreadLocalRandom.current());
+            });
         }
 
-        ImageCreator.createImage(PixelUtils.histToPixels(histoPoints, true, 0), Path.of("fire0.png"));
-        ImageCreator.createImage(PixelUtils.histToPixels(histoPoints, true, 0.5), Path.of("fire05.png"));
-        ImageCreator.createImage(PixelUtils.histToPixels(histoPoints, true, 1), Path.of("fire1.png"));
+
+        while (((ThreadPoolExecutor) executorService).getActiveCount() != 0) {
+            // pass
+            Thread.sleep(1000);
+        }
+        System.out.println(System.currentTimeMillis() - start);
+
+        executorService.close();
+
+
+        ImageCreator.createImage(PixelUtils.histToPixels(histogram, true, 1.5), Path.of("fire1_5.png"));
+        ImageCreator.createImage(PixelUtils.histToPixels(histogram, true, 2), Path.of("fire2.png"));
+        ImageCreator.createImage(PixelUtils.histToPixels(histogram, true, 1), Path.of("fire1.png"));
     }
 }
