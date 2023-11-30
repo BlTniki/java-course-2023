@@ -38,7 +38,7 @@ public class Histogram {
     }
 
     @SuppressWarnings("SynchronizationOnLocalVariableOrMethodParameter")
-    public void changeColorAt(int x, int y, @NotNull Color color) {
+    public void setColorAt(int x, int y, @NotNull Color color) {
         final HistoPoint curHistoPoint = histoPoints[x][y];
 
         synchronized (curHistoPoint) {
