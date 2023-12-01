@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.ThreadPoolExecutor;
 import javax.swing.SwingUtilities;
 
 public final class Main {
@@ -17,15 +16,14 @@ public final class Main {
     public static void main(String[] args) throws InterruptedException {
         final int xRes = 2000;
         final int yRes = 2000;
-        final int samples = 400_000; // int samples = 40000; 100_000
+        final int samples = 200_000; // int samples = 40000; 100_000
         final int coresAvailable = Runtime.getRuntime().availableProcessors();
         final int samplesPerTask = (int) Math.round((double) samples / coresAvailable);
-        final int it = 5000; // int it = 25000; 2000
+        final int it = 5000;
 
         FractalFlame fractalFlame = new FractalFlame(
             xRes,
             yRes,
-            samples,
             it,
             VariationType.SPHERICAL, VariationType.DISK
         );
@@ -47,14 +45,10 @@ public final class Main {
             });
         }
 
+        executorService.close();
 
-        while (((ThreadPoolExecutor) executorService).getActiveCount() != 0) {
-            // pass
-            Thread.sleep(1000);
-        }
         System.out.println(System.currentTimeMillis() - start);
 
-        executorService.close();
 
 
         ImageCreator.createImage(PixelUtils.histToPixels(histogram, true, 1.5), Path.of("fire1_5.png"));
