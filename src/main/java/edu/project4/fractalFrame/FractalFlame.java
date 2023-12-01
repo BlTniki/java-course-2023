@@ -50,7 +50,6 @@ public class FractalFlame {
     public void proceedSamples(@Range(from = 0, to = Integer.MAX_VALUE) int samplesCount, Random rand) {
         for (int sample = 0; sample < samplesCount; sample++) {
             if (curSampleNumber.getAndIncrement() >= maxSamples) {
-                isDone.set(true);
                 return;
             }
 
@@ -74,9 +73,5 @@ public class FractalFlame {
                 }
             }
         }
-    }
-
-    public boolean isDone() {
-        return isDone.get();
     }
 }
