@@ -8,8 +8,6 @@ import edu.project4.transformer.flameFunction.FlameFunctionsUtils;
 import edu.project4.transformer.variation.VariationType;
 import java.awt.Color;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.jetbrains.annotations.Range;
 
 public class FractalFlame {
@@ -21,21 +19,13 @@ public class FractalFlame {
 
     private final int xRes;
     private final int yRes;
-    private final int maxSamples;
     private final int iterPerSample;
     private final FlameFunctionsHandler handler;
     public final Histogram histogram;
 
-    private final AtomicInteger curSampleNumber;
-    public final AtomicBoolean isDone;
-
-    public FractalFlame(int xRes, int yRes, int maxSamples, int iterPerSample, VariationType... variTypes) {
+    public FractalFlame(int xRes, int yRes, int iterPerSample, VariationType... variTypes) {
         this.xRes = xRes;
         this.yRes = yRes;
-
-        this.maxSamples = maxSamples;
-        this.curSampleNumber = new AtomicInteger();
-        this.isDone = new AtomicBoolean();
 
         this.iterPerSample = iterPerSample;
 
@@ -49,10 +39,6 @@ public class FractalFlame {
 
     public void proceedSamples(@Range(from = 0, to = Integer.MAX_VALUE) int samplesCount, Random rand) {
         for (int sample = 0; sample < samplesCount; sample++) {
-            if (curSampleNumber.getAndIncrement() >= maxSamples) {
-                return;
-            }
-
             Point newPoint = new Point(randBetween(X_MIN, X_MAX, rand), randBetween(Y_MIN, Y_MAX, rand));
             Color color = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat());
 
