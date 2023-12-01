@@ -220,12 +220,12 @@ public final class Main {
     private void runGeneration() {
         systemLogger.info("Start generating");
 
-        ExecutorService executorService = Executors.newFixedThreadPool(coresAvailable);
-        for (int i = 0; i < coresAvailable; i++) {
-            executorService.submit(() -> fractalFlame.proceedSamples(samplesPerTask, ThreadLocalRandom.current()));
+        try (ExecutorService executorService = Executors.newFixedThreadPool(coresAvailable);) {
+            for (int i = 0; i < coresAvailable; i++) {
+                executorService.submit(() -> fractalFlame.proceedSamples(samplesPerTask, ThreadLocalRandom.current()));
+            }
         }
 
-        executorService.close();
         systemLogger.info("Done generating");
     }
 
