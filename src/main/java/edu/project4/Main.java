@@ -222,9 +222,7 @@ public final class Main {
 
         ExecutorService executorService = Executors.newFixedThreadPool(coresAvailable);
         for (int i = 0; i < coresAvailable; i++) {
-            executorService.submit(() -> {
-                fractalFlame.proceedSamples(samplesPerTask, ThreadLocalRandom.current());
-            });
+            executorService.submit(() -> fractalFlame.proceedSamples(samplesPerTask, ThreadLocalRandom.current()));
         }
 
         executorService.close();
