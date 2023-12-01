@@ -10,6 +10,9 @@ import java.awt.Color;
 import java.util.Random;
 import org.jetbrains.annotations.Range;
 
+/**
+ * Flame generator. Fills the hit histogram that can be rendered to a picture.
+ */
 public class FractalFlame {
     private final static double X_MIN = -1;
     private final static double X_MAX = 1;
@@ -23,6 +26,13 @@ public class FractalFlame {
     private final FlameFunctionsHandler handler;
     public final Histogram histogram;
 
+    /**
+     * Init generator by creating flame functions set and histogram plane.
+     * @param xRes width of histogram plane.
+     * @param yRes height of histogram plane.
+     * @param iterPerSample how many chaos game iterations with sample point.
+     * @param variTypes list of allowed variations.
+     */
     public FractalFlame(int xRes, int yRes, int iterPerSample, VariationType... variTypes) {
         this.xRes = xRes;
         this.yRes = yRes;
@@ -37,6 +47,11 @@ public class FractalFlame {
         return min + (max - min) * rand.nextDouble();
     }
 
+    /**
+     * Proceed next samplesCount samples.
+     * @param samplesCount how much samples proceed
+     * @param rand Random instance so you can avoid multi-thread blocking.
+     */
     public void proceedSamples(@Range(from = 0, to = Integer.MAX_VALUE) int samplesCount, Random rand) {
         for (int sample = 0; sample < samplesCount; sample++) {
             Point newPoint = new Point(randBetween(X_MIN, X_MAX, rand), randBetween(Y_MIN, Y_MAX, rand));

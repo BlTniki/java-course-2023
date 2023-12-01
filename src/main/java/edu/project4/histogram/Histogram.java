@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 
 /**
- * Stores 2d HistoPoint array and provides concurrent safe write.
+ * Stores 2d {@link HistoPoint} array and provides concurrent safe write.
  */
 public class Histogram {
     public final HistoPoint[][] histoPoints;
