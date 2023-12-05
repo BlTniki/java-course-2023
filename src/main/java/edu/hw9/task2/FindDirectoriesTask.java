@@ -37,7 +37,7 @@ public class FindDirectoriesTask extends RecursiveTask<List<Path>> {
                         filesNumber += 1;
                     }
                 } catch (SecurityException e) {
-                    continue;
+                    // continue;
                 }
             }
         } catch (AccessDeniedException e) {

@@ -39,7 +39,7 @@ public class FindFilesTask extends RecursiveTask<List<Path>> {
                         }
                     }
                 } catch (SecurityException e) {
-                    continue;
+                    // continue;
                 }
             }
         } catch (AccessDeniedException e) {
