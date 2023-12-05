@@ -11,12 +11,12 @@ class FindDirectoriesTaskTest {
     @Test
     void compute() {
         try (ForkJoinPool pool = new ForkJoinPool()) {
-            List<Path> directoriesWithMoreThan2Files = pool.invoke(new FindDirectoriesTask(Path.of("./src/test/resources/files").toAbsolutePath(), 3));
+            List<Path> directoriesWithMoreThan2Files = pool.invoke(new FindDirectoriesTask(Path.of("./src/test/resources/files"), 3));
 
             assertThat(directoriesWithMoreThan2Files)
                 .containsOnly(
-                    Path.of(".\\src\\test\\resources\\files\\chain").toAbsolutePath(),
-                    Path.of(".\\src\\test\\resources\\files\\regex").toAbsolutePath()
+                    Path.of("./src/test/resources/files/chain"),
+                    Path.of("./src/test/resources/files/regex")
                 );
         }
     }
