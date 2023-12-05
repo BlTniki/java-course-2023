@@ -13,12 +13,12 @@ class FindFilesTaskTest {
     void compute() {
         try (ForkJoinPool pool = new ForkJoinPool()) {
             Predicate<Path> sizeAndExtensionPredicate = path -> path.toFile().length() > 19 && path.toFile().getName().endsWith("e");
-            List<Path> filesMatchingPredicate = pool.invoke(new FindFilesTask(Path.of("./src/test/resources/files"), sizeAndExtensionPredicate));
+            List<Path> filesMatchingPredicate = pool.invoke(new FindFilesTask(Path.of("./src/test/resources/files").toAbsolutePath(), sizeAndExtensionPredicate));
 
             assertThat(filesMatchingPredicate)
                 .containsOnly(
-                    Path.of(".\\src\\test\\resources\\files\\chain\\writable"),
-                    Path.of(".\\src\\test\\resources\\files\\size\\20bytesfile")
+                    Path.of(".\\src\\test\\resources\\files\\chain\\writable").toAbsolutePath(),
+                    Path.of(".\\src\\test\\resources\\files\\size\\20bytesfile").toAbsolutePath()
             );
         }
     }
