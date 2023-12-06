@@ -2,81 +2,124 @@ package edu.hw10.task1;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
-import java.util.UUID;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class RandomObjectGenerator {
     private final Random random;
+    private final Map<Class<?>, ParameterValueGenerator> generatorHandler;
 
     public RandomObjectGenerator(Random random) {
         this.random = random;
+        this.generatorHandler = new HashMap<>();
+        this.generatorHandler.put(int.class, new ParameterValueGenerator.PrimIntegerGenerator());
+        this.generatorHandler.put(Integer.class, new ParameterValueGenerator.IntegerGenerator());
+        this.generatorHandler.put(long.class, new ParameterValueGenerator.PrimLongGenerator());
+        this.generatorHandler.put(Long.class, new ParameterValueGenerator.LongGenerator());
+        this.generatorHandler.put(float.class, new ParameterValueGenerator.PrimFloatGenerator());
+        this.generatorHandler.put(Float.class, new ParameterValueGenerator.FloatGenerator());
+        this.generatorHandler.put(double.class, new ParameterValueGenerator.PrimDoubleGenerator());
+        this.generatorHandler.put(Double.class, new ParameterValueGenerator.DoubleGenerator());
+        this.generatorHandler.put(boolean.class, new ParameterValueGenerator.PrimBooleanGenerator());
+        this.generatorHandler.put(Boolean.class, new ParameterValueGenerator.BooleanGenerator());
+        this.generatorHandler.put(String.class, new ParameterValueGenerator.StringGenerator());
     }
 
-    private static Constructor<?> getPublicAndMostWideConstructor(Class<?> clazz) {
-        final var declaredConstructors = clazz.getDeclaredConstructors();
+    @Nullable private Constructor<?> getPublicAndMostWideConstructor(Class<?> clazz) {
+        final var declaredConstructors = clazz.getConstructors();
         Constructor<?> result = null;
         for (var constr : declaredConstructors) {
             if (result == null) {
-                if (Modifier.isPublic(constr.getModifiers())) {
-                    result = constr;
-                }
-                continue;
-            }
-            if (constr.getParameters().length > result.getParameters().length) {
+                result = constr;
+            } else if (constr.getParameters().length > result.getParameters().length) {
                 result = constr;
             }
         }
         return result;
     }
 
-    @SuppressWarnings("checkstyle:ReturnCount")
+    @Nullable private static <T> Method getMostWideFactoryMethodOverload(Class<T> clazz, String factoryMethodName) {
+        Method factoryMethod = null;
+        for (Method method : clazz.getMethods()) {
+            if (method.getName().equals(factoryMethodName) && Modifier.isStatic(method.getModifiers())) {
+                if (factoryMethod == null) {
+                    factoryMethod = method;
+                } else if (method.getParameters().length > factoryMethod.getParameters().length) {
+                    // pick the most wide method
+                    factoryMethod = method;
+                }
+            }
+        }
+        return factoryMethod;
+    }
+
     private Object generateValForParameter(Parameter parameter) {
         Class<?> type = parameter.getType();
 
-        if (type.isEnum()) {
-            Object[] enumValues = type.getEnumConstants();
-            return enumValues[random.nextInt(enumValues.length)];
-        } else if (type.equals(Integer.TYPE) || type.equals(Integer.class)) {
-            return random.nextInt();
-        } else if (type.equals(Long.TYPE) || type.equals(Long.class)) {
-            return random.nextLong();
-        } else if (type.equals(Double.TYPE) || type.equals(Double.class)) {
-            return random.nextDouble();
-        } else if (type.equals(Float.TYPE) || type.equals(Float.class)) {
-            return random.nextFloat();
-        } else if (type.equals(String.class)) {
-            return UUID.randomUUID().toString();
+        ParameterValueGenerator generator = generatorHandler.get(type);
+        if (generator != null) {
+            return generator.gen(parameter, random);
+        }
+
+        boolean canBeNull = !parameter.isAnnotationPresent(MyNotNull.class);
+        if (canBeNull && random.nextBoolean()) {
+            return null;
         }
         return nextObject(type);
     }
 
-    public <T> @NotNull T nextObject(Class<T> clazz) {
-        Constructor<?> declaredConstructor = getPublicAndMostWideConstructor(clazz);
-
-        if (declaredConstructor == null) {
-            throw new IllegalArgumentException("Given class have no public constructors");
-        }
-
-
-        Parameter[] parameters = declaredConstructor.getParameters();
+    @NotNull private Object[] getArgsForParams(Parameter[] parameters) {
         Object[] args = new Object[parameters.length];
 
         for (int i = 0; i < parameters.length; i++) {
             args[i] = generateValForParameter(parameters[i]);
         }
+        return args;
+    }
+
+    public <T> @NotNull T nextObject(Class<T> clazz) {
+        Constructor<?> constructor = getPublicAndMostWideConstructor(clazz);
+
+        if (constructor == null) {
+            throw new IllegalArgumentException("Given class have no public constructors");
+        }
+
+        Object[] args = getArgsForParams(constructor.getParameters());
         try {
             //noinspection unchecked
-            return (T) declaredConstructor.newInstance(args);
+            return (T) constructor.newInstance(args);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public <T> @NotNull T nextObject(Class<T> clazz, String factoryMethodName) {
+        Method factoryMethod = getMostWideFactoryMethodOverload(clazz, factoryMethodName);
+
+        if (factoryMethod == null) {
+            throw new IllegalArgumentException("Given class have no factory method called: " + factoryMethodName);
+        }
+
+        Object[] args = getArgsForParams(factoryMethod.getParameters());
+        try {
+            //noinspection unchecked
+            return (T) factoryMethod.invoke(null, args);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
     public static void main(String[] args) {
         var r = new RandomObjectGenerator(new Random());
         System.out.println(r.nextObject(TestR.class));
+        System.out.println(r.nextObject(TestR.class, "create"));
     }
 }
