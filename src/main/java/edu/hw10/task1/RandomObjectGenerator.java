@@ -117,9 +117,9 @@ public class RandomObjectGenerator {
 
 
 
-    public static void main(String[] args) {
-        var r = new RandomObjectGenerator(new Random());
-        System.out.println(r.nextObject(TestR.class));
-        System.out.println(r.nextObject(TestR.class, "create"));
-    }
+//    public static void main(String[] args) {
+//        var r = new RandomObjectGenerator(new Random());
+//        System.out.println(r.nextObject(TestR.class));
+//        System.out.println(r.nextObject(TestR.class, "create"));
+//    }
 }
