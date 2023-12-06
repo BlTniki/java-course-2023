@@ -36,8 +36,6 @@ public class RandomObjectGenerator {
     private Object generateValForParameter(Parameter parameter) {
         Class<?> type = parameter.getType();
 
-        // Note that we must handle the different types here! This is just an
-        // example, so this list is not complete! Adapt this to your needs!
         if (type.isEnum()) {
             Object[] enumValues = type.getEnumConstants();
             return enumValues[random.nextInt(enumValues.length)];
@@ -72,17 +70,13 @@ public class RandomObjectGenerator {
         try {
             //noinspection unchecked
             return (T) declaredConstructor.newInstance(args);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
     }
 
     public static void main(String[] args) {
         var r = new RandomObjectGenerator(new Random());
-        r.nextObject(TestR.class);
+        System.out.println(r.nextObject(TestR.class));
     }
 }

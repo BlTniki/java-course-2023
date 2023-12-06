@@ -1,4 +1,6 @@
 package edu.hw10.task1;
 
-public record TestR(int i, double d, String s) {
+import edu.project2.Coordinate;
+
+public record TestR(int i, double d, String s, Coordinate coordinate) {
 }
