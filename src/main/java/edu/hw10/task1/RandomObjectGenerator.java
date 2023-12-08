@@ -103,7 +103,9 @@ public class RandomObjectGenerator {
         Method factoryMethod = getMostWideFactoryMethodOverload(clazz, factoryMethodName);
 
         if (factoryMethod == null) {
-            throw new IllegalArgumentException("Given class have no factory method called: " + factoryMethodName);
+            throw new IllegalArgumentException(
+                "Given class have no public factory method called: " + factoryMethodName
+            );
         }
 
         Object[] args = getArgsForParams(factoryMethod.getParameters());
@@ -114,12 +116,4 @@ public class RandomObjectGenerator {
             throw new RuntimeException(e);
         }
     }
-
-
-
-//    public static void main(String[] args) {
-//        var r = new RandomObjectGenerator(new Random());
-//        System.out.println(r.nextObject(TestR.class));
-//        System.out.println(r.nextObject(TestR.class, "create"));
-//    }
 }
