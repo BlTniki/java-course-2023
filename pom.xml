@@ -103,6 +103,12 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mapdb</groupId>
+            <artifactId>mapdb</artifactId>
+            <version>3.0.10</version>
+        </dependency>
     </dependencies>
 
     <build>
