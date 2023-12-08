@@ -6,8 +6,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
+import org.h2.mvstore.MVStore;
 import org.jetbrains.annotations.NotNull;
-import org.mapdb.DBMaker;
 
 public final class CacheProxy {
     private CacheProxy() {
@@ -15,17 +15,18 @@ public final class CacheProxy {
 
     @SuppressWarnings("unchecked")
     public static <T> @NotNull T create(@NotNull T target, @NotNull Class<T> clazz) {
-        final Map<Method, Map<MethodArgs, Object>> methodsToCache = new HashMap<>();
+        final Map<String, Map<MethodArgs, Object>> methodsToCache = new HashMap<>();
 
         for (Method method : clazz.getMethods()) {
             if (method.isAnnotationPresent(Cache.class)) {
                 Map<MethodArgs, Object> cache;
                 if (method.getAnnotation(Cache.class).persist()) {
-                    cache = (Map<MethodArgs, Object>) DBMaker.fileDB("%s_cache.db".formatted(method.getName())).make().hashMap("cache").createOrOpen();
+                    MVStore s = MVStore.open("%s_%s_cache.db".formatted(clazz.getName(), method.getName()));
+                    cache = s.openMap("%s_%s_cache".formatted(clazz.getName(), method.getName()));
                 } else {
                     cache = new HashMap<>();
                 }
-                methodsToCache.put(method, cache);
+                methodsToCache.put(method.getName(), cache);
             }
         }
 
@@ -38,19 +39,19 @@ public final class CacheProxy {
 
     private final static class CachingHandler implements InvocationHandler {
         private final Object target;
-        private final Map<Method, Map<MethodArgs, Object>> methodsToCache;
+        private final Map<String, Map<MethodArgs, Object>> methodsToCache;
 
-        CachingHandler(Object target, Map<Method, Map<MethodArgs, Object>> methodsToCache) {
+        CachingHandler(Object target, Map<String, Map<MethodArgs, Object>> methodsToCache) {
             this.target = target;
             this.methodsToCache = methodsToCache;
         }
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            if (!methodsToCache.containsKey(method)) {
+            if (!methodsToCache.containsKey(method.getName())) {
                 return method.invoke(target, args);
             }
-            return methodsToCache.get(method).computeIfAbsent(MethodArgs.of(method, args), (k) -> {
+            return methodsToCache.get(method.getName()).computeIfAbsent(MethodArgs.of(method, args), (k) -> {
                 try {
                     return method.invoke(target, k.getArgs());
                 } catch (IllegalAccessException | InvocationTargetException e) {

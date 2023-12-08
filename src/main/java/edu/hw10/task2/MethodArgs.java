@@ -1,27 +1,20 @@
 package edu.hw10.task2;
 
-import org.jetbrains.annotations.NotNull;
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Box class for specific method and args array.
  * This box using args array copy and not original array, so we can safely use hash of the array.
  */
-public final class MethodArgs {
-    private final Method method;
-    private final Object[] args;
-
-    private MethodArgs(@NotNull Method method, @NotNull Object[] args) {
-        this.method = method;
-        this.args = args.clone();
-    }
-
+public record MethodArgs(String method, Object[] args) implements Serializable {
     public static @NotNull MethodArgs of(@NotNull Method method, @NotNull Object[] args) {
-        return new MethodArgs(method, args);
+        return new MethodArgs(method.getName(), args);
     }
 
-    public Method getMethod() {
+    public String getMethod() {
         return method;
     }
 
@@ -49,6 +42,9 @@ public final class MethodArgs {
             return false;
         }
         MethodArgs other = (MethodArgs) obj;
+        if (!method.equals(other.method)) {
+            return false;
+        }
         return Arrays.equals(args, other.args);
     }
 }
