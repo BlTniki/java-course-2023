@@ -2,6 +2,7 @@ package edu.hw10.task1;
 
 import java.lang.reflect.Parameter;
 import java.util.Random;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyDouble;
@@ -18,6 +19,7 @@ import static org.mockito.Mockito.verify;
 class ParameterValueGeneratorTest {
 
     @Test
+    @DisplayName("Проверим что int генерируется и не игнорирует аннотации")
     void gen_prim_int() {
         Random mockedRand = mock(Random.class);
         ParameterValueGenerator pvg = new ParameterValueGenerator.PrimIntegerGenerator();
@@ -32,6 +34,7 @@ class ParameterValueGeneratorTest {
     }
 
     @Test
+    @DisplayName("Проверим что long генерируется и не игнорирует аннотации")
     void gen_prim_long() {
         Random mockedRand = mock(Random.class);
         ParameterValueGenerator pvg = new ParameterValueGenerator.PrimLongGenerator();
@@ -46,6 +49,7 @@ class ParameterValueGeneratorTest {
     }
 
     @Test
+    @DisplayName("Проверим что float генерируется и не игнорирует аннотации")
     void gen_prim_float() {
         Random mockedRand = mock(Random.class);
         ParameterValueGenerator pvg = new ParameterValueGenerator.PrimFloatGenerator();
@@ -60,6 +64,7 @@ class ParameterValueGeneratorTest {
     }
 
     @Test
+    @DisplayName("Проверим что double генерируется и не игнорирует аннотации")
     void gen_prim_double() {
         Random mockedRand = mock(Random.class);
         ParameterValueGenerator pvg = new ParameterValueGenerator.PrimDoubleGenerator();
@@ -74,6 +79,7 @@ class ParameterValueGeneratorTest {
     }
 
     @Test
+    @DisplayName("Проверим что boolean генерируется и не игнорирует аннотации")
     void gen_prim_boolean() {
         Random mockedRand = mock(Random.class);
         ParameterValueGenerator pvg = new ParameterValueGenerator.PrimBooleanGenerator();
@@ -84,6 +90,7 @@ class ParameterValueGeneratorTest {
     }
 
     @Test
+    @DisplayName("Проверим что Integer генерируется и не игнорирует аннотации")
     void gen_Integer() {
         Random mockedRand = mock(Random.class);
         ParameterValueGenerator pvg = new ParameterValueGenerator.IntegerGenerator();
@@ -107,6 +114,7 @@ class ParameterValueGeneratorTest {
     }
 
     @Test
+    @DisplayName("Проверим что Long генерируется и не игнорирует аннотации")
     void gen_Long() {
         Random mockedRand = mock(Random.class);
         ParameterValueGenerator pvg = new ParameterValueGenerator.LongGenerator();
@@ -129,6 +137,7 @@ class ParameterValueGeneratorTest {
     }
 
     @Test
+    @DisplayName("Проверим что Float генерируется и не игнорирует аннотации")
     void gen_Float() {
         Random mockedRand = mock(Random.class);
         ParameterValueGenerator pvg = new ParameterValueGenerator.FloatGenerator();
@@ -151,6 +160,7 @@ class ParameterValueGeneratorTest {
     }
 
     @Test
+    @DisplayName("Проверим что Double генерируется и не игнорирует аннотации")
     void gen_Double() {
         Random mockedRand = mock(Random.class);
         ParameterValueGenerator pvg = new ParameterValueGenerator.DoubleGenerator();
@@ -173,6 +183,7 @@ class ParameterValueGeneratorTest {
     }
 
     @Test
+    @DisplayName("Проверим что Boolean генерируется и не игнорирует аннотации")
     void gen_Boolean() {
         Random mockedRand = mock(Random.class);
         ParameterValueGenerator pvg = new ParameterValueGenerator.BooleanGenerator();
@@ -189,6 +200,7 @@ class ParameterValueGeneratorTest {
     }
 
     @Test
+    @DisplayName("Проверим что String генерируется и не игнорирует аннотации")
     void gen_String() {
         Random mockedRand = mock(Random.class);
         ParameterValueGenerator pvg = new ParameterValueGenerator.StringGenerator();
