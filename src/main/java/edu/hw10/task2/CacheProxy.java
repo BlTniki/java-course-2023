@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import org.h2.mvstore.MVStore;
@@ -13,15 +15,24 @@ public final class CacheProxy {
     private CacheProxy() {
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> @NotNull T create(@NotNull T target, @NotNull Class<T> clazz) {
+        return create(target, clazz, Path.of(""));
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> @NotNull T create(@NotNull T target, @NotNull Class<T> clazz, Path storeDir) {
+        if (!Files.isDirectory(storeDir)) {
+            throw new IllegalArgumentException(
+                "%s is not a dir or i cant access to it".formatted(storeDir.toAbsolutePath().toString())
+            );
+        }
         final Map<String, Map<MethodArgs, Object>> methodsToCache = new HashMap<>();
 
         for (Method method : clazz.getMethods()) {
             if (method.isAnnotationPresent(Cache.class)) {
                 Map<MethodArgs, Object> cache;
                 if (method.getAnnotation(Cache.class).persist()) {
-                    MVStore s = MVStore.open("%s_%s_cache.db".formatted(clazz.getName(), method.getName()));
+                    MVStore s = MVStore.open(storeDir + "/%s_%s_cache.db".formatted(clazz.getName(), method.getName()));
                     cache = s.openMap("%s_%s_cache".formatted(clazz.getName(), method.getName()));
                 } else {
                     cache = new HashMap<>();

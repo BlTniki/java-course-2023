@@ -14,10 +14,6 @@ public record MethodArgs(String method, Object[] args) implements Serializable {
         return new MethodArgs(method.getName(), args);
     }
 
-    public String getMethod() {
-        return method;
-    }
-
     public Object[] getArgs() {
         return args;
     }
