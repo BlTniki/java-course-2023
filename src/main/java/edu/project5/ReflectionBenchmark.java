@@ -21,7 +21,7 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.openjdk.jmh.runner.options.TimeValue;
 
-@SuppressWarnings({"checkstyle:InnerTypeLast", "checkstyle:MultipleStringLiterals", "CheckStyle"})
+@SuppressWarnings({"checkstyle:InnerTypeLast", "checkstyle:MultipleStringLiterals", "MagicNumber"})
 @State(Scope.Thread)
 public class ReflectionBenchmark {
     @SuppressWarnings("checkstyle:UncommentedMain")
