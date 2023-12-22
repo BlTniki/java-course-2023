@@ -13,19 +13,19 @@ public final class Main {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public static void main(String[] args) throws
+    @SuppressWarnings("checkstyle:MagicNumber") public static void main(String[] args) throws
         IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
-        try (DynamicType.Unloaded<SumExample> unloaded = new ByteBuddy()
-                .subclass(SumExample.class)
-                .method(named("calculate"))
-                .intercept(SumImplementation.INSTANCE)
+        try (DynamicType.Unloaded<Fib> unloaded = new ByteBuddy()
+                .subclass(Fib.class)
+                .method(named("fib"))
+                .intercept(FibImplementation.INSTANCE)
                 .make()) {
             Class<?> dynamicType = unloaded
                 .load(Main.class.getClassLoader())
                 .getLoaded();
-            SumExample instance = (SumExample) dynamicType.newInstance();
+            Fib instance = (Fib) dynamicType.newInstance();
 
-            LOGGER.info(instance.calculate(8));
+            LOGGER.info(instance.fib(8));
         }
     }
 }

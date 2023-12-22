@@ -4,7 +4,7 @@ import net.bytebuddy.dynamic.scaffold.InstrumentedType;
 import net.bytebuddy.implementation.Implementation;
 import net.bytebuddy.implementation.bytecode.ByteCodeAppender;
 
-enum SumImplementation implements Implementation {
+enum FibImplementation implements Implementation {
 
     INSTANCE; // singleton
 
@@ -15,6 +15,6 @@ enum SumImplementation implements Implementation {
 
     @Override
     public ByteCodeAppender appender(Target implementationTarget) {
-        return SumMethod.INSTANCE;
+        return FibMethod.INSTANCE;
     }
 }
