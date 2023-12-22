@@ -26,7 +26,7 @@ public final class Main {
                 .getLoaded();
             SumExample instance = (SumExample) dynamicType.newInstance();
 
-            LOGGER.info(instance.calculate(4));
+            LOGGER.info(instance.calculate(1));
         }
     }
 }
