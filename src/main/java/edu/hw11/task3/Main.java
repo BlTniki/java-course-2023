@@ -1,6 +1,5 @@
 package edu.hw11.task3;
 
-import edu.hw11.task2.SumToMult;
 import java.lang.reflect.InvocationTargetException;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.dynamic.DynamicType;
@@ -22,11 +21,11 @@ public final class Main {
                 .intercept(SumImplementation.INSTANCE)
                 .make()) {
             Class<?> dynamicType = unloaded
-                .load(SumToMult.class.getClassLoader())
+                .load(Main.class.getClassLoader())
                 .getLoaded();
             SumExample instance = (SumExample) dynamicType.newInstance();
 
-            LOGGER.info(instance.calculate(0));
+            LOGGER.info(instance.calculate(8));
         }
     }
 }
