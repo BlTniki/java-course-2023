@@ -23,6 +23,7 @@ public final class Main {
             Class<?> dynamicType = unloaded
                 .load(Main.class.getClassLoader())
                 .getLoaded();
+            //noinspection deprecation
             Fib instance = (Fib) dynamicType.newInstance();
 
             LOGGER.info(instance.fib(8));

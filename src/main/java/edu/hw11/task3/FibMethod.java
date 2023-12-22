@@ -6,6 +6,7 @@ import net.bytebuddy.implementation.bytecode.ByteCodeAppender;
 import net.bytebuddy.jar.asm.Label;
 import net.bytebuddy.jar.asm.MethodVisitor;
 import net.bytebuddy.jar.asm.Opcodes;
+import org.jetbrains.annotations.NotNull;
 
 enum FibMethod implements ByteCodeAppender {
 
@@ -15,7 +16,7 @@ enum FibMethod implements ByteCodeAppender {
     @Override
     public Size apply(
             MethodVisitor mv,
-            Implementation.Context implementationContext,
+            Implementation.@NotNull Context implementationContext,
             MethodDescription instrumentedMethod) {
         Label l0 = new Label();
 
