@@ -32,15 +32,31 @@ enum SumMethod implements ByteCodeAppender {
 //        mv.visitInsn(Opcodes.IADD);
 
         // simple if statement
+//        mv.visitVarInsn(Opcodes.ILOAD, 1);
+//        Label label = new Label();
+//        mv.visitJumpInsn(Opcodes.IFEQ, label);
+//        mv.visitInsn(Opcodes.ICONST_5);
+//        mv.visitInsn(Opcodes.IRETURN);
+//
+//        mv.visitLabel(label);
+//        mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+//        mv.visitInsn(Opcodes.ICONST_4);
+//
+//        mv.visitInsn(Opcodes.IRETURN);
+
+        // if statement with frame interactions
         mv.visitVarInsn(Opcodes.ILOAD, 1);
+        mv.visitVarInsn(Opcodes.ILOAD, 1); // repeat for if statement
         Label label = new Label();
         mv.visitJumpInsn(Opcodes.IFEQ, label);
         mv.visitInsn(Opcodes.ICONST_5);
+        mv.visitInsn(Opcodes.IADD);
         mv.visitInsn(Opcodes.IRETURN);
 
         mv.visitLabel(label);
-        mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
+        mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[]{Opcodes.INTEGER});
         mv.visitInsn(Opcodes.ICONST_4);
+        mv.visitInsn(Opcodes.IADD);
 
         mv.visitInsn(Opcodes.IRETURN);
 
