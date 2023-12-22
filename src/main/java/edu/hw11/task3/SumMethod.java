@@ -20,15 +20,21 @@ enum SumMethod implements ByteCodeAppender {
 //        }
         mv.visitCode();
 
-        mv.visitInsn(Opcodes.ICONST_2);
+        // simple sum two const
+//        mv.visitInsn(Opcodes.ICONST_2);
+//        mv.visitInsn(Opcodes.ICONST_2);
+//        mv.visitInsn(Opcodes.IADD);
+
+        // sum argument with const
+        mv.visitVarInsn(Opcodes.ILOAD, 1);
         mv.visitInsn(Opcodes.ICONST_2);
         mv.visitInsn(Opcodes.IADD);
 
         mv.visitInsn(Opcodes.IRETURN);
 
-        mv.visitMaxs(2, 1);
+        mv.visitMaxs(2, 2);
         mv.visitEnd();
 
-        return new Size(2, 1);
+        return new Size(2, 2);
     }
 }
