@@ -14,7 +14,7 @@ enum FibMethod implements ByteCodeAppender {
 
     @SuppressWarnings({"checkstyle:MagicNumber", "checkstyle:MultipleStringLiterals"})
     @Override
-    public Size apply(
+    public @NotNull Size apply(
             MethodVisitor mv,
             Implementation.@NotNull Context implementationContext,
             MethodDescription instrumentedMethod) {
