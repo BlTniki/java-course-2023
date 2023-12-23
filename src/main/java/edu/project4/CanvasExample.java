@@ -1,6 +1,6 @@
 package edu.project4;
 
-import edu.project4.histogram.HistoPoint;
+import edu.project4.fractalFrame.histogram.HistoPoint;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JFrame;

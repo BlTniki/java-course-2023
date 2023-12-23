@@ -1,5 +1,6 @@
 package edu.project4.histogram;
 
+import edu.project4.fractalFrame.histogram.Histogram;
 import java.awt.Color;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
