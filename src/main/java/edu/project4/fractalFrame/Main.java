@@ -1,7 +1,9 @@
-package edu.project4;
+package edu.project4.fractalFrame;
 
+import edu.project4.CanvasExample;
+import edu.project4.ImageCreator;
+import edu.project4.PixelUtils;
 import edu.project4.exception.UserInterruptException;
-import edu.project4.fractalFrame.FractalFlame;
 import edu.project4.transformer.variation.VariationType;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
