@@ -1,6 +1,7 @@
 package edu.project4;
 
 import edu.project4.histogram.HistoPoint;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JFrame;
@@ -15,21 +16,23 @@ public class CanvasExample extends JFrame {
 
     public CanvasExample(int width, int height, HistoPoint[][] colors) {
         this.colors = colors;
-        canvas = new Canvas();
-        canvas.setSize(width, height); // Устанавливаем размеры Canvas
 
-        // Создаем таймер для обновления Canvas каждые 100 миллисекунд
-        Timer timer = new Timer(100, e -> {
-            // Обновляем Canvas с новыми цветами
-            canvas.repaint();
-        });
+        // Use BorderLayout for the JFrame content pane
+        setLayout(new BorderLayout());
+
+        canvas = new Canvas();
+        canvas.setSize(width, height);
+
+        // Create a Swing Timer for periodic updates
+        Timer timer = new Timer(100, e -> canvas.repaint());
         timer.start();
 
-        // Добавляем Canvas в окно
-        add(canvas);
+        // Add Canvas to the center of the content pane
+        add(canvas, BorderLayout.CENTER);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
+        pack(); // Pack to ensure proper sizing
+        setLocationRelativeTo(null); // Center the frame on the screen
         setVisible(true);
     }
 

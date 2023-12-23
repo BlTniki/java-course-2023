@@ -8,12 +8,12 @@ public class MandelbrotIterator implements Iterator<ComplexPoint> {
     @NotNull private ComplexPoint curZ;
 
     public MandelbrotIterator(@NotNull ComplexPoint c) {
-        this(c, new ComplexPoint(0, 0));
+        this(new ComplexPoint(0, 0), c);
     }
 
-    public MandelbrotIterator(@NotNull ComplexPoint c, @NotNull ComplexPoint z0) {
-        this.c = c;
+    public MandelbrotIterator(@NotNull ComplexPoint z0, @NotNull ComplexPoint c) {
         this.curZ = z0;
+        this.c = c;
     }
 
     @Override
