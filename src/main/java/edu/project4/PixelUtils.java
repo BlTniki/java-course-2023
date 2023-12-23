@@ -1,7 +1,7 @@
 package edu.project4;
 
-import edu.project4.fractalFrame.histogram.HistoPoint;
-import edu.project4.fractalFrame.histogram.Histogram;
+import edu.project4.histogram.HistoPoint;
+import edu.project4.histogram.Histogram;
 import java.awt.Color;
 import org.jetbrains.annotations.NotNull;
 

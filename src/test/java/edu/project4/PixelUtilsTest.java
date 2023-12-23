@@ -1,6 +1,6 @@
 package edu.project4;
 
-import edu.project4.fractalFrame.histogram.Histogram;
+import edu.project4.histogram.Histogram;
 import java.awt.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

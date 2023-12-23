@@ -1,6 +1,6 @@
 package edu.project4.fractalFrame;
 
-import edu.project4.fractalFrame.histogram.Histogram;
+import edu.project4.histogram.Histogram;
 import edu.project4.transformer.Point;
 import edu.project4.transformer.flameFunction.FlameFunction;
 import edu.project4.transformer.flameFunction.FlameFunctionsHandler;
