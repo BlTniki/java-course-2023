@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
@@ -29,6 +30,7 @@ public final class Main {
     public static final String BAD_NUMBER = "Bad input. Must be a number";
     public static final String BAD_RES = "Bad input. Must be like X_RESxY_RES";
     public static final String BAD_VARI_NUMBERS = "Bad input. Must be a number or numbers separated by ', '";
+    public static final VariationType[] DEF_VARIS = {VariationType.DISK};
     private final Logger systemLogger = LogManager.getLogger();
     private final Scanner scanner = new Scanner(System.in);
     final int coresAvailable = Runtime.getRuntime().availableProcessors();
@@ -95,7 +97,7 @@ public final class Main {
 
     private void readRes() {
         while (true) {
-            final String res = readUserInput("Type resolution (def: 2000x2000)");
+            final String res = readUserInput("Type resolution (def: %dx%d)".formatted(DEF_X_RES, DEF_Y_RES));
             if (res == null) {
                 throw new UserInterruptException();
             }
@@ -122,7 +124,7 @@ public final class Main {
 
     private void readIters() {
         while (true) {
-            final String itS = readUserInput("Type iterations per sample (def: 5000)");
+            final String itS = readUserInput("Type iterations per sample (def: %d)".formatted(DEF_ITER));
             if (itS == null) {
                 throw new UserInterruptException();
             }
@@ -142,7 +144,7 @@ public final class Main {
 
     private void readSamples() {
         while (true) {
-            final String samplesS = readUserInput("Type samples (def: 200 000)");
+            final String samplesS = readUserInput("Type samples (def: %d)".formatted(DEF_SAMPLES));
             if (samplesS == null) {
                 throw new UserInterruptException();
             }
@@ -167,13 +169,13 @@ public final class Main {
             askVariType.append(TYPE_LINE.formatted(i, varis[i].toString()));
         }
         while (true) {
-            systemLogger.info("Type variations numbers using ', ' (def: DISK, SPHERICAL)");
+            systemLogger.info("Type variations numbers using ', ' (def: %s)".formatted(Arrays.toString(DEF_VARIS)));
             final String typesS = readUserInput(askVariType.toString());
             if (typesS == null) {
                 throw new UserInterruptException();
             }
             if (typesS.isEmpty()) {
-                variTypes = new VariationType[] {VariationType.DISK, VariationType.SPHERICAL};
+                variTypes = DEF_VARIS;
                 return;
             }
             if (!typesS.matches("^(\\d, )*\\d$")) {

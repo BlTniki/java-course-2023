@@ -18,10 +18,15 @@ public class FractalFlame {
     private final static double X_MAX = 1;
     private final static double Y_MIN = -1;
     private final static double Y_MAX = 1;
+    private final static double P_MIN = Math.max(X_MIN, Y_MIN);
+    private final static double P_MAX = Math.min(X_MAX, Y_MAX);
     private final static int INIT_ITER = -20;
 
     private final int xRes;
     private final int yRes;
+    private final boolean xResLowerYRes;
+    private final int minRes;
+    private final double offsetRes;
     private final int iterPerSample;
     private final FlameFunctionsHandler handler;
     public final Histogram histogram;
@@ -36,6 +41,9 @@ public class FractalFlame {
     public FractalFlame(int xRes, int yRes, int iterPerSample, VariationType... variTypes) {
         this.xRes = xRes;
         this.yRes = yRes;
+        this.xResLowerYRes = xRes < yRes;
+        this.minRes = Math.min(xRes, yRes);
+        this.offsetRes = ((double) Math.max(xRes, yRes) - Math.min(xRes, yRes)) / 2.0;
 
         this.iterPerSample = iterPerSample;
 
@@ -45,6 +53,19 @@ public class FractalFlame {
 
     private double randBetween(double min, double max, Random rand) {
         return min + (max - min) * rand.nextDouble();
+    }
+
+    private Point mapToHist(Point point) {
+        if (xResLowerYRes) {
+            return new Point(
+                minRes - Math.round(((P_MAX - point.x()) / (P_MAX - P_MIN)) * minRes),
+                offsetRes + minRes - Math.round(((P_MAX - point.y()) / (P_MAX - P_MIN)) * minRes)
+            );
+        }
+        return new Point(
+            offsetRes + minRes - Math.round(((P_MAX - point.x()) / (P_MAX - P_MIN)) * minRes),
+            minRes - Math.round(((P_MAX - point.y()) / (P_MAX - P_MIN)) * minRes)
+        );
     }
 
     /**
@@ -63,10 +84,7 @@ public class FractalFlame {
                 newPoint = flameFunction.apply(newPoint);
                 color = flameFunction.blend(color);
 
-                Point pixelPoint = new Point(
-                    Math.round(((X_MAX - newPoint.x()) / (X_MAX - X_MIN)) * xRes),
-                    Math.round(((Y_MAX - newPoint.y()) / (Y_MAX - Y_MIN)) * yRes)
-                );
+                Point pixelPoint = mapToHist(newPoint);
 
                 if (it >= 0 && pixelPoint.inRange(0, xRes, 0, yRes)) {
                     histogram.increaseCounterAt((int) pixelPoint.x(), (int) pixelPoint.y());
