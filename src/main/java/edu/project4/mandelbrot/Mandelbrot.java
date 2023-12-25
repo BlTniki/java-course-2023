@@ -6,10 +6,10 @@ import edu.project4.transformer.mandelbrot.MandelbrotIterator;
 import java.awt.Color;
 
 public class Mandelbrot {
-    private final static double X_MIN = 0;
-    private final static double X_MAX = 1;
-    private final static double Y_MIN = 0;
-    private final static double Y_MAX = 1;
+    private final static double X_MIN = -1.5;
+    private final static double X_MAX = 1.5;
+    private final static double Y_MIN = -1.5;
+    private final static double Y_MAX = 1.5;
     private final static double P_MIN = Math.max(X_MIN, Y_MIN);
     private final static double P_MAX = Math.min(X_MAX, Y_MAX);
 
@@ -48,9 +48,11 @@ public class Mandelbrot {
     }
 
     public void proceedSamples() {
-        for (int i = 0; i < xRes; i++) {
-            for (int j = 0; j < yRes; j++) {
-                final ComplexPoint complexPoint = mapToPoint(i, j);
+        for (int j = 0; j < yRes; j++) {
+            for (int i = 0; i < xRes; i++) {
+                // we not simply put (i, j) as (x, y) correspondingly
+                // we apply some transformations so i=0, j=0 will be left right corner of complex plane
+                final ComplexPoint complexPoint = mapToPoint(i, yRes - j);
                 MandelbrotIterator iterator = new MandelbrotIterator(complexPoint);
 
                 ComplexPoint z = iterator.next();

@@ -32,6 +32,7 @@ public class CanvasExample extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack(); // Pack to ensure proper sizing
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null); // Center the frame on the screen
         setVisible(true);
     }

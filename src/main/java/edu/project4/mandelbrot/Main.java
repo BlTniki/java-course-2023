@@ -22,6 +22,12 @@ public final class Main {
         HistoPoint[][] histoPoints = mandelbrot.histogram.histoPoints;
         SwingUtilities.invokeLater(() -> new CanvasExample(histoPoints.length, histoPoints[0].length, histoPoints));
 
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+
         mandelbrot.proceedSamples();
     }
 }
