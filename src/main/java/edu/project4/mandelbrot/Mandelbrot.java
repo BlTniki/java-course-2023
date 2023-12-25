@@ -63,7 +63,7 @@ public class Mandelbrot {
                     z = iterator.next();
                 }
 
-                if (z.moduleSquared() < 2) {
+                if (z.moduleSquared() < BAIL_OUT) {
                     histogram.setColorAt(i, j, Color.BLACK);
                 } else {
                     histogram.setColorAt(i, j, Color.WHITE);
