@@ -12,6 +12,7 @@ public class Mandelbrot {
     private final static double Y_MAX = 1.5;
     private final static double P_MIN = Math.max(X_MIN, Y_MIN);
     private final static double P_MAX = Math.min(X_MAX, Y_MAX);
+    public static final int BAIL_OUT = 4;
 
     private final int xRes;
     private final int yRes;
@@ -57,11 +58,12 @@ public class Mandelbrot {
 
                 ComplexPoint z = iterator.next();
 
-                for (int it = 0; it < threshold && z.module() < 2; it++) {
+                int it = 0;
+                for (; it < threshold && z.moduleSquared() < BAIL_OUT; it++) {
                     z = iterator.next();
                 }
 
-                if (z.module() < 2) {
+                if (z.moduleSquared() < 2) {
                     histogram.setColorAt(i, j, Color.BLACK);
                 } else {
                     histogram.setColorAt(i, j, Color.WHITE);

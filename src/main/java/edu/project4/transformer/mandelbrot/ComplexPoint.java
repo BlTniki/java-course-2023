@@ -17,7 +17,7 @@ public record ComplexPoint(double re, double im) {
         );
     }
 
-    public double module() {
-        return Math.sqrt(re * re + im * im);
+    public double moduleSquared() {
+        return re * re + im * im;
     }
 }
