@@ -51,7 +51,6 @@
 
         <bytebuddy.version>1.14.8</bytebuddy.version>
         <asm.version>9.6</asm.version>
-
     </properties>
 
     <dependencyManagement>
@@ -111,7 +110,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <!-- JMH -->
         <dependency>
             <groupId>org.openjdk.jmh</groupId>
@@ -123,7 +121,7 @@
             <artifactId>jmh-generator-annprocess</artifactId>
             <version>${jmh.version}</version>
             <scope>provided</scope>
-
+        </dependency>
         <dependency>
             <groupId>org.ow2.asm</groupId>
             <artifactId>asm</artifactId>
@@ -139,7 +137,6 @@
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
             <version>${bytebuddy.version}</version>
-
         </dependency>
     </dependencies>
 
