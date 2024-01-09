@@ -19,6 +19,12 @@
                 pattern="%m%n"
             />
         </Console>
+        <Console name="PORT_SCANNER" target="SYSTEM_OUT">
+            <PatternLayout
+                disableAnsi="true"
+                pattern="%m%n"
+            />
+        </Console>
     </Appenders>
 
     <Loggers>
@@ -30,6 +36,9 @@
         <Logger name="edu" level="TRACE"/>
         <Logger name="maze" level="TRACE" additivity="false">
             <AppenderRef ref="MAZE"/>
+        </Logger>
+        <Logger name="portScanner" level="TRACE" additivity="false">
+            <AppenderRef ref="PORT_SCANNER"/>
         </Logger>
 
         <Root level="INFO">
