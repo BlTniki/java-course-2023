@@ -18,7 +18,7 @@ class DictionaryFromResourcesTest {
     @DisplayName("Получение случайного слова: good")
     void randomWord() throws FileNotFoundException, BadDictionaryFormatException {
         // given
-        Dictionary dictionary = new DictionaryFromResources("good_dict.txt");
+        Dictionary dictionary = new DictionaryFromResources("dict/good_dict.txt");
         List<String> expectedWords = List.of("foo", "bar", "lolkek", "cheburek");
 
         // when
@@ -35,7 +35,7 @@ class DictionaryFromResourcesTest {
     @DisplayName("Загрузка словаря: good")
     void readDictFromFile_good() throws FileNotFoundException, BadDictionaryFormatException {
         // given
-        String fileName = "good_dict.txt";
+        String fileName = "dict/good_dict.txt";
         List<String> expectedList = List.of("foo", "bar", "lolkek", "cheburek");
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 
@@ -62,7 +62,7 @@ class DictionaryFromResourcesTest {
     @DisplayName("Загрузка словаря: пустой словарь")
     void readDictFromFile_bad_empty() {
         // given
-        String fileName = "bad_dict_empty.txt";
+        String fileName = "dict/bad_dict_empty.txt";
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 
         assertThatThrownBy(() -> DictionaryFromResources.readDictFromFile(classloader, fileName))
@@ -74,7 +74,7 @@ class DictionaryFromResourcesTest {
     @DisplayName("Загрузка словаря: пустая строка")
     void readDictFromFile_bad_empty_string() {
         // given
-        String fileName = "bad_dict_empty_string.txt";
+        String fileName = "dict/bad_dict_empty_string.txt";
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 
         assertThatThrownBy(() -> DictionaryFromResources.readDictFromFile(classloader, fileName))
@@ -86,7 +86,7 @@ class DictionaryFromResourcesTest {
     @DisplayName("Загрузка словаря: плохая строка")
     void readDictFromFile_bad_string() {
         // given
-        String fileName = "bad_dict_string.txt";
+        String fileName = "dict/bad_dict_string.txt";
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 
         assertThatThrownBy(() -> DictionaryFromResources.readDictFromFile(classloader, fileName))
