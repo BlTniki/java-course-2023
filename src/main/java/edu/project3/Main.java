@@ -107,17 +107,11 @@ public final class Main {
         LOGGER.info(topCodes);
 
         if (checkedArgs.format != null) {
-            if (checkedArgs.format.equals("markdown")) {
-                writeStringToFile(
-                    generalReport + "\n" + topUrls + "\n" + topCodes,
-                    "result.md"
-                );
-            } else {
-                writeStringToFile(
-                    generalReport + "\n" + topUrls + "\n" + topCodes,
-                    "result.adoc"
-                );
-            }
+            final String filename = checkedArgs.format.equals("adoc") ? "result.adoc" : "result.md";
+            writeStringToFile(
+                generalReport + "\n" + topUrls + "\n" + topCodes,
+                filename
+            );
         }
     }
 }
