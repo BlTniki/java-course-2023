@@ -61,8 +61,7 @@ public final class NginxLogParser {
     public static @NotNull  List<LogRecord> parseAll(@NotNull Collection<String> rawRecords) {
         return rawRecords.stream()
             .map(NginxLogParser::parse)
-            .filter(Optional::isPresent)
-            .map(Optional::get)
+            .flatMap(Optional::stream)
             .toList();
     }
 }
