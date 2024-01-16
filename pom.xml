@@ -45,6 +45,15 @@
         <maven-site-plugin.version>4.0.0-M9</maven-site-plugin.version>
 
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+
+        <apache.ant.version>1.10.14</apache.ant.version>
+
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+
+        <jmh.version>1.37</jmh.version>
+
+        <bytebuddy.version>1.14.8</bytebuddy.version>
+        <asm.version>9.6</asm.version>
     </properties>
 
     <dependencyManagement>
@@ -73,6 +82,13 @@
             <artifactId>annotations</artifactId>
             <version>${jetbrains-annotations.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.ant/ant -->
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>${apache.ant.version}</version>
         </dependency>
 
         <!-- Logging -->
@@ -104,6 +120,7 @@
             <scope>test</scope>
         </dependency>
 
+
         <!-- https://mvnrepository.com/artifact/com.h2database/h2-mvstore -->
         <dependency>
             <groupId>com.h2database</groupId>
@@ -111,6 +128,36 @@
             <version>1.4.186</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-swing -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>21</version>
+        </dependency>
+
+        <!-- JMH -->
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>${jmh.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>${jmh.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>${asm.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-agent</artifactId>
+            <version>${bytebuddy.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -131,6 +178,29 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>second-jar</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>edu.project3.Main</mainClass>
+                                </manifest>
+                            </archive>
+                            <classifier>second</classifier>
+                            <finalName>nginx-log-stats</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
 
